@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DCHFluxKit/DCHFluxKit.h>
+
+@class DCHGalleryCollectionViewModel;
 
 @interface DCHGalleryCollectionViewController : UICollectionViewController
+
+@property (nonatomic, strong, readonly) DCHGalleryCollectionViewModel *viewModel;
 
 @end

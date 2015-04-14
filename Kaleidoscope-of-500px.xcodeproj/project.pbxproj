@@ -19,11 +19,19 @@
 		8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */; };
 		8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */; };
 		8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CBB1AD51F4300C1B80D /* DCHFullSizeViewController.m */; };
-		8DAC4CC11AD5207E00C1B80D /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CC01AD5207E00C1B80D /* DCHFullSizeViewModel.m */; };
 		8DAC4CC61AD520BF00C1B80D /* DCHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CC41AD520BF00C1B80D /* DCHDetailViewController.m */; };
-		8DAC4CCA1AD520D600C1B80D /* DCHDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CC91AD520D600C1B80D /* DCHDetailViewModel.m */; };
 		8DAC4CD21AD5211400C1B80D /* DCHGalleryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */; };
-		8DAC4CD61AD5212400C1B80D /* DCHGalleryCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CD51AD5212400C1B80D /* DCHGalleryCollectionViewModel.m */; };
+		8DAC4CDB1AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */; };
+		8DAC4CDF1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */; };
+		8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */; };
+		8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */; };
+		8DAC4CEC1AD53E4B00C1B80D /* DCHBaseEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CEB1AD53E4B00C1B80D /* DCHBaseEvent.m */; };
+		8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CEE1AD5503000C1B80D /* DCH500pxDispatcher.m */; };
+		8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D10E1ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m */; };
+		8DC1D1141ADCB29700EC71C1 /* DCHDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1101ADCB29700EC71C1 /* DCHDetailViewModel.m */; };
+		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
+		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
+		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,16 +67,32 @@
 		8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHPhotoModel.m; sourceTree = "<group>"; };
 		8DAC4CBA1AD51F4300C1B80D /* DCHFullSizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHFullSizeViewController.h; sourceTree = "<group>"; };
 		8DAC4CBB1AD51F4300C1B80D /* DCHFullSizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHFullSizeViewController.m; sourceTree = "<group>"; };
-		8DAC4CBF1AD5207E00C1B80D /* DCHFullSizeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHFullSizeViewModel.h; sourceTree = "<group>"; };
-		8DAC4CC01AD5207E00C1B80D /* DCHFullSizeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHFullSizeViewModel.m; sourceTree = "<group>"; };
 		8DAC4CC31AD520BF00C1B80D /* DCHDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDetailViewController.h; sourceTree = "<group>"; };
 		8DAC4CC41AD520BF00C1B80D /* DCHDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDetailViewController.m; sourceTree = "<group>"; };
-		8DAC4CC81AD520D600C1B80D /* DCHDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDetailViewModel.h; sourceTree = "<group>"; };
-		8DAC4CC91AD520D600C1B80D /* DCHDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDetailViewModel.m; sourceTree = "<group>"; };
 		8DAC4CCF1AD5211400C1B80D /* DCHGalleryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewController.h; sourceTree = "<group>"; };
 		8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewController.m; sourceTree = "<group>"; };
-		8DAC4CD41AD5212400C1B80D /* DCHGalleryCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewModel.h; sourceTree = "<group>"; };
-		8DAC4CD51AD5212400C1B80D /* DCHGalleryCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewModel.m; sourceTree = "<group>"; };
+		8DAC4CD81AD52A4300C1B80D /* DCHGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewCell.h; sourceTree = "<group>"; };
+		8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewCell.m; sourceTree = "<group>"; };
+		8DAC4CDD1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewLayout.h; sourceTree = "<group>"; };
+		8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewLayout.m; sourceTree = "<group>"; };
+		8DAC4CE41AD53D4300C1B80D /* DCH500pxEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxEventCreater.h; sourceTree = "<group>"; };
+		8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxEventCreater.m; sourceTree = "<group>"; };
+		8DAC4CE71AD53DC300C1B80D /* DCH500pxEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxEvent.h; sourceTree = "<group>"; };
+		8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxEvent.m; sourceTree = "<group>"; };
+		8DAC4CEA1AD53E4B00C1B80D /* DCHBaseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBaseEvent.h; sourceTree = "<group>"; };
+		8DAC4CEB1AD53E4B00C1B80D /* DCHBaseEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBaseEvent.m; sourceTree = "<group>"; };
+		8DAC4CED1AD5503000C1B80D /* DCH500pxDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxDispatcher.h; sourceTree = "<group>"; };
+		8DAC4CEE1AD5503000C1B80D /* DCH500pxDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxDispatcher.m; sourceTree = "<group>"; };
+		8DC1D10D1ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewModel.h; sourceTree = "<group>"; };
+		8DC1D10E1ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewModel.m; sourceTree = "<group>"; };
+		8DC1D10F1ADCB29700EC71C1 /* DCHDetailViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDetailViewModel.h; sourceTree = "<group>"; };
+		8DC1D1101ADCB29700EC71C1 /* DCHDetailViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDetailViewModel.m; sourceTree = "<group>"; };
+		8DC1D1111ADCB29700EC71C1 /* DCHFullSizeViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHFullSizeViewModel.h; sourceTree = "<group>"; };
+		8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHFullSizeViewModel.m; sourceTree = "<group>"; };
+		8DC1D1191ADCB67D00EC71C1 /* DCHDisplayEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEvent.h; sourceTree = "<group>"; };
+		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
+		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
+		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
 		B51AAFF2696B240ACE0844B0 /* Pods-Kaleidoscope-of-500pxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kaleidoscope-of-500pxTests/Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD4D23B059020F2993A0CDA0 /* libPods-Kaleidoscope-of-500px.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kaleidoscope-of-500px.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -125,7 +149,7 @@
 		892E7E5A19E511C8005D1BA7 /* Kaleidoscope-of-500px */ = {
 			isa = PBXGroup;
 			children = (
-				8DAC4CA41AD50BA600C1B80D /* EventCreater */,
+				8DAC4CE31AD53D4300C1B80D /* Event */,
 				8DAC4C911AD4BCC700C1B80D /* Dispatcher */,
 				8DAC4C921AD4BCC700C1B80D /* ViewModel */,
 				8DAC4C931AD4BCC700C1B80D /* Store */,
@@ -170,6 +194,8 @@
 		8DAC4C911AD4BCC700C1B80D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
+				8DAC4CED1AD5503000C1B80D /* DCH500pxDispatcher.h */,
+				8DAC4CEE1AD5503000C1B80D /* DCH500pxDispatcher.m */,
 			);
 			path = Dispatcher;
 			sourceTree = "<group>";
@@ -177,6 +203,9 @@
 		8DAC4C921AD4BCC700C1B80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8DC1D1161ADCB29E00EC71C1 /* Gallery */,
+				8DC1D1171ADCB2AB00EC71C1 /* Detail */,
+				8DC1D1181ADCB2B300EC71C1 /* FullSize */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -202,20 +231,11 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		8DAC4CA41AD50BA600C1B80D /* EventCreater */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EventCreater;
-			sourceTree = "<group>";
-		};
 		8DAC4CC21AD5209700C1B80D /* FullSize */ = {
 			isa = PBXGroup;
 			children = (
 				8DAC4CBA1AD51F4300C1B80D /* DCHFullSizeViewController.h */,
 				8DAC4CBB1AD51F4300C1B80D /* DCHFullSizeViewController.m */,
-				8DAC4CBF1AD5207E00C1B80D /* DCHFullSizeViewModel.h */,
-				8DAC4CC01AD5207E00C1B80D /* DCHFullSizeViewModel.m */,
 			);
 			name = FullSize;
 			sourceTree = "<group>";
@@ -225,8 +245,6 @@
 			children = (
 				8DAC4CC31AD520BF00C1B80D /* DCHDetailViewController.h */,
 				8DAC4CC41AD520BF00C1B80D /* DCHDetailViewController.m */,
-				8DAC4CC81AD520D600C1B80D /* DCHDetailViewModel.h */,
-				8DAC4CC91AD520D600C1B80D /* DCHDetailViewModel.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -236,10 +254,56 @@
 			children = (
 				8DAC4CCF1AD5211400C1B80D /* DCHGalleryCollectionViewController.h */,
 				8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */,
-				8DAC4CD41AD5212400C1B80D /* DCHGalleryCollectionViewModel.h */,
-				8DAC4CD51AD5212400C1B80D /* DCHGalleryCollectionViewModel.m */,
+				8DAC4CD81AD52A4300C1B80D /* DCHGalleryCollectionViewCell.h */,
+				8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */,
+				8DAC4CDD1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.h */,
+				8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */,
 			);
 			name = Gallery;
+			sourceTree = "<group>";
+		};
+		8DAC4CE31AD53D4300C1B80D /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				8DAC4CE41AD53D4300C1B80D /* DCH500pxEventCreater.h */,
+				8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */,
+				8DAC4CE71AD53DC300C1B80D /* DCH500pxEvent.h */,
+				8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */,
+				8DAC4CEA1AD53E4B00C1B80D /* DCHBaseEvent.h */,
+				8DAC4CEB1AD53E4B00C1B80D /* DCHBaseEvent.m */,
+				8DC1D1191ADCB67D00EC71C1 /* DCHDisplayEvent.h */,
+				8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */,
+				8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */,
+				8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		8DC1D1161ADCB29E00EC71C1 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				8DC1D10D1ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.h */,
+				8DC1D10E1ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m */,
+			);
+			name = Gallery;
+			sourceTree = "<group>";
+		};
+		8DC1D1171ADCB2AB00EC71C1 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8DC1D10F1ADCB29700EC71C1 /* DCHDetailViewModel.h */,
+				8DC1D1101ADCB29700EC71C1 /* DCHDetailViewModel.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		8DC1D1181ADCB2B300EC71C1 /* FullSize */ = {
+			isa = PBXGroup;
+			children = (
+				8DC1D1111ADCB29700EC71C1 /* DCHFullSizeViewModel.h */,
+				8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */,
+			);
+			name = FullSize;
 			sourceTree = "<group>";
 		};
 		A6ACB6E80718FFAA2D860B17 /* Pods */ = {
@@ -420,16 +484,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DAC4CC11AD5207E00C1B80D /* DCHFullSizeViewModel.m in Sources */,
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
+				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
+				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
+				8DAC4CDF1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m in Sources */,
 				892E7E6119E511C8005D1BA7 /* AppDelegate.m in Sources */,
-				8DAC4CD61AD5212400C1B80D /* DCHGalleryCollectionViewModel.m in Sources */,
+				8DC1D1141ADCB29700EC71C1 /* DCHDetailViewModel.m in Sources */,
+				8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */,
+				8DAC4CEC1AD53E4B00C1B80D /* DCHBaseEvent.m in Sources */,
 				8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */,
 				8DAC4CD21AD5211400C1B80D /* DCHGalleryCollectionViewController.m in Sources */,
 				8DAC4CC61AD520BF00C1B80D /* DCHDetailViewController.m in Sources */,
+				8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */,
+				8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */,
 				8DAC4C971AD4BD5C00C1B80D /* DCH500pxPhotoStore.m in Sources */,
 				892E7E5E19E511C8005D1BA7 /* main.m in Sources */,
-				8DAC4CCA1AD520D600C1B80D /* DCHDetailViewModel.m in Sources */,
+				8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */,
+				8DAC4CDB1AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m in Sources */,
+				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

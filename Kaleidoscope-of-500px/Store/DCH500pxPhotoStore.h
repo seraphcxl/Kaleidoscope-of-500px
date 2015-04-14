@@ -7,6 +7,7 @@
 //
 
 #import "DCHStore.h"
+#import <Tourbillon/DCHTourbillon.h>
 
 @class DCHPhotoModel;
 @class DCH500pxPhotoStore;
@@ -14,6 +15,8 @@
 typedef void(^DCH500pxPhotoStoreCompletionHandler)(DCH500pxPhotoStore *store, NSError *error);
 
 @interface DCH500pxPhotoStore : DCHStore
+
+DCH_DEFINE_SINGLETON_FOR_HEADER(DCH500pxPhotoStore)
 
 @property (nonatomic, strong, readonly) NSArray *photoModels;
 

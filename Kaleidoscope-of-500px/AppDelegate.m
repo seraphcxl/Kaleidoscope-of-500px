@@ -7,6 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "DCH500pxPhotoStore.h"
+#import "DCH500pxEventCreater.h"
+#import "DCH500pxEvent.h"
+#import "DCH500pxDispatcher.h"
+#import <500px-iOS-api/PXAPI.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +22,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSString *consumerKey = @"DC2To2BS0ic1ChKDK15d44M42YHf9gbUJgdFoF0m";
+    NSString *consumerSecret = @"i8WL4chWoZ4kw9fh3jzHK7XzTer1y5tUNvsTFNnB";
+    
+    [PXRequest setConsumerKey:consumerKey consumerSecret:consumerSecret];
+    
+    [DCH500pxPhotoStore sharedDCH500pxPhotoStore];
+    DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPopularPhotos andPayload:nil];
+    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEvent:queryPopularPhotosEvent];
+    
+    DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:nil];
+    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEvent:queryPhotoDetailsEvent];
+    
     return YES;
 }
 

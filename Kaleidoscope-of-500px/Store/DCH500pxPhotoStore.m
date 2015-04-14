@@ -14,6 +14,10 @@
 #import <RXCollections/RXCollection.h>
 #import <libextobjc/EXTScope.h>
 
+#import "DCHDisplayEventCreater.h"
+#import "DCHDisplayEvent.h"
+#import "DCH500pxEvent.h"
+
 @interface DCH500pxPhotoStore ()
 
 @property (nonatomic, strong) NSArray *photoModels;
@@ -21,6 +25,49 @@
 @end
 
 @implementation DCH500pxPhotoStore
+
+DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
+
+- (BOOL)respondEvent:(id<DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+    BOOL result = NO;
+    do {
+        if (event == nil) {
+            break;
+        }
+        self.inputEvent = event;
+        self.outputEvent = event;
+        
+        if ([[self.inputEvent domain] isEqualToString:DCH500pxEventDomain]) {
+            switch ([self.inputEvent code]) {
+                case DC500pxEventCode_QueryPopularPhotos:
+                {
+//                    [NSThread runInMain:^{
+                        [self queryPopularPhotosWithCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                            do {
+                                if (completionHandler) {
+                                    completionHandler(self, self.outputEvent, nil);
+                                }
+                                
+                                DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPopularPhotos andPayload:nil];
+                                [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                                    do {
+                                        NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                                    } while (NO);
+                                }];
+                            } while (NO);
+                        } startImmediately:YES];
+//                    }];
+                    result = YES;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    } while (NO);
+    return result;
+}
 
 - (NSURLSessionDataTask *)queryPopularPhotosWithCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
     NSURLSessionDataTask *result = nil;

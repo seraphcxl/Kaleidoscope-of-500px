@@ -10,4 +10,6 @@
 
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
+@property (nonatomic, strong, readonly) NSArray *model;
+
 @end
