@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Derek Chen. All rights reserved.
 //
 
-#import "DCHBaseEvent.h"
+#import <Foundation/Foundation.h>
+#import <DCHFluxKit/DCHFluxKit.h>
 
 extern NSString * const DCHDisplayEventDomain;
 
@@ -15,6 +16,6 @@ typedef NS_ENUM(NSUInteger, DCDisplayEventCode) {
     DCDisplayEventCode_RefreshPhotoDetails,
 };
 
-@interface DCHDisplayEvent : DCHBaseEvent
+@interface DCHDisplayEvent : DCHEvent
 
 @end

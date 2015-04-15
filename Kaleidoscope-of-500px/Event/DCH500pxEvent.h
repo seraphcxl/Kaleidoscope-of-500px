@@ -6,7 +6,8 @@
 //  Copyright (c) 2015 Derek Chen. All rights reserved.
 //
 
-#import "DCHBaseEvent.h"
+#import <Foundation/Foundation.h>
+#import <DCHFluxKit/DCHFluxKit.h>
 
 extern NSString * const DCH500pxEventDomain;
 
@@ -15,6 +16,6 @@ typedef NS_ENUM(NSUInteger, DC500pxEventCode) {
     DC500pxEventCode_QueryPhotoDetails,
 };
 
-@interface DCH500pxEvent : DCHBaseEvent
+@interface DCH500pxEvent : DCHEvent
 
 @end

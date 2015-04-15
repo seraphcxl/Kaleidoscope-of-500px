@@ -29,11 +29,8 @@
     [PXRequest setConsumerKey:consumerKey consumerSecret:consumerSecret];
     
     [DCH500pxPhotoStore sharedDCH500pxPhotoStore];
-    DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPopularPhotos andPayload:nil];
-    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEvent:queryPopularPhotosEvent];
-    
-    DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:nil];
-    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEvent:queryPhotoDetailsEvent];
+    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEventDomain:DCH500pxEventDomain code:DC500pxEventCode_QueryPopularPhotos];    
+    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEventDomain:DCH500pxEventDomain code:DC500pxEventCode_QueryPhotoDetails];
     
     return YES;
 }

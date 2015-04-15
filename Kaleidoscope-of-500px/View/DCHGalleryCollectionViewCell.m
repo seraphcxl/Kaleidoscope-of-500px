@@ -38,6 +38,7 @@
 
 - (void)refresh {
     do {
+        self.imageView.image = nil;
         if (self.photoModel.thumbnailURL) {
             [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 do {

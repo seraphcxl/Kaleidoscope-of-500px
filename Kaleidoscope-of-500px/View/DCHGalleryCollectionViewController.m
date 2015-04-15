@@ -15,6 +15,8 @@
 #import "DCHDisplayEventCreater.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxPhotoStore.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <libextobjc/EXTScope.h>
 
 @interface DCHGalleryCollectionViewController ()
 
@@ -53,9 +55,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (void)viewWillAppear:(BOOL)animated {
     do {
-        DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPopularPhotos andPayload:nil];
-        
-        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self.viewModel forEvent:refreshPopularPhotosEvent];
+        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self.viewModel forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshPopularPhotos];
         self.viewModel.eventResponder = self;
     } while (NO);
 }
@@ -81,10 +81,20 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (void)refreshGallery {
     do {
+        [NSThread runInMain:^{
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        }];
+        @weakify(self);
         DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPopularPhotos andPayload:nil];
         [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPopularPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
             do {
-                NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
+                    [NSThread runInMain:^{
+                        @strongify(self);
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                    }];
+                    NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                }
             } while (NO);
         }];
     } while (NO);
@@ -107,7 +117,9 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
             switch ([event code]) {
                 case DCDisplayEventCode_RefreshPopularPhotos:
                 {
+                    @weakify(self);
                     [NSThread runInMain:^{
+                        @strongify(self);
                         [self.collectionView reloadData];
                     }];
                     result = YES;

@@ -4,7 +4,7 @@
 target 'Kaleidoscope-of-500px' do
 platform :ios, '7.0'
 
-pod 'DCHFluxKit', '~> 0.1.5'
+pod 'DCHFluxKit', '~> 0.1.7'
 pod 'CocoaLumberjack', '~> 2.0.0'
 pod 'MBProgressHUD', '~> 0.9.1'
 pod '500px-iOS-api', '~> 1.0.5'
