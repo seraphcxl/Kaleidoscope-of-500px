@@ -56,8 +56,11 @@
             switch ([self.inputEvent code]) {
                 case DCDisplayEventCode_RefreshPhotoDetails:
                 {
-                    self.model = [event payload][DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel];
-                    [self emitChange];
+                    DCHPhotoModel *tmpPhotoModel = [event payload][DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel];
+                    if ([self.model.identifier isEqualToNumber:tmpPhotoModel.identifier]) {
+                        self.model = tmpPhotoModel;
+                        [self emitChange];
+                    }
                     result = YES;
                 }
                     break;
@@ -76,14 +79,18 @@
 
 - (void)loadPhotoDetails {
     do {
-        DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:@{DC500pxEventCode_QueryPhotoDetails_kPhotoModel: self.model}];
-        [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoDetailsEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
-            do {
-                if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
-                    NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
-                }
-            } while (NO);
-        }];
+        if (self.model.fullsizedData) {
+            ;
+        } else {
+            DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:@{DC500pxEventCode_QueryPhotoDetails_kPhotoModel: self.model}];
+            [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoDetailsEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                do {
+                    if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
+                        NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                    }
+                } while (NO);
+            }];
+        }
     } while (NO);
 }
 

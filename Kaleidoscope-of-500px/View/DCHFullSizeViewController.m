@@ -10,6 +10,7 @@
 #import "DCHFullSizeViewModel.h"
 #import "DCHDetailViewModel.h"
 #import "DCHDetailViewController.h"
+#import <Tourbillon/DCHTourbillon.h>
 
 @interface DCHFullSizeViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -49,10 +50,13 @@
         self.pageViewController.dataSource = self;
         self.pageViewController.delegate = self;
         [self addChildViewController:self.pageViewController];
-        self.title = self.viewModel.initialPhotoName;
-        [self.pageViewController setViewControllers:@[[self photoViewControllerForIndex:self.viewModel.initialPhotoIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-        self.view.backgroundColor = [UIColor blackColor];
         
+        [self.pageViewController setViewControllers:@[[self photoViewControllerForIndex:self.viewModel.initialPhotoIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+            ;
+        }];
+        
+        self.view.backgroundColor = [UIColor grapeColor];
+        self.title = self.viewModel.initialPhotoName;
         self.pageViewController.view.frame = self.view.bounds;
         [self.view addSubview:self.pageViewController.view];
     } while (NO);

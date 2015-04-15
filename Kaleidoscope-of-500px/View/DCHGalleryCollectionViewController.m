@@ -51,7 +51,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     
     // Register cell classes
     [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
+    self.collectionView.backgroundColor = [UIColor ironColor];
     // Do any additional setup after loading the view.
 }
 
@@ -65,7 +65,9 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-//        [self refreshGallery];
+        if (self.viewModel.model.count == 0) {
+            [self refreshGallery];
+        }
     } while (NO);
 }
 

@@ -45,8 +45,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     do {
-        self.view.backgroundColor = [UIColor blackColor];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        self.view.backgroundColor = [UIColor aquaColor];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:imageView];
         self.imageView = imageView;
@@ -57,14 +57,26 @@
     [super viewWillAppear:animated];
     do {
         self.viewModel.eventResponder = self;
-        [self.viewModel loadPhotoDetails];
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        if (self.viewModel.model.fullsizedData) {
+            self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+        } else {
+            [self.viewModel loadPhotoDetails];
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        }
     } while (NO);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
+//        self.imageView.frame = self.view.bounds;
+    } while (NO);
+}
+
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    do {
+        self.imageView.frame = self.view.bounds;
     } while (NO);
 }
 
@@ -112,12 +124,16 @@
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
-                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                        [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                            do {
-                                ;
-                            } while (NO);
-                        }];
+                        if (self.viewModel.model.fullsizedData) {
+                            ;
+                        } else {
+                            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                do {
+                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                                    self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
+                                } while (NO);
+                            }];
+                        }
                     }];
                     result = YES;
                 }
