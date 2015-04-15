@@ -8,6 +8,15 @@
 
 #import "DCHViewModel.h"
 
+@class DCHPhotoModel;
+
 @interface DCHFullSizeViewModel : DCHViewModel
+
+@property (nonatomic, strong, readonly) NSArray *model;
+@property (nonatomic, assign, readonly) NSInteger initialPhotoIndex;
+@property (nonatomic, copy, readonly) NSString *initialPhotoName;
+
+- (instancetype)initWithPhotoArray:(NSArray *)photoArray initialPhotoIndex:(NSInteger)initialPhotoIndex;
+- (DCHPhotoModel *)photoModelAtIndex:(NSInteger)index;
 
 @end

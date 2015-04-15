@@ -28,9 +28,6 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <size key="customSize" width="96" height="96"/>
-                                <connections>
-                                    <segue destination="4pn-gl-sEi" kind="showDetail" id="XDs-Vc-Chw"/>
-                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -43,25 +40,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAi-Pk-pii" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1261" y="358"/>
-        </scene>
-        <!--Full Size View Controller-->
-        <scene sceneID="eHX-fe-iS9">
-            <objects>
-                <viewController id="4pn-gl-sEi" customClass="DCHFullSizeViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1dB-7x-cW4"/>
-                        <viewControllerLayoutGuide type="bottom" id="jNj-vy-SFJ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VzT-9Y-geS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="wqS-rM-YCf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bmz-SG-jqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1989" y="358"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yfo-dT-eNJ">

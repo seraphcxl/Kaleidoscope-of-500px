@@ -6,8 +6,18 @@
 //  Copyright (c) 2015 Derek Chen. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "DCHViewModel.h"
 
+@class DCHPhotoModel;
+
 @interface DCHDetailViewModel : DCHViewModel
+
+@property (nonatomic, strong, readonly) DCHPhotoModel *model;
+
+- (instancetype)initWithPhotoModel:(DCHPhotoModel *)photoModel;
+
+- (NSString *)photoName;
+- (void)loadPhotoDetails;
 
 @end

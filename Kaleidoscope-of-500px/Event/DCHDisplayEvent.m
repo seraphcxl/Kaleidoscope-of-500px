@@ -10,6 +10,8 @@
 
 NSString * const DCHDisplayEventDomain = @"DCHDisplayEventDomain";
 
+NSString * const DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel = @"DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel";
+
 @implementation DCHDisplayEvent
 
 @end

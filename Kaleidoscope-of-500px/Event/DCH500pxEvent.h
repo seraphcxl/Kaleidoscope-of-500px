@@ -16,6 +16,8 @@ typedef NS_ENUM(NSUInteger, DC500pxEventCode) {
     DC500pxEventCode_QueryPhotoDetails,
 };
 
+extern NSString * const DC500pxEventCode_QueryPhotoDetails_kPhotoModel;
+
 @interface DCH500pxEvent : DCHEvent
 
 @end

@@ -10,6 +10,8 @@
 
 NSString * const DCH500pxEventDomain = @"DCH500pxEventDomain";
 
+NSString * const DC500pxEventCode_QueryPhotoDetails_kPhotoModel = @"DC500pxEventCode_QueryPhotoDetails_kPhotoModel";
+
 @implementation DCH500pxEvent
 
 @end

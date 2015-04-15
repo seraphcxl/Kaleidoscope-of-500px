@@ -16,6 +16,8 @@ typedef NS_ENUM(NSUInteger, DCDisplayEventCode) {
     DCDisplayEventCode_RefreshPhotoDetails,
 };
 
+extern NSString * const DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel;
+
 @interface DCHDisplayEvent : DCHEvent
 
 @end

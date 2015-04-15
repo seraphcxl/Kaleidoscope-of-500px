@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong, readonly) NSArray *model;
 
+- (void)refreshGallery;
+
 @end

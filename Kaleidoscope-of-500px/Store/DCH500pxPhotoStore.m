@@ -41,26 +41,46 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
             switch ([self.inputEvent code]) {
                 case DC500pxEventCode_QueryPopularPhotos:
                 {
-//                    [NSThread runInMain:^{
-                        [self queryPopularPhotosWithCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
-                            do {
-                                if (completionHandler) {
-                                    completionHandler(self, self.outputEvent, nil);
-                                }
-                                
-                                DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPopularPhotos andPayload:nil];
-                                [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
-                                    do {
-                                        NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
-                                    } while (NO);
-                                }];
-                            } while (NO);
-                        } startImmediately:YES];
-//                    }];
+                    [self queryPopularPhotosWithCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        do {
+                            if (completionHandler) {
+                                completionHandler(self, self.outputEvent, nil);
+                            }
+                            
+                            DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPopularPhotos andPayload:nil];
+                            [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                                do {
+                                    NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                                } while (NO);
+                            }];
+                        } while (NO);
+                    } startImmediately:YES];
                     result = YES;
                 }
                     break;
-                    
+                case DC500pxEventCode_QueryPhotoDetails:
+                {
+                    if (![event payload]) {
+                        break;
+                    }
+                    DCHPhotoModel *photoModel = [event payload][DC500pxEventCode_QueryPhotoDetails_kPhotoModel];
+                    [self queryPhotoDetails:photoModel withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        do {
+                            if (completionHandler) {
+                                completionHandler(self, self.outputEvent, nil);
+                            }
+                            
+                            DCHDisplayEvent *refreshPhotoDetailsEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoDetails andPayload:@{DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel: photoModel}];
+                            [self emitChangeWithEvent:refreshPhotoDetailsEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                                do {
+                                    NSLog(@"refreshPhotoDetailsEvent complte in %@", NSStringFromSelector(_cmd));
+                                } while (NO);
+                            }];
+                        } while (NO);
+                    } startImmediately:YES];
+                    result = YES;
+                }
+                    break;
                 default:
                     break;
             }

@@ -17,6 +17,8 @@
 #import "DCH500pxPhotoStore.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
+#import "DCHFullSizeViewModel.h"
+#import "DCHFullSizeViewController.h"
 
 @interface DCHGalleryCollectionViewController ()
 
@@ -54,15 +56,16 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     do {
-        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self.viewModel forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshPopularPhotos];
         self.viewModel.eventResponder = self;
     } while (NO);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     do {
-        [self refreshGallery];
+//        [self refreshGallery];
     } while (NO);
 }
 
@@ -70,13 +73,14 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     do {
         ;
     } while (NO);
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     do {
         self.viewModel.eventResponder = nil;
-        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] removeEventResponder:self.viewModel];
     } while (NO);
+    [super viewDidDisappear:animated];
 }
 
 - (void)refreshGallery {
@@ -84,19 +88,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         [NSThread runInMain:^{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
-        @weakify(self);
-        DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPopularPhotos andPayload:nil];
-        [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPopularPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
-            do {
-                if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
-                    [NSThread runInMain:^{
-                        @strongify(self);
-                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                    }];
-                    NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
-                }
-            } while (NO);
-        }];
+        [self.viewModel refreshGallery];
     } while (NO);
 }
 
@@ -120,6 +112,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
+                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                         [self.collectionView reloadData];
                     }];
                     result = YES;
@@ -167,6 +160,17 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 }
 
 #pragma mark <UICollectionViewDelegate>
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    do {
+        if (collectionView != self.collectionView || !indexPath) {
+            break;
+        }
+        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.model initialPhotoIndex:indexPath.item];
+        DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
+        [self.navigationController pushViewController:fullSizeVC animated:YES];
+    } while (NO);
+}
 
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
