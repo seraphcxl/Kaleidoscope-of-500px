@@ -22,7 +22,6 @@
 		8DAC4CC61AD520BF00C1B80D /* DCHDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CC41AD520BF00C1B80D /* DCHDetailViewController.m */; };
 		8DAC4CD21AD5211400C1B80D /* DCHGalleryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */; };
 		8DAC4CDB1AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */; };
-		8DAC4CDF1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */; };
 		8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */; };
 		8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */; };
 		8DAC4CEC1AD53E4B00C1B80D /* DCHBaseEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CEB1AD53E4B00C1B80D /* DCHBaseEvent.m */; };
@@ -73,8 +72,6 @@
 		8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewController.m; sourceTree = "<group>"; };
 		8DAC4CD81AD52A4300C1B80D /* DCHGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewCell.h; sourceTree = "<group>"; };
 		8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewCell.m; sourceTree = "<group>"; };
-		8DAC4CDD1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHGalleryCollectionViewLayout.h; sourceTree = "<group>"; };
-		8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHGalleryCollectionViewLayout.m; sourceTree = "<group>"; };
 		8DAC4CE41AD53D4300C1B80D /* DCH500pxEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxEventCreater.h; sourceTree = "<group>"; };
 		8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxEventCreater.m; sourceTree = "<group>"; };
 		8DAC4CE71AD53DC300C1B80D /* DCH500pxEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxEvent.h; sourceTree = "<group>"; };
@@ -256,8 +253,6 @@
 				8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */,
 				8DAC4CD81AD52A4300C1B80D /* DCHGalleryCollectionViewCell.h */,
 				8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */,
-				8DAC4CDD1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.h */,
-				8DAC4CDE1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m */,
 			);
 			name = Gallery;
 			sourceTree = "<group>";
@@ -487,7 +482,6 @@
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
 				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
 				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
-				8DAC4CDF1AD52B5300C1B80D /* DCHGalleryCollectionViewLayout.m in Sources */,
 				892E7E6119E511C8005D1BA7 /* AppDelegate.m in Sources */,
 				8DC1D1141ADCB29700EC71C1 /* DCHDetailViewModel.m in Sources */,
 				8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */,

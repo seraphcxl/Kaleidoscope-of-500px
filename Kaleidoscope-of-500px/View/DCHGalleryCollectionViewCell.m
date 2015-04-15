@@ -7,6 +7,8 @@
 //
 
 #import "DCHGalleryCollectionViewCell.h"
+#import "DCHPhotoModel.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation DCHGalleryCollectionViewCell
 
@@ -27,20 +29,23 @@
     
     // Configure subivews
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    imageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [self.contentView addSubview:imageView];
     self.imageView = imageView;
     
     return self;
 }
 
-#pragma mark - DCHEventResponder
-- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
-    BOOL result = NO;
+- (void)refresh {
     do {
-        ;
+        if (self.photoModel.thumbnailURL) {
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                do {
+                    ;
+                } while (NO);
+            }];
+        }
     } while (NO);
-    return result;
 }
 
 @end

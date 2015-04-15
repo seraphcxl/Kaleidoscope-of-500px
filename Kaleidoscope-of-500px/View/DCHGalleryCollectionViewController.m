@@ -62,7 +62,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (void)viewDidAppear:(BOOL)animated {
     do {
-//        [self refreshGallery];
+        [self refreshGallery];
     } while (NO);
 }
 
@@ -149,6 +149,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     
     // Configure the cell
     cell.photoModel = self.viewModel.model[indexPath.row];
+    [cell refresh];
     
     return cell;
 }

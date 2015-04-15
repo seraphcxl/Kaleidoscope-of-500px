@@ -11,9 +11,11 @@
 
 @class DCHPhotoModel;
 
-@interface DCHGalleryCollectionViewCell : UICollectionViewCell <DCHEventResponder>
+@interface DCHGalleryCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) DCHPhotoModel *photoModel;
 @property (nonatomic, strong) UIImageView *imageView;
+
+- (void)refresh;
 
 @end

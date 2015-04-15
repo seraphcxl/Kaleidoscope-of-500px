@@ -12,6 +12,7 @@ pod 'Masonry', '~> 0.6.1'
 pod 'pop', '~> 1.0.7'
 pod 'AsyncDisplayKit', '~> 1.1.1'
 pod 'RXCollections', '~> 1.0'
+pod 'SDWebImage', '~> 3.7.2'
 
 end
 
