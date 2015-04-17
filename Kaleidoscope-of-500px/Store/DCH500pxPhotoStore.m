@@ -92,11 +92,15 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
 - (NSURLSessionDataTask *)queryPopularPhotosWithCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
     NSURLSessionDataTask *result = nil;
     do {
-        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:100 page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:90 page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
         @weakify(self);
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);
             do {
+                if (error) {
+                    NSLog(@"queryPopularPhotos err:%@", error);
+                    break;
+                }
                 if (!data) {
                     break;
                 }
@@ -130,6 +134,10 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);
             do {
+                if (error) {
+                    NSLog(@"queryPhotoDetails err:%@", error);
+                    break;
+                }
                 if (!data) {
                     break;
                 }

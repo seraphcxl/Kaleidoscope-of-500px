@@ -29,8 +29,15 @@
     
     // Configure subivews
     CGRect imageFrame = self.bounds;
-    imageFrame.origin.y -= 40;
-    imageFrame.size.height += 40 * 2;
+    
+    NSInteger deltaX = imageFrame.size.width / 4;
+    imageFrame.origin.x -= deltaX;
+    imageFrame.size.width += deltaX * 2;
+    
+    NSInteger deltaY = imageFrame.size.height / 4;
+    imageFrame.origin.y -= deltaY;
+    imageFrame.size.height += deltaY * 2;
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
     imageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     imageView.contentMode = UIViewContentModeScaleToFill;
@@ -58,13 +65,23 @@
 // https://github.com/jberlana/JBParallaxCell
 - (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
     CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-    
-    float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
-    float difference = CGRectGetHeight(self.imageView.frame) - CGRectGetHeight(self.frame);
-    float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
-    
     CGRect imageRect = self.imageView.frame;
-    imageRect.origin.y = - (difference / 2) + move;
+    if (scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height == 0) {
+        float distanceFromCenter = CGRectGetWidth(view.frame) / 2 - CGRectGetMinX(rectInSuperview);
+        float difference = CGRectGetWidth(self.imageView.frame) - CGRectGetWidth(self.frame);
+        float move = (distanceFromCenter / CGRectGetWidth(view.frame)) * difference;
+        
+        imageRect.origin.x = (- (difference / 2) + move);
+    }
+    
+    if (scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width == 0) {
+        float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
+        float difference = CGRectGetHeight(self.imageView.frame) - CGRectGetHeight(self.frame);
+        float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
+        
+        imageRect.origin.y = (- (difference / 2) + move);
+    }
+    
     self.imageView.frame = imageRect;
 }
 
