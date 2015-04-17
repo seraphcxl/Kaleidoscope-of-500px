@@ -174,6 +174,15 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     } while (NO);
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    do {
+        NSArray *cells = [self.collectionView visibleCells];
+        for (DCHGalleryCollectionViewCell *cell in cells) {
+            [cell cellOnScrollView:self.collectionView didScrollOnView:self.view];
+        }
+    } while (NO);
+}
+
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {

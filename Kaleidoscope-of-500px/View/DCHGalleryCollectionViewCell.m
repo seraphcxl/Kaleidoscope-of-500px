@@ -28,10 +28,16 @@
     self.backgroundColor = [UIColor darkGrayColor];
     
     // Configure subivews
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    CGRect imageFrame = self.bounds;
+    imageFrame.origin.y -= 40;
+    imageFrame.size.height += 40 * 2;
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
     imageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+    imageView.contentMode = UIViewContentModeScaleToFill;
     [self.contentView addSubview:imageView];
     self.imageView = imageView;
+    
+    self.contentView.clipsToBounds = YES;
     
     return self;
 }
@@ -47,6 +53,19 @@
             }];
         }
     } while (NO);
+}
+
+// https://github.com/jberlana/JBParallaxCell
+- (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
+    CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
+    
+    float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
+    float difference = CGRectGetHeight(self.imageView.frame) - CGRectGetHeight(self.frame);
+    float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
+    
+    CGRect imageRect = self.imageView.frame;
+    imageRect.origin.y = - (difference / 2) + move;
+    self.imageView.frame = imageRect;
 }
 
 @end

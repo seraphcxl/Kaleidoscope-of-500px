@@ -18,4 +18,6 @@
 
 - (void)refresh;
 
+- (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view;
+
 @end
