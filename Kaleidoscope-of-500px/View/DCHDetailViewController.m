@@ -127,12 +127,21 @@
                         if (self.viewModel.model.fullsizedData) {
                             ;
                         } else {
-                            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                do {
+                            if (self.viewModel.model.fullsizedURL) {
+                                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                                    self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
-                                } while (NO);
-                            }];
+                                    do {
+                                        if (error) {
+                                            NSLog(@"sd_setImageWithURL err:%@", error);
+                                            break;
+                                        }
+                                        if (!image) {
+                                            break;
+                                        }
+                                        self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
+                                    } while (NO);
+                                }];
+                            }
                         }
                     }];
                     result = YES;

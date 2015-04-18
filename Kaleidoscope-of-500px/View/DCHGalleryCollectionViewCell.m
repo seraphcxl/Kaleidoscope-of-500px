@@ -79,6 +79,13 @@
             if (self.photoModel.thumbnailURL) {
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     do {
+                        if (error) {
+                            NSLog(@"sd_setImageWithURL err:%@", error);
+                            break;
+                        }
+                        if (!image) {
+                            break;
+                        }
                         self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
                     } while (NO);
                 }];
