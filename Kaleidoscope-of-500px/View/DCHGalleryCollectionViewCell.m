@@ -67,6 +67,7 @@
         [self setParallaxView:self.imageView OnScrollView:scrollView scrollOnView:view];
         
         self.imageView.image = nil;
+        [self.imageView sd_cancelCurrentImageLoad];
         if (self.photoModel.thumbnailData) {
             self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];
         } else {

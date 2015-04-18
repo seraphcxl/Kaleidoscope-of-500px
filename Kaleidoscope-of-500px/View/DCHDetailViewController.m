@@ -57,6 +57,7 @@
     [super viewWillAppear:animated];
     do {
         self.viewModel.eventResponder = self;
+        [self.imageView sd_cancelCurrentImageLoad];
         if (self.viewModel.model.fullsizedData) {
             self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
         } else {
