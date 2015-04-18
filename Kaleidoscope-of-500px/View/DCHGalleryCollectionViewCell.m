@@ -8,7 +8,18 @@
 
 #import "DCHGalleryCollectionViewCell.h"
 #import "DCHPhotoModel.h"
+#import <Tourbillon/DCHTourbillon.h>
 #import <SDWebImage/UIImageView+WebCache.h>
+
+@interface DCHGalleryCollectionViewCell ()
+
+@property (nonatomic, strong) DCHPhotoModel *photoModel;
+@property (nonatomic, strong) UIImageView *imageView;
+
+- (CGFloat)calcParallaxOriginXOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
+- (CGFloat)calcParallaxOriginYOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
+
+@end
 
 @implementation DCHGalleryCollectionViewCell
 
@@ -49,40 +60,82 @@
     return self;
 }
 
-- (void)refresh {
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
     do {
-        self.imageView.image = nil;
-        if (self.photoModel.thumbnailURL) {
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                do {
-                    ;
-                } while (NO);
-            }];
+        if (!photoModel || !scrollView || !view) {
+            break;
+        }
+        self.photoModel = photoModel;
+        
+        CGRect imageRect = self.imageView.frame;
+        imageRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
+        imageRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
+        self.imageView.frame = imageRect;
+        
+        if (self.photoModel.thumbnailData) {
+            self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];
+        } else {
+            self.imageView.image = nil;
+            if (self.photoModel.thumbnailURL) {
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    do {
+                        self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
+                    } while (NO);
+                }];
+            }
         }
     } while (NO);
 }
 
 // https://github.com/jberlana/JBParallaxCell
 - (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
-    CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-    CGRect imageRect = self.imageView.frame;
-    if (scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height == 0) {
+    do {
+        if (!scrollView || !view) {
+            break;
+        }
+        CGRect imageRect = self.imageView.frame;
+        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height)) {
+            imageRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
+        }
+        
+        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width)) {
+            imageRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
+        }
+        self.imageView.frame = imageRect;
+    } while (NO);
+}
+
+#pragma mark - Private
+- (CGFloat)calcParallaxOriginXOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+    CGFloat result = 0.0f;
+    do {
+        if (!scrollView || !view) {
+            break;
+        }
+        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
         float distanceFromCenter = CGRectGetWidth(view.frame) / 2 - CGRectGetMinX(rectInSuperview);
         float difference = CGRectGetWidth(self.imageView.frame) - CGRectGetWidth(self.frame);
         float move = (distanceFromCenter / CGRectGetWidth(view.frame)) * difference;
         
-        imageRect.origin.x = (- (difference / 2) + move);
-    }
-    
-    if (scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width == 0) {
+        result = (- (difference / 2) + move);
+    } while (NO);
+    return result;
+}
+
+- (CGFloat)calcParallaxOriginYOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+    CGFloat result = 0.0f;
+    do {
+        if (!scrollView || !view) {
+            break;
+        }
+        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
         float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
         float difference = CGRectGetHeight(self.imageView.frame) - CGRectGetHeight(self.frame);
         float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
         
-        imageRect.origin.y = (- (difference / 2) + move);
-    }
-    
-    self.imageView.frame = imageRect;
+        result = (- (difference / 2) + move);
+    } while (NO);
+    return result;
 }
 
 @end

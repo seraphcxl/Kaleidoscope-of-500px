@@ -13,10 +13,12 @@
 
 @interface DCHGalleryCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, strong) DCHPhotoModel *photoModel;
-@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong, readonly) DCHPhotoModel *photoModel;
+@property (nonatomic, strong, readonly) UIImageView *imageView;
 
-- (void)refresh;
+- (instancetype)initWithFrame:(CGRect)frame;
+
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 
 - (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view;
 

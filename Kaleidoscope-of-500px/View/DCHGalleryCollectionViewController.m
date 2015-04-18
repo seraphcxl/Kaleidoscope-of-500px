@@ -155,8 +155,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     DCHGalleryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    cell.photoModel = self.viewModel.model[indexPath.row];
-    [cell refresh];
+    [cell refreshWithPhotoModel:self.viewModel.model[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
