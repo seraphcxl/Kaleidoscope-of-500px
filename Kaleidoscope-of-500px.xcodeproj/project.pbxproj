@@ -15,6 +15,7 @@
 		892E7E6919E511C8005D1BA7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 892E7E6819E511C8005D1BA7 /* Images.xcassets */; };
 		892E7E6C19E511C8005D1BA7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892E7E6A19E511C8005D1BA7 /* LaunchScreen.xib */; };
 		892E7E7819E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */; };
+		8D493A271AE279CC00FF4EB2 /* UIView+DCHParallax.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */; };
 		8DAC4C971AD4BD5C00C1B80D /* DCH500pxPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */; };
 		8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */; };
 		8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */; };
@@ -59,6 +60,8 @@
 		892E7E7119E511C8005D1BA7 /* Kaleidoscope-of-500pxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Kaleidoscope-of-500pxTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		892E7E7619E511C8005D1BA7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Kaleidoscope_of_500pxTests.m; sourceTree = "<group>"; };
+		8D493A251AE279CC00FF4EB2 /* UIView+DCHParallax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCHParallax.h"; sourceTree = "<group>"; };
+		8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCHParallax.m"; sourceTree = "<group>"; };
 		8DAC4C951AD4BD5C00C1B80D /* DCH500pxPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxPhotoStore.h; sourceTree = "<group>"; };
 		8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStore.m; sourceTree = "<group>"; };
 		8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStoreTests.m; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				8DAC4CD01AD5211400C1B80D /* DCHGalleryCollectionViewController.m */,
 				8DAC4CD81AD52A4300C1B80D /* DCHGalleryCollectionViewCell.h */,
 				8DAC4CD91AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m */,
+				8D493A251AE279CC00FF4EB2 /* UIView+DCHParallax.h */,
+				8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */,
 			);
 			name = Gallery;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
 				892E7E6119E511C8005D1BA7 /* AppDelegate.m in Sources */,
 				8DC1D1141ADCB29700EC71C1 /* DCHDetailViewModel.m in Sources */,
+				8D493A271AE279CC00FF4EB2 /* UIView+DCHParallax.m in Sources */,
 				8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */,
 				8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */,
 				8DAC4CD21AD5211400C1B80D /* DCHGalleryCollectionViewController.m in Sources */,

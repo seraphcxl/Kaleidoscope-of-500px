@@ -179,7 +179,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     do {
         NSArray *cells = [self.collectionView visibleCells];
         for (DCHGalleryCollectionViewCell *cell in cells) {
-            [cell cellOnScrollView:self.collectionView didScrollOnView:self.view];
+            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
         }
     } while (NO);
 }

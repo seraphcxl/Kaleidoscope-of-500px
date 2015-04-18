@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <DCHFluxKit/DCHFluxKit.h>
+#import "UIView+DCHParallax.h"
 
 @class DCHPhotoModel;
 
@@ -19,7 +20,5 @@
 - (instancetype)initWithFrame:(CGRect)frame;
 
 - (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
-
-- (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view;
 
 @end

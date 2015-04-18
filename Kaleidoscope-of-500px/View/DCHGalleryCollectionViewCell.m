@@ -16,9 +16,6 @@
 @property (nonatomic, strong) DCHPhotoModel *photoModel;
 @property (nonatomic, strong) UIImageView *imageView;
 
-- (CGFloat)calcParallaxOriginXOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
-- (CGFloat)calcParallaxOriginYOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
-
 @end
 
 @implementation DCHGalleryCollectionViewCell
@@ -67,15 +64,12 @@
         }
         self.photoModel = photoModel;
         
-        CGRect imageRect = self.imageView.frame;
-        imageRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
-        imageRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
-        self.imageView.frame = imageRect;
+        [self setParallaxView:self.imageView OnScrollView:scrollView scrollOnView:view];
         
+        self.imageView.image = nil;
         if (self.photoModel.thumbnailData) {
             self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];
         } else {
-            self.imageView.image = nil;
             if (self.photoModel.thumbnailURL) {
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     do {
@@ -86,63 +80,14 @@
                         if (!image) {
                             break;
                         }
-                        self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
+                        if ([self.photoModel.thumbnailURL isEqualToString:[imageURL absoluteString]]) {
+                            self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
+                        }
                     } while (NO);
                 }];
             }
         }
     } while (NO);
-}
-
-// https://github.com/jberlana/JBParallaxCell
-- (void)cellOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
-    do {
-        if (!scrollView || !view) {
-            break;
-        }
-        CGRect imageRect = self.imageView.frame;
-        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height)) {
-            imageRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
-        }
-        
-        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width)) {
-            imageRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
-        }
-        self.imageView.frame = imageRect;
-    } while (NO);
-}
-
-#pragma mark - Private
-- (CGFloat)calcParallaxOriginXOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
-    CGFloat result = 0.0f;
-    do {
-        if (!scrollView || !view) {
-            break;
-        }
-        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-        float distanceFromCenter = CGRectGetWidth(view.frame) / 2 - CGRectGetMinX(rectInSuperview);
-        float difference = CGRectGetWidth(self.imageView.frame) - CGRectGetWidth(self.frame);
-        float move = (distanceFromCenter / CGRectGetWidth(view.frame)) * difference;
-        
-        result = (- (difference / 2) + move);
-    } while (NO);
-    return result;
-}
-
-- (CGFloat)calcParallaxOriginYOnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
-    CGFloat result = 0.0f;
-    do {
-        if (!scrollView || !view) {
-            break;
-        }
-        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-        float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
-        float difference = CGRectGetHeight(self.imageView.frame) - CGRectGetHeight(self.frame);
-        float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
-        
-        result = (- (difference / 2) + move);
-    } while (NO);
-    return result;
 }
 
 @end

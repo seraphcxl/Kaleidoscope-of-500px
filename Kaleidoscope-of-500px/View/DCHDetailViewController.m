@@ -138,7 +138,9 @@
                                         if (!image) {
                                             break;
                                         }
-                                        self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
+                                        if ([self.viewModel.model.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
+                                            self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
+                                        }
                                     } while (NO);
                                 }];
                             }
