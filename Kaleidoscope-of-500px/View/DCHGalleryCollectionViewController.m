@@ -90,6 +90,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         [NSThread runInMain:^{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
         [self.viewModel refreshGallery];
     } while (NO);
 }
@@ -116,6 +117,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
                         @strongify(self);
                         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                         [self.collectionView reloadData];
+                        self.navigationItem.rightBarButtonItem.enabled = YES;
                     }];
                     result = YES;
                 }
