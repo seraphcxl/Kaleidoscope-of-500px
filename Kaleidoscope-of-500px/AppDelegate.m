@@ -23,8 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    NSString *consumerKey = @"DC2To2BS0ic1ChKDK15d44M42YHf9gbUJgdFoF0m";
-    NSString *consumerSecret = @"i8WL4chWoZ4kw9fh3jzHK7XzTer1y5tUNvsTFNnB";
+    NSString *consumerKey = @"3NwAt95eJVCom1TUjKdnrn95RmKQ9mm21W3Ik95D";
+    NSString *consumerSecret = @"tDAihldKr6XlFHKxcJ3s7XwRiCLYJxawQckh03NQ";
     
     [PXRequest setConsumerKey:consumerKey consumerSecret:consumerSecret];
     
