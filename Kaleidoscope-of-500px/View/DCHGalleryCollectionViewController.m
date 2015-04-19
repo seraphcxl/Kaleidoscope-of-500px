@@ -20,6 +20,8 @@
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
 
+const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
+
 @interface DCHGalleryCollectionViewController ()
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
@@ -52,6 +54,13 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     // Register cell classes
     [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.backgroundColor = [UIColor ironColor];
+    
+    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
+        layout.itemSize = CGSizeMake(imgSize, imgSize);
+    }
+    
     // Do any additional setup after loading the view.
 }
 
