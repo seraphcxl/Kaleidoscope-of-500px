@@ -9,8 +9,6 @@
 #import "DCH500pxPhotoStore.h"
 #import "DCHPhotoModel.h"
 
-#import <500px-iOS-api/PXAPI.h>
-#import <Tourbillon/DCHTourbillon.h>
 #import <RXCollections/RXCollection.h>
 #import <libextobjc/EXTScope.h>
 
@@ -21,6 +19,7 @@
 @interface DCH500pxPhotoStore ()
 
 @property (nonatomic, strong) NSArray *photoModels;
+@property (nonatomic, strong) NSMutableDictionary *categories;
 
 @end
 
@@ -39,15 +38,21 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
         
         if ([[self.inputEvent domain] isEqualToString:DCH500pxEventDomain]) {
             switch ([self.inputEvent code]) {
-                case DC500pxEventCode_QueryPopularPhotos:
+                case DC500pxEventCode_QueryFeaturedPhotos:
                 {
-                    [self queryPopularPhotosWithCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                    if (![self.inputEvent payload]) {
+                        break;
+                    }
+                    PXAPIHelperPhotoFeature feature = PXAPIHelperPhotoFeaturePopular;
+                    NSDictionary *payloadDic = (NSDictionary *)[self.inputEvent payload];
+                    feature = [payloadDic[DC500pxEventCode_QueryFeaturedPhotos_kFeature] integerValue];
+                    [self queryPhotosByFeature:feature withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
                         do {
                             if (completionHandler) {
                                 completionHandler(self, self.outputEvent, nil);
                             }
                             
-                            DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPopularPhotos andPayload:nil];
+                            DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshFeaturedPhotos andPayload:nil];
                             [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
@@ -81,6 +86,29 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     result = YES;
                 }
                     break;
+                case DC500pxEventCode_QueryPhotoCategory:
+                {
+                    if (![event payload]) {
+                        break;
+                    }
+                    PXPhotoModelCategory category = PXPhotoModelCategoryUncategorized;
+                    NSDictionary *payloadDic = (NSDictionary *)[self.inputEvent payload];
+                    category = [payloadDic[DC500pxEventCode_QueryPhotoDetails_kPhotoModel] integerValue];
+                    [self queryPopularCategoryPhotos:category withCount:3 andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        do {
+                            if (completionHandler) {
+                                completionHandler(self, self.outputEvent, nil);
+                            }
+                            
+                            DCHDisplayEvent *refreshPhotoCategoryEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoCategory andPayload:@{DCDisplayEventCode_RefreshPhotoCategory_kCategory: payloadDic[DC500pxEventCode_QueryPhotoDetails_kPhotoModel]}];
+                            [self emitChangeWithEvent:refreshPhotoCategoryEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                                do {
+                                    NSLog(@"refreshPhotoCategoryEvent complte in %@", NSStringFromSelector(_cmd));
+                                } while (NO);
+                            }];
+                        } while (NO);
+                    } startImmediately:YES];
+                }
                 default:
                     break;
             }
@@ -89,16 +117,16 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
     return result;
 }
 
-- (NSURLSessionDataTask *)queryPopularPhotosWithCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
+- (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
     NSURLSessionDataTask *result = nil;
     do {
-        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:kPXAPIHelperMaximumResultsPerPage page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:feature resultsPerPage:kPXAPIHelperMaximumResultsPerPage page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
         @weakify(self);
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);
             do {
                 if (error) {
-                    NSLog(@"queryPopularPhotos err:%@", error);
+                    NSLog(@"%@ err:%@", NSStringFromSelector(_cmd), error);
                     break;
                 }
                 if (!data) {
@@ -135,7 +163,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
             @strongify(self);
             do {
                 if (error) {
-                    NSLog(@"queryPhotoDetails err:%@", error);
+                    NSLog(@"%@ err:%@", NSStringFromSelector(_cmd), error);
                     break;
                 }
                 if (!data) {
@@ -144,6 +172,46 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                 id results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 NSDictionary *rawDic = (NSDictionary *)results[@"photo"];
                 [photoModel configureWithDictionary:rawDic];
+            } while (NO);
+            if (completionHandler) {
+                completionHandler(self, error);
+            }
+        }];
+        if (startImmediately) {
+            [result resume];
+        }
+    } while (NO);
+    return result;
+}
+
+- (NSURLSessionDataTask *)queryPopularCategoryPhotos:(PXPhotoModelCategory)category withCount:(NSUInteger)count andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
+    NSURLSessionDataTask *result = nil;
+    do {
+        if (!self.categories) {
+            self.categories = [NSMutableDictionary dictionary];
+        }
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:count page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating except:PXAPIHelperUnspecifiedCategory only:category];
+        @weakify(self);
+        result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            @strongify(self);
+            do {
+                if (error) {
+                    NSLog(@"%@ err:%@", NSStringFromSelector(_cmd), error);
+                    break;
+                }
+                if (!data) {
+                    break;
+                }
+                id results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                NSDictionary *rawDic = (NSDictionary *)results;
+                NSArray *models = [rawDic[@"photos"] rx_mapWithBlock:^id(id each) {
+                    NSDictionary *photoDictionary = (NSDictionary *)each;
+                    DCHPhotoModel *model = [[DCHPhotoModel alloc] initWithDictionary:photoDictionary];
+                    return model;
+                }];
+                if (!models) {
+                    [self.categories setObject:models forKey:[NSString stringWithFormat:@"%ld", (long)category]];
+                }
             } while (NO);
             if (completionHandler) {
                 completionHandler(self, error);

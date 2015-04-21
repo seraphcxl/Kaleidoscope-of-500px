@@ -31,6 +31,10 @@
 		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
+		8DDE72D71AE51626004EA153 /* DCHCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */; };
+		8DDE72DA1AE51673004EA153 /* DCHCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72D91AE51673004EA153 /* DCHCategoryTableViewCell.m */; };
+		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
+		8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */; };
 		8DE931461AE14E2700E205C2 /* TLSpringFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DE931451AE14E2700E205C2 /* TLSpringFlowLayout.m */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +95,14 @@
 		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
 		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
+		8DDE72D51AE51626004EA153 /* DCHCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryTableViewController.h; sourceTree = "<group>"; };
+		8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryTableViewController.m; sourceTree = "<group>"; };
+		8DDE72D81AE51673004EA153 /* DCHCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryTableViewCell.h; sourceTree = "<group>"; };
+		8DDE72D91AE51673004EA153 /* DCHCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryTableViewCell.m; sourceTree = "<group>"; };
+		8DDE72DC1AE51BD4004EA153 /* DCHCategoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryViewModel.h; sourceTree = "<group>"; };
+		8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryViewModel.m; sourceTree = "<group>"; };
+		8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryModel.h; sourceTree = "<group>"; };
+		8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryModel.m; sourceTree = "<group>"; };
 		8DE931441AE14E2700E205C2 /* TLSpringFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLSpringFlowLayout.h; sourceTree = "<group>"; };
 		8DE931451AE14E2700E205C2 /* TLSpringFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLSpringFlowLayout.m; sourceTree = "<group>"; };
 		B51AAFF2696B240ACE0844B0 /* Pods-Kaleidoscope-of-500pxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kaleidoscope-of-500pxTests/Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,6 +215,7 @@
 		8DAC4C921AD4BCC700C1B80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8DDE72DB1AE51B9C004EA153 /* Category */,
 				8DC1D1161ADCB29E00EC71C1 /* Gallery */,
 				8DC1D1171ADCB2AB00EC71C1 /* Detail */,
 				8DC1D1181ADCB2B300EC71C1 /* FullSize */,
@@ -217,6 +230,8 @@
 				8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */,
 				8DAC4C9A1AD4C92300C1B80D /* DCHPhotoModel.h */,
 				8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */,
+				8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */,
+				8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -224,6 +239,7 @@
 		8DAC4C941AD4BCC700C1B80D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
 				8DAC4CD71AD5212B00C1B80D /* Gallery */,
@@ -304,6 +320,26 @@
 				8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */,
 			);
 			name = FullSize;
+			sourceTree = "<group>";
+		};
+		8DDE72D41AE515DF004EA153 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8DDE72D51AE51626004EA153 /* DCHCategoryTableViewController.h */,
+				8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */,
+				8DDE72D81AE51673004EA153 /* DCHCategoryTableViewCell.h */,
+				8DDE72D91AE51673004EA153 /* DCHCategoryTableViewCell.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		8DDE72DB1AE51B9C004EA153 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				8DDE72DC1AE51BD4004EA153 /* DCHCategoryViewModel.h */,
+				8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 		A6ACB6E80718FFAA2D860B17 /* Pods */ = {
@@ -501,6 +537,10 @@
 				892E7E5E19E511C8005D1BA7 /* main.m in Sources */,
 				8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */,
 				8DAC4CDB1AD52A4300C1B80D /* DCHGalleryCollectionViewCell.m in Sources */,
+				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
+				8DDE72DA1AE51673004EA153 /* DCHCategoryTableViewCell.m in Sources */,
+				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
+				8DDE72D71AE51626004EA153 /* DCHCategoryTableViewController.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

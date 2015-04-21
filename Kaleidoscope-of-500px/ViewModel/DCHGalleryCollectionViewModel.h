@@ -10,7 +10,7 @@
 
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
-@property (nonatomic, strong, readonly) NSArray *model;
+@property (nonatomic, strong, readonly) NSArray *models;
 
 - (void)refreshGallery;
 

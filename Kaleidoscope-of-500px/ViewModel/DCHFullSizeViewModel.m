@@ -11,7 +11,7 @@
 
 @interface DCHFullSizeViewModel ()
 
-@property (nonatomic, strong) NSArray *model;
+@property (nonatomic, strong) NSArray *models;
 @property (nonatomic, assign) NSInteger initialPhotoIndex;
 @property (nonatomic, copy) NSString *initialPhotoName;
 
@@ -21,7 +21,7 @@
 
 - (void)dealloc {
     do {
-        self.model = nil;
+        self.models = nil;
         self.initialPhotoName = nil;
     } while (NO);
 }
@@ -34,7 +34,7 @@
     self = [super init];
     if (!self) return nil;
     
-    self.model = photoArray;
+    self.models = photoArray;
     self.initialPhotoIndex = initialPhotoIndex;
     
     return self;
@@ -46,11 +46,11 @@
 }
 
 - (DCHPhotoModel *)photoModelAtIndex:(NSInteger)index {
-    if (index < 0 || index > self.model.count - 1) {
+    if (index < 0 || index > self.models.count - 1) {
         // Index was out of bounds, return nil
         return nil;
     } else {
-        return self.model[index];
+        return self.models[index];
     }
 }
 

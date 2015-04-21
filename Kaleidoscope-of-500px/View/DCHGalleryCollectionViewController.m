@@ -74,7 +74,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        if (self.viewModel.model.count == 0) {
+        if (self.viewModel.models.count == 0) {
             [self refreshGallery];
         }
     } while (NO);
@@ -119,7 +119,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         
         if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
             switch ([event code]) {
-                case DCDisplayEventCode_RefreshPopularPhotos:
+                case DCDisplayEventCode_RefreshFeaturedPhotos:
                 {
                     @weakify(self);
                     [NSThread runInMain:^{
@@ -158,15 +158,15 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 //#warning Incomplete method implementation -- Return the number of items in the section
-    NSLog(@"CollectionView count: %lu", (unsigned long)self.viewModel.model.count);
-    return self.viewModel.model.count;
+    NSLog(@"CollectionView count: %lu", (unsigned long)self.viewModel.models.count);
+    return self.viewModel.models.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DCHGalleryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    [cell refreshWithPhotoModel:self.viewModel.model[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -178,7 +178,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.model initialPhotoIndex:indexPath.item];
+        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.item];
         DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
         [self.navigationController pushViewController:fullSizeVC animated:YES];
     } while (NO);

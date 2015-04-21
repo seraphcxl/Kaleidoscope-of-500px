@@ -12,11 +12,16 @@
 extern NSString * const DCHDisplayEventDomain;
 
 typedef NS_ENUM(NSUInteger, DCDisplayEventCode) {
-    DCDisplayEventCode_RefreshPopularPhotos,
+    DCDisplayEventCode_RefreshFeaturedPhotos,
     DCDisplayEventCode_RefreshPhotoDetails,
+    DCDisplayEventCode_RefreshPhotoCategory,
 };
 
+#pragma mark - DCDisplayEventCode_RefreshPhotoDetails
 extern NSString * const DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel;
+
+#pragma mark - DCDisplayEventCode_RefreshPhotoCategory
+extern NSString * const DCDisplayEventCode_RefreshPhotoCategory_kCategory;
 
 @interface DCHDisplayEvent : DCHEvent
 

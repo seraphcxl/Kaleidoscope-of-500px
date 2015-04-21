@@ -29,7 +29,7 @@
     [PXRequest setConsumerKey:consumerKey consumerSecret:consumerSecret];
     
     [DCH500pxPhotoStore sharedDCH500pxPhotoStore];
-    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEventDomain:DCH500pxEventDomain code:DC500pxEventCode_QueryPopularPhotos];    
+    [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEventDomain:DCH500pxEventDomain code:DC500pxEventCode_QueryFeaturedPhotos];    
     [[DCH500pxDispatcher sharedDCH500pxDispatcher] addEventResponder:[DCH500pxPhotoStore sharedDCH500pxPhotoStore] forEventDomain:DCH500pxEventDomain code:DC500pxEventCode_QueryPhotoDetails];
     
     return YES;

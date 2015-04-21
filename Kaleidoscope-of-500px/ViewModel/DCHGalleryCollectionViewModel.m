@@ -16,7 +16,7 @@
 
 @interface DCHGalleryCollectionViewModel ()
 
-@property (nonatomic, strong) NSArray *model;
+@property (nonatomic, strong) NSArray *models;
 
 @end
 
@@ -25,13 +25,14 @@
 - (void)dealloc {
     do {
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] removeEventResponder:self];
+        self.models = nil;
     } while (NO);
 }
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshPopularPhotos];
+        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshFeaturedPhotos];
     }
     return self;
 }
@@ -47,9 +48,9 @@
         
         if ([[self.inputEvent domain] isEqualToString:DCHDisplayEventDomain]) {
             switch ([self.inputEvent code]) {
-                case DCDisplayEventCode_RefreshPopularPhotos:
+                case DCDisplayEventCode_RefreshFeaturedPhotos:
                 {
-                    self.model = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].photoModels;
+                    self.models = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].photoModels;
                     [self emitChange];
                     result = YES;
                 }
@@ -65,7 +66,7 @@
 
 - (void)refreshGallery {
     do {
-        DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPopularPhotos andPayload:nil];
+        DCH500pxEvent *queryPopularPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)PXAPIHelperPhotoFeaturePopular]}];
         [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPopularPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {

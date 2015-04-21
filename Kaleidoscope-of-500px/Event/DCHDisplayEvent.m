@@ -10,7 +10,11 @@
 
 NSString * const DCHDisplayEventDomain = @"DCHDisplayEventDomain";
 
+#pragma mark - DCDisplayEventCode_RefreshPhotoDetails
 NSString * const DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel = @"DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel";
+
+#pragma mark - DCDisplayEventCode_RefreshPhotoCategory
+NSString * const DCDisplayEventCode_RefreshPhotoCategory_kCategory = @"DCDisplayEventCode_RefreshPhotoCategory_kCategory";
 
 @implementation DCHDisplayEvent
 
