@@ -14,6 +14,10 @@
 @property (nonatomic, assign, readonly) PXPhotoModelCategory category;
 @property (nonatomic, strong, readonly) NSArray *models;
 
++ (NSArray *)categories;
++ (NSString *)description4Category:(PXPhotoModelCategory)category;
++ (NSUInteger)index4Category:(PXPhotoModelCategory)category;
+
 - (instancetype)initWithCategory:(PXPhotoModelCategory)category andModels:(NSArray *)models;
 
 @end

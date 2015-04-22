@@ -17,11 +17,11 @@
 #import "DCH500pxPhotoStore.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
+#import "DCHCategoryModel.h"
 
 @interface DCHCategoryTableViewController ()
 
 @property (nonatomic, strong) DCHCategoryViewModel *viewModel;
-@property (nonatomic, strong) NSArray *categories;
 
 - (void)refreshCategories;
 
@@ -41,14 +41,13 @@ static NSString * const reuseIdentifier = @"DCHCategoryTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.categories = @[@(PXPhotoModelCategoryUncategorized), @(PXPhotoModelCategoryAbstract), @(PXPhotoModelCategoryAnimals), @(PXPhotoModelCategoryBlackAndWhite), @(PXPhotoModelCategoryCelbrities), @(PXPhotoModelCategoryCityAndArchitecture), @(PXPhotoModelCategoryCommercial), @(PXPhotoModelCategoryConcert), @(PXPhotoModelCategoryFamily), @(PXPhotoModelCategoryFashion), @(PXPhotoModelCategoryFilm), @(PXPhotoModelCategoryFineArt), @(PXPhotoModelCategoryFood), @(PXPhotoModelCategoryJournalism), @(PXPhotoModelCategoryLandscapes), @(PXPhotoModelCategoryMacro), @(PXPhotoModelCategoryNature), @(PXPhotoModelCategoryNude), @(PXPhotoModelCategoryPeople), @(PXPhotoModelCategoryPerformingArts), @(PXPhotoModelCategorySport), @(PXPhotoModelCategoryStillLife), @(PXPhotoModelCategoryStreet), @(PXPhotoModelCategoryTransportation), @(PXPhotoModelCategoryTravel), @(PXPhotoModelCategoryUnderwater), @(PXPhotoModelCategoryUrbanExploration), @(PXPhotoModelCategoryWedding)];
     self.viewModel = [[DCHCategoryViewModel alloc] init];
     
     self.tabBarController.navigationItem.title = @"500px Categories";
-    self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshCategories)];
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
     
     // Register cell classes
-    [self.tableView registerClass:[DCHCategoryTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
+//    [self.tableView registerClass:[DCHCategoryTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
     self.tableView.backgroundColor = [UIColor ironColor];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -98,6 +97,38 @@ static NSString * const reuseIdentifier = @"DCHCategoryTableViewCell";
     } while (NO);
 }
 
+#pragma mark - DCHEventResponder
+- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+    BOOL result = NO;
+    do {
+        if (event == nil) {
+            break;
+        }
+        
+        if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
+            switch ([event code]) {
+                case DCDisplayEventCode_RefreshPhotoCategory:
+                {
+                    @weakify(self);
+                    PXPhotoModelCategory category = PXPhotoModelCategoryUncategorized;
+                    NSDictionary *payloadDic = (NSDictionary *)[event payload];
+                    category = [payloadDic[DCDisplayEventCode_RefreshPhotoCategory_kCategory] integerValue];
+                    [NSThread runInMain:^{
+                        @strongify(self);
+                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[DCHCategoryModel index4Category:category] inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    }];
+                    result = YES;
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    } while (NO);
+    return result;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -107,13 +138,20 @@ static NSString * const reuseIdentifier = @"DCHCategoryTableViewCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return self.categories.count;
+    return [DCHCategoryModel categories].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DCHCategoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.row]];
+    if (model) {
+        [cell refreshWithCategoryModel:model];
+    } else {
+        [cell refreshWithCategoryModel:nil];
+        [self.viewModel refreshCategory:[[DCHCategoryModel categories][indexPath.row] integerValue]];
+    }
     
     return cell;
 }

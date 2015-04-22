@@ -7,12 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <500px-iOS-api/PXAPI.h>
+
+@class DCHCategoryModel;
 
 @interface DCHCategoryTableViewCell : UITableViewCell
+
+@property (nonatomic, strong, readonly) DCHCategoryModel *categoryModel;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *leftImgView;
 @property (weak, nonatomic) IBOutlet UIImageView *centerImgView;
 @property (weak, nonatomic) IBOutlet UIImageView *rightImgView;
+
+- (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel;
 
 @end

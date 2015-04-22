@@ -17,6 +17,7 @@
 @interface DCHCategoryViewModel ()
 
 @property (nonatomic, strong) NSDictionary *models;
+@property (nonatomic, strong) NSMutableDictionary *loadingStatusDic;
 
 @end
 
@@ -33,6 +34,7 @@
     self = [super init];
     if (self) {
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshPhotoCategory];
+        self.loadingStatusDic = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -66,13 +68,20 @@
 
 - (void)refreshCategory:(PXPhotoModelCategory)category {
     do {
-        DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: [NSString stringWithFormat:@"%ld", category]}];
+        if ([self.loadingStatusDic objectForKey:@(category)]) {
+            break;
+        }
+        [self.loadingStatusDic setObject:@(1) forKey:@(category)];
+        @weakify(self)
+        DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: @(category)}];
         [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+            @strongify(self)
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
                     NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
                 }
             } while (NO);
+            [self.loadingStatusDic removeObjectForKey:@(category)];
         }];
     } while (NO);
 }

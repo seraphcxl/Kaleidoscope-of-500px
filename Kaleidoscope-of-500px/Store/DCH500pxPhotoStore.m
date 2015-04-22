@@ -15,6 +15,7 @@
 #import "DCHDisplayEventCreater.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxEvent.h"
+#import "DCHCategoryModel.h"
 
 @interface DCH500pxPhotoStore ()
 
@@ -93,14 +94,14 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     }
                     PXPhotoModelCategory category = PXPhotoModelCategoryUncategorized;
                     NSDictionary *payloadDic = (NSDictionary *)[self.inputEvent payload];
-                    category = [payloadDic[DC500pxEventCode_QueryPhotoDetails_kPhotoModel] integerValue];
+                    category = [payloadDic[DC500pxEventCode_QueryPhotoCategory_kCategory] integerValue];
                     [self queryPopularCategoryPhotos:category withCount:3 andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
                         do {
                             if (completionHandler) {
                                 completionHandler(self, self.outputEvent, nil);
                             }
                             
-                            DCHDisplayEvent *refreshPhotoCategoryEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoCategory andPayload:@{DCDisplayEventCode_RefreshPhotoCategory_kCategory: payloadDic[DC500pxEventCode_QueryPhotoDetails_kPhotoModel]}];
+                            DCHDisplayEvent *refreshPhotoCategoryEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoCategory andPayload:@{DCDisplayEventCode_RefreshPhotoCategory_kCategory: @(category)}];
                             [self emitChangeWithEvent:refreshPhotoCategoryEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPhotoCategoryEvent complte in %@", NSStringFromSelector(_cmd));
@@ -209,8 +210,9 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     DCHPhotoModel *model = [[DCHPhotoModel alloc] initWithDictionary:photoDictionary];
                     return model;
                 }];
-                if (!models) {
-                    [self.categories setObject:models forKey:[NSString stringWithFormat:@"%ld", (long)category]];
+                if (models && models.count > 0) {
+                    DCHCategoryModel *categoryModel = [[DCHCategoryModel alloc] initWithCategory:category andModels:models];
+                    [self.categories setObject:categoryModel forKey:@(category)];
                 }
             } while (NO);
             if (completionHandler) {
