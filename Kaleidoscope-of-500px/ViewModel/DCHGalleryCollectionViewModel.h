@@ -7,11 +7,12 @@
 //
 
 #import "DCHViewModel.h"
+#import <500px-iOS-api/PXAPI.h>
 
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
 @property (nonatomic, strong, readonly) NSArray *models;
 
-- (void)refreshGallery;
+- (void)refreshGallery:(PXAPIHelperPhotoFeature)feature;
 
 @end

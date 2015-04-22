@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fA7-ii-BKT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fA7-ii-BKT">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Explore-->
@@ -75,8 +75,14 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xmK-pc-J83" id="rif-0H-qp3">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ool-jQ-CB6">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ool-jQ-CB6" userLabel="Left">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="99"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yoP-lR-B4q" userLabel="Center">
+                                            <rect key="frame" x="200" y="0.0" width="200" height="99"/>
+                                        </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dev-7c-tLg" userLabel="Right">
+                                            <rect key="frame" x="400" y="0.0" width="200" height="99"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16Z-0H-mrW">
                                             <rect key="frame" x="521" y="70" width="71" height="21"/>
@@ -90,17 +96,27 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="leading" secondItem="rif-0H-qp3" secondAttribute="leading" id="1Ed-04-H73"/>
+                                        <constraint firstItem="dev-7c-tLg" firstAttribute="top" secondItem="rif-0H-qp3" secondAttribute="top" id="3kW-6x-tGQ"/>
+                                        <constraint firstItem="yoP-lR-B4q" firstAttribute="top" secondItem="rif-0H-qp3" secondAttribute="top" id="AxF-UU-Ph8"/>
                                         <constraint firstAttribute="bottom" secondItem="16Z-0H-mrW" secondAttribute="bottom" constant="8" id="BuH-LB-BSO"/>
-                                        <constraint firstAttribute="trailing" secondItem="ool-jQ-CB6" secondAttribute="trailing" id="D9L-ko-vJD"/>
-                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="top" secondItem="rif-0H-qp3" secondAttribute="top" id="N8Q-Oq-7a8"/>
+                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="leading" secondItem="rif-0H-qp3" secondAttribute="leading" id="ExN-TK-B2T"/>
+                                        <constraint firstAttribute="trailing" secondItem="dev-7c-tLg" secondAttribute="trailing" id="FQy-Bk-hMy"/>
+                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="width" secondItem="dev-7c-tLg" secondAttribute="width" id="GRJ-vb-zc6"/>
+                                        <constraint firstAttribute="bottom" secondItem="yoP-lR-B4q" secondAttribute="bottom" id="Gqd-xk-dT9"/>
+                                        <constraint firstAttribute="bottom" secondItem="dev-7c-tLg" secondAttribute="bottom" id="MAt-fI-Ow2"/>
+                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="trailing" secondItem="yoP-lR-B4q" secondAttribute="leading" id="Nku-lU-OW7"/>
+                                        <constraint firstItem="yoP-lR-B4q" firstAttribute="trailing" secondItem="dev-7c-tLg" secondAttribute="leading" id="Ryd-1c-ntO"/>
+                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="top" secondItem="rif-0H-qp3" secondAttribute="top" id="YYE-Yt-heq"/>
                                         <constraint firstAttribute="trailing" secondItem="16Z-0H-mrW" secondAttribute="trailing" constant="8" id="j9Q-xv-ZBm"/>
-                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="bottom" secondItem="rif-0H-qp3" secondAttribute="bottom" id="vpm-zs-ifP"/>
+                                        <constraint firstAttribute="bottom" secondItem="ool-jQ-CB6" secondAttribute="bottom" id="kjo-q7-waP"/>
+                                        <constraint firstItem="ool-jQ-CB6" firstAttribute="width" secondItem="yoP-lR-B4q" secondAttribute="width" id="ouP-Ch-Olx"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="centerImgView" destination="yoP-lR-B4q" id="Ruz-nH-oni"/>
+                                    <outlet property="leftImgView" destination="ool-jQ-CB6" id="hdN-hK-e8P"/>
                                     <outlet property="nameLabel" destination="16Z-0H-mrW" id="oeh-O7-gu7"/>
-                                    <outlet property="thumbnailView" destination="ool-jQ-CB6" id="6QC-VY-swn"/>
+                                    <outlet property="rightImgView" destination="dev-7c-tLg" id="Q1l-Ew-zNi"/>
                                     <segue destination="1Tt-vS-byu" kind="show" id="a9j-BV-W9R"/>
                                 </connections>
                             </tableViewCell>

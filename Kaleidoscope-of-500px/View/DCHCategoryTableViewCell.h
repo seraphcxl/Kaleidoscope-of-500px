@@ -10,7 +10,9 @@
 
 @interface DCHCategoryTableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *thumbnailView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *leftImgView;
+@property (weak, nonatomic) IBOutlet UIImageView *centerImgView;
+@property (weak, nonatomic) IBOutlet UIImageView *rightImgView;
 
 @end

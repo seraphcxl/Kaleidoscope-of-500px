@@ -48,7 +48,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
     
-    self.tabBarController.navigationItem.title = @"Popular on 500px";
+    self.tabBarController.navigationItem.title = @"500px Gallery";
     self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshGallery)];
     
     // Register cell classes
@@ -94,20 +94,22 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     [super viewDidDisappear:animated];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Private
 - (void)refreshGallery {
     do {
         [NSThread runInMain:^{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        [self.viewModel refreshGallery];
+        [self.viewModel refreshGallery:PXAPIHelperPhotoFeaturePopular];
     } while (NO);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - DCHEventResponder
 - (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {

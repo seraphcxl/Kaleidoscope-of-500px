@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DCHFluxKit/DCHFluxKit.h>
+
+@class DCHCategoryViewModel;
 
 @interface DCHCategoryTableViewController : UITableViewController
+
+@property (nonatomic, strong, readonly) DCHCategoryViewModel *viewModel;
 
 @end

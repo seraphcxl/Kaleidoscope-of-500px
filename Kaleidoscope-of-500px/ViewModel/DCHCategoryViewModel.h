@@ -7,7 +7,12 @@
 //
 
 #import "DCHViewModel.h"
+#import <500px-iOS-api/PXAPI.h>
 
 @interface DCHCategoryViewModel : DCHViewModel
+
+@property (nonatomic, strong, readonly) NSDictionary *models;
+
+- (void)refreshCategory:(PXPhotoModelCategory)category;
 
 @end
