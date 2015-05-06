@@ -48,7 +48,7 @@ static NSString * const reuseIdentifier = @"DCHCategoryTableViewCell";
     
     // Register cell classes
 //    [self.tableView registerClass:[DCHCategoryTableViewCell class] forCellReuseIdentifier:reuseIdentifier];
-    self.tableView.backgroundColor = [UIColor ironColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;

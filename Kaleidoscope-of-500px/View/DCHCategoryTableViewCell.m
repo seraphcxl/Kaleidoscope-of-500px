@@ -49,6 +49,7 @@
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
     do {
         self.categoryModel = categoryModel;
+        self.gradientView.backgroundColor = [UIColor clearColor];
         if (!categoryModel) {
             self.nameLabel.text = @"";
             
@@ -94,9 +95,133 @@
                         }];
                     }
                 }
+//                imgView.hidden = YES;
             }
+            
+//            [self drawGradient];
         }
         
+    } while (NO);
+}
+
+- (void)drawRect:(CGRect)rect {
+    return;
+    do {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGImageRef backgroundimage = CGBitmapContextCreateImage(context);
+        CGContextClearRect(context, rect);
+        //        CGContextDrawImage(context, rect, backgroundimage);
+        
+        // save state
+        CGContextSaveGState(context);
+        
+        // flip the context (right-sideup)
+        CGContextTranslateCTM(context, 0, rect.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        
+        // colors/components/locations
+        CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+        CGFloat black[4] = {0.0f, 0.0f, 0.0f, 0.7f};
+        CGFloat white[4] = {1.0f, 1.0f, 1.0f, 1.0f};//clear
+        
+        CGFloat components[8] = {
+            black[0],black[1],black[2],black[3],
+            white[0],white[1],white[2],white[3],
+            
+        };
+        
+        CGFloat colorLocations[2] = {0.25f, 0.5f};
+        CGGradientRef gradientRef = CGGradientCreateWithColorComponents(colorspace, components, colorLocations, 2);
+        CGPoint startPoint = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+        CGPoint endPoint = CGPointMake(rect.origin.x + rect.size.width / 2, rect.origin.y);
+        CGContextDrawLinearGradient(context, gradientRef, startPoint, endPoint, 0);
+        CGColorSpaceRelease(colorspace);
+        CGContextRestoreGState(context);
+        
+        //convert drawing to image for masking
+        CGImageRef maskImage = CGBitmapContextCreateImage(context);
+        CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskImage),
+                                            CGImageGetHeight(maskImage),
+                                            CGImageGetBitsPerComponent(maskImage),
+                                            CGImageGetBitsPerPixel(maskImage),
+                                            CGImageGetBytesPerRow(maskImage),
+                                            CGImageGetDataProvider(maskImage), NULL, FALSE);
+        
+        
+        //mask the background image
+        CGImageRef masked = CGImageCreateWithMask(backgroundimage, mask);
+        CGImageRelease(backgroundimage);
+        //remove the spotlight gradient now that we have it as image
+        CGContextClearRect(context, rect);
+        
+        //draw the transparent background with the mask
+        CGContextDrawImage(context, rect, masked);
+        
+        CGImageRelease(maskImage);
+        CGImageRelease(mask);
+        CGImageRelease(masked);
+    } while (NO);
+}
+
+- (void)drawGradient {
+    do {
+        CGRect rect = self.gradientView.frame;
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        
+        CGImageRef backgroundimage = CGBitmapContextCreateImage(context);
+        CGContextClearRect(context, rect);
+//        CGContextDrawImage(context, rect, backgroundimage);
+        
+        // save state
+        CGContextSaveGState(context);
+        
+        // flip the context (right-sideup)
+        CGContextTranslateCTM(context, 0, rect.size.height);
+        CGContextScaleCTM(context, 1.0, -1.0);
+        
+        // colors/components/locations
+        CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
+        CGFloat black[4] = {0.0f, 0.0f, 0.0f, 0.7f};
+        CGFloat white[4] = {1.0f, 1.0f, 1.0f, 1.0f};//clear
+        
+        CGFloat components[8] = {
+            black[0],black[1],black[2],black[3],
+            white[0],white[1],white[2],white[3],
+            
+        };
+        
+        CGFloat colorLocations[2] = {0.25f, 0.5f};
+        CGGradientRef gradientRef = CGGradientCreateWithColorComponents(colorspace, components, colorLocations, 2);
+        CGPoint startPoint = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+        CGPoint endPoint = CGPointMake(rect.origin.x + rect.size.width / 2, rect.origin.y);
+        CGContextDrawLinearGradient(context, gradientRef, startPoint, endPoint, 0);
+        CGColorSpaceRelease(colorspace);
+        CGContextRestoreGState(context);
+        
+        //convert drawing to image for masking
+        CGImageRef maskImage = CGBitmapContextCreateImage(context);
+        CGImageRef mask = CGImageMaskCreate(CGImageGetWidth(maskImage),
+                                            CGImageGetHeight(maskImage),
+                                            CGImageGetBitsPerComponent(maskImage),
+                                            CGImageGetBitsPerPixel(maskImage),
+                                            CGImageGetBytesPerRow(maskImage),
+                                            CGImageGetDataProvider(maskImage), NULL, FALSE);
+        
+        
+        //mask the background image
+        CGImageRef masked = CGImageCreateWithMask(backgroundimage, mask);
+        CGImageRelease(backgroundimage);
+        //remove the spotlight gradient now that we have it as image
+        CGContextClearRect(context, rect);
+        
+        //draw the transparent background with the mask
+        CGContextDrawImage(context, rect, masked);
+        
+        CGImageRelease(maskImage);
+        CGImageRelease(mask);
+        CGImageRelease(masked);
     } while (NO);
 }
 

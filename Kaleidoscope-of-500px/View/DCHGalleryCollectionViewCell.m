@@ -36,17 +36,8 @@
     self.backgroundColor = [UIColor darkGrayColor];
     
     // Configure subivews
-    CGRect imageFrame = self.bounds;
-    
-    NSInteger deltaX = imageFrame.size.width / 4;
-    imageFrame.origin.x -= deltaX;
-    imageFrame.size.width += deltaX * 2;
-    
-    NSInteger deltaY = imageFrame.size.height / 4;
-    imageFrame.origin.y -= deltaY;
-    imageFrame.size.height += deltaY * 2;
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    [imageView resetFrameForParallax:DCHParallax_Orientation_Vertial];
     imageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     imageView.contentMode = UIViewContentModeScaleToFill;
     [self.contentView addSubview:imageView];
@@ -64,7 +55,7 @@
         }
         self.photoModel = photoModel;
         
-        [self setParallaxView:self.imageView OnScrollView:scrollView scrollOnView:view];
+        [self setParallaxView:self.imageView forOrientation:DCHParallax_Orientation_Vertial onScrollView:scrollView scrollOnView:view];
         
         self.imageView.image = nil;
         [self.imageView sd_cancelCurrentImageLoad];

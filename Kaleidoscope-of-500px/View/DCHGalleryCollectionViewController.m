@@ -48,8 +48,8 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
     
-    self.tabBarController.navigationItem.title = @"500px Gallery";
-    self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshGallery)];
+    self.navigationItem.title = @"500px Gallery";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshGallery)];
     
     // Register cell classes
     [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];

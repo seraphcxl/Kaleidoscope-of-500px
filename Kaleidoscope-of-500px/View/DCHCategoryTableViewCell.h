@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *leftImgView;
 @property (weak, nonatomic) IBOutlet UIImageView *centerImgView;
 @property (weak, nonatomic) IBOutlet UIImageView *rightImgView;
+@property (weak, nonatomic) IBOutlet UIView *gradientView;
 
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel;
 

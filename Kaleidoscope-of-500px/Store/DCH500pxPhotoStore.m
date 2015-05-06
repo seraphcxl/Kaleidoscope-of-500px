@@ -210,7 +210,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     DCHPhotoModel *model = [[DCHPhotoModel alloc] initWithDictionary:photoDictionary];
                     return model;
                 }];
-                if (models && models.count > 0) {
+                if (models && models.count == count) {
                     DCHCategoryModel *categoryModel = [[DCHCategoryModel alloc] initWithCategory:category andModels:models];
                     [self.categories setObject:categoryModel forKey:@(category)];
                 }
