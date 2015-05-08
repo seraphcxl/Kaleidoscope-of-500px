@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong, readonly) NSDictionary *models;
 
-- (void)refreshCategory:(PXPhotoModelCategory)category;
+- (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category;
 
 @end

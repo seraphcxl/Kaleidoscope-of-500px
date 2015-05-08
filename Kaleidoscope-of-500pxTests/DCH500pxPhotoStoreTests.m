@@ -59,6 +59,17 @@
             DCHDebugLog(@"%@", photoModel);
             XCTAssertNotNil(photoModel.fullsizedURL);
         }];
+        
+        finished = NO;
+        NSURLSessionDataTask *task2 = [store queryPopularCategoryPhotos:PXPhotoModelCategoryLandscapes withCount:3 andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+            finished = YES;
+        } startImmediately:YES];
+        [DCHAsyncTest expect:^BOOL{
+            return [task2 state] == NSURLSessionTaskStateCompleted && finished;
+        } withTimeout:20 andCompletionHandler:^(BOOL promiseResult, NSError *error, NSDictionary *infoDic) {
+            DCHDebugLog(@"%@", store.categories);
+            XCTAssertNotNil(store.categories);
+        }];
     } while (NO);
 }
 

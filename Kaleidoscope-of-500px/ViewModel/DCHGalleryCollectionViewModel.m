@@ -64,10 +64,11 @@
     return result;
 }
 
-- (void)refreshGallery:(PXAPIHelperPhotoFeature)feature {
+- (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature {
+    DCHEventOperationTicket *result = nil;
     do {
         DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature]}];
-        [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
                     NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
@@ -75,6 +76,7 @@
             } while (NO);
         }];
     } while (NO);
+    return result;
 }
 
 @end

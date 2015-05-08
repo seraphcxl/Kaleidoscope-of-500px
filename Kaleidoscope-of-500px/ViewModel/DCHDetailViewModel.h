@@ -18,6 +18,6 @@
 - (instancetype)initWithPhotoModel:(DCHPhotoModel *)photoModel;
 
 - (NSString *)photoName;
-- (void)loadPhotoDetails;
+- (DCHEventOperationTicket *)loadPhotoDetails;
 
 @end

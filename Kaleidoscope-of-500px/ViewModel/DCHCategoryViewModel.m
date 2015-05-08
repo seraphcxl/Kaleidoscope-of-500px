@@ -66,7 +66,8 @@
     return result;
 }
 
-- (void)refreshCategory:(PXPhotoModelCategory)category {
+- (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category {
+    DCHEventOperationTicket *result = nil;
     do {
         if ([self.loadingStatusDic objectForKey:@(category)]) {
             break;
@@ -74,7 +75,7 @@
         [self.loadingStatusDic setObject:@(1) forKey:@(category)];
         @weakify(self)
         DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: @(category)}];
-        [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
             @strongify(self)
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
@@ -84,6 +85,7 @@
             [self.loadingStatusDic removeObjectForKey:@(category)];
         }];
     } while (NO);
+    return result;
 }
 
 @end

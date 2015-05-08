@@ -17,6 +17,7 @@
 #import "DCH500pxPhotoStore.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
 
@@ -49,7 +50,13 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
     
     self.navigationItem.title = @"500px Gallery";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshGallery)];
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        @strongify(self)
+        do {
+            [self refreshGallery];
+        } while (NO);
+    }];
     
     // Register cell classes
     [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];

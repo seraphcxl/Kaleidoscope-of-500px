@@ -16,6 +16,7 @@
 		892E7E6C19E511C8005D1BA7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 892E7E6A19E511C8005D1BA7 /* LaunchScreen.xib */; };
 		892E7E7819E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */; };
 		8D493A271AE279CC00FF4EB2 /* UIView+DCHParallax.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */; };
+		8D50A7A01AFC7B920057EDD2 /* DCH500pxVMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D50A79F1AFC7B920057EDD2 /* DCH500pxVMTests.m */; };
 		8DAC4C971AD4BD5C00C1B80D /* DCH500pxPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */; };
 		8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */; };
 		8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */; };
@@ -65,6 +66,7 @@
 		892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Kaleidoscope_of_500pxTests.m; sourceTree = "<group>"; };
 		8D493A251AE279CC00FF4EB2 /* UIView+DCHParallax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCHParallax.h"; sourceTree = "<group>"; };
 		8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCHParallax.m"; sourceTree = "<group>"; };
+		8D50A79F1AFC7B920057EDD2 /* DCH500pxVMTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxVMTests.m; sourceTree = "<group>"; };
 		8DAC4C951AD4BD5C00C1B80D /* DCH500pxPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxPhotoStore.h; sourceTree = "<group>"; };
 		8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStore.m; sourceTree = "<group>"; };
 		8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStoreTests.m; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */,
 				892E7E7519E511C8005D1BA7 /* Supporting Files */,
 				8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */,
+				8D50A79F1AFC7B920057EDD2 /* DCH500pxVMTests.m */,
 			);
 			path = "Kaleidoscope-of-500pxTests";
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 			files = (
 				8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */,
 				892E7E7819E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m in Sources */,
+				8D50A7A01AFC7B920057EDD2 /* DCH500pxVMTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

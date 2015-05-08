@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong, readonly) NSArray *models;
 
-- (void)refreshGallery:(PXAPIHelperPhotoFeature)feature;
+- (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature;
 
 @end
