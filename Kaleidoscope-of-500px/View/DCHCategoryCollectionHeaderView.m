@@ -34,9 +34,10 @@
         self.categoryModel = categoryModel;
         self.titleLabel.text = @"";
         if (self.categoryModel) {
+            self.hidden = NO;
             self.titleLabel.text = [DCHCategoryModel description4Category:self.categoryModel.category];
         } else {
-            ;
+            self.hidden = YES;
         }
     } while (NO);
 }

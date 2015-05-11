@@ -32,6 +32,11 @@
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
     do {
         self.categoryModel = categoryModel;
+        if (self.categoryModel) {
+            self.hidden = NO;
+        } else {
+            self.hidden = YES;
+        }
     } while (NO);
 }
 @end
