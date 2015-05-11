@@ -37,21 +37,18 @@
     return self;
 }
 
-- (BOOL)respondEvent:(id<DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
     BOOL result = NO;
     do {
         if (event == nil) {
             break;
         }
-        self.inputEvent = event;
-        self.outputEvent = event;
-        
-        if ([[self.inputEvent domain] isEqualToString:DCHDisplayEventDomain]) {
-            switch ([self.inputEvent code]) {
+        if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
+            switch ([event code]) {
                 case DCDisplayEventCode_RefreshFeaturedPhotos:
                 {
                     self.models = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].photoModels;
-                    [self emitChange];
+                    [self emitChangeWithEvent:event];
                     result = YES;
                 }
                     break;
@@ -59,6 +56,9 @@
                 default:
                     break;
             }
+        }
+        if (completionHandler) {
+            completionHandler(self, event, nil);
         }
     } while (NO);
     return result;
@@ -68,10 +68,10 @@
     DCHEventOperationTicket *result = nil;
     do {
         DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature]}];
-        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
-                    NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                    NSLog(@"queryFeaturedPhotosEvent complte in %@", NSStringFromSelector(_cmd));
                 }
             } while (NO);
         }];

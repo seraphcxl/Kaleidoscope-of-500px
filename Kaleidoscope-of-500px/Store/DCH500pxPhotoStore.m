@@ -17,6 +17,8 @@
 #import "DCH500pxEvent.h"
 #import "DCHCategoryModel.h"
 
+const NSUInteger DCH500pxPhotoStore_QueryPhotoCategory_PhotoCount = 10;
+
 @interface DCH500pxPhotoStore ()
 
 @property (nonatomic, strong) NSArray *photoModels;
@@ -28,33 +30,33 @@
 
 DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
 
-- (BOOL)respondEvent:(id<DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
     BOOL result = NO;
     do {
-        if (event == nil) {
+        if (event == nil || ![event isKindOfClass:[DCH500pxEvent class]]) {
             break;
         }
-        self.inputEvent = event;
-        self.outputEvent = event;
-        
-        if ([[self.inputEvent domain] isEqualToString:DCH500pxEventDomain]) {
-            switch ([self.inputEvent code]) {
+        id <DCHEvent> outputEvent = [(DCH500pxEvent *)event copy];
+        @weakify(self);
+        if ([[outputEvent domain] isEqualToString:DCH500pxEventDomain]) {
+            switch ([outputEvent code]) {
                 case DC500pxEventCode_QueryFeaturedPhotos:
                 {
-                    if (![self.inputEvent payload]) {
+                    if (![event payload]) {
                         break;
                     }
                     PXAPIHelperPhotoFeature feature = PXAPIHelperPhotoFeaturePopular;
-                    NSDictionary *payloadDic = (NSDictionary *)[self.inputEvent payload];
+                    NSDictionary *payloadDic = (NSDictionary *)[outputEvent payload];
                     feature = [payloadDic[DC500pxEventCode_QueryFeaturedPhotos_kFeature] integerValue];
                     [self queryPhotosByFeature:feature withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        @strongify(self);
                         do {
                             if (completionHandler) {
-                                completionHandler(self, self.outputEvent, nil);
+                                completionHandler(self, outputEvent, nil);
                             }
                             
                             DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshFeaturedPhotos andPayload:nil];
-                            [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                            [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
                                 } while (NO);
@@ -66,18 +68,19 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     break;
                 case DC500pxEventCode_QueryPhotoDetails:
                 {
-                    if (![event payload]) {
+                    if (![outputEvent payload]) {
                         break;
                     }
-                    DCHPhotoModel *photoModel = [event payload][DC500pxEventCode_QueryPhotoDetails_kPhotoModel];
+                    DCHPhotoModel *photoModel = [outputEvent payload][DC500pxEventCode_QueryPhotoDetails_kPhotoModel];
                     [self queryPhotoDetails:photoModel withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        @strongify(self);
                         do {
                             if (completionHandler) {
-                                completionHandler(self, self.outputEvent, nil);
+                                completionHandler(self, outputEvent, nil);
                             }
                             
                             DCHDisplayEvent *refreshPhotoDetailsEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoDetails andPayload:@{DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel: photoModel}];
-                            [self emitChangeWithEvent:refreshPhotoDetailsEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                            [self emitChangeWithEvent:refreshPhotoDetailsEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPhotoDetailsEvent complte in %@", NSStringFromSelector(_cmd));
                                 } while (NO);
@@ -89,20 +92,21 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     break;
                 case DC500pxEventCode_QueryPhotoCategory:
                 {
-                    if (![event payload]) {
+                    if (![outputEvent payload]) {
                         break;
                     }
                     PXPhotoModelCategory category = PXPhotoModelCategoryUncategorized;
-                    NSDictionary *payloadDic = (NSDictionary *)[self.inputEvent payload];
+                    NSDictionary *payloadDic = (NSDictionary *)[outputEvent payload];
                     category = [payloadDic[DC500pxEventCode_QueryPhotoCategory_kCategory] integerValue];
-                    [self queryPopularCategoryPhotos:category withCount:3 andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                    [self queryPopularCategoryPhotos:category withCount:DCH500pxPhotoStore_QueryPhotoCategory_PhotoCount andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                        @strongify(self);
                         do {
                             if (completionHandler) {
-                                completionHandler(self, self.outputEvent, nil);
+                                completionHandler(self, outputEvent, nil);
                             }
                             
                             DCHDisplayEvent *refreshPhotoCategoryEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshPhotoCategory andPayload:@{DCDisplayEventCode_RefreshPhotoCategory_kCategory: @(category)}];
-                            [self emitChangeWithEvent:refreshPhotoCategoryEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+                            [self emitChangeWithEvent:refreshPhotoCategoryEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPhotoCategoryEvent complte in %@", NSStringFromSelector(_cmd));
                                 } while (NO);
@@ -210,7 +214,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                     DCHPhotoModel *model = [[DCHPhotoModel alloc] initWithDictionary:photoDictionary];
                     return model;
                 }];
-                if (models && models.count == count) {
+                if (models) {
                     DCHCategoryModel *categoryModel = [[DCHCategoryModel alloc] initWithCategory:category andModels:models];
                     [self.categories setObject:categoryModel forKey:@(category)];
                 }

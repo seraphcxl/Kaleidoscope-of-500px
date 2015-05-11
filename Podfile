@@ -13,6 +13,8 @@ pod 'pop', '~> 1.0.7'
 pod 'AsyncDisplayKit', '~> 1.1.1'
 pod 'RXCollections', '~> 1.0'
 pod 'SDWebImage', '~> 3.7.2'
+pod 'CHTCollectionViewWaterfallLayout', '~> 0.9.1'
+pod 'KVOController', '~> 1.0.3'
 
 end
 

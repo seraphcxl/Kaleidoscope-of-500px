@@ -10,7 +10,7 @@
 
 @implementation DCHDisplayEventCreater
 
-+ (id <DCHEvent>)createEventWithDomain:(NSString *)domain code:(NSUInteger)code mainThreadRequired:(BOOL)mainThreadRequired runningType:(DCHEventRunningType)runningType andPayload:(id<NSCopying>)payload {
++ (id <DCHEvent>)createEventWithDomain:(NSString *)domain code:(NSUInteger)code mainThreadRequired:(BOOL)mainThreadRequired runningType:(DCHEventRunningType)runningType andPayload:(id <NSCopying>)payload {
     id <DCHEvent> result = nil;
     do {
         result = [[DCHDisplayEvent alloc] initWithDomain:domain code:code mainThreadRequired:mainThreadRequired runningType:runningType andPayload:payload];
@@ -18,7 +18,7 @@
     return result;
 }
 
-+ (id <DCHEvent>)createDisplayEventByCode:(DCDisplayEventCode)code andPayload:(id<NSCopying>)payload {
++ (id <DCHEvent>)createDisplayEventByCode:(DCDisplayEventCode)code andPayload:(id <NSCopying>)payload {
     return [self createEventWithDomain:DCHDisplayEventDomain code:code mainThreadRequired:YES runningType:DCHEventRunningType_Serial andPayload:payload];
 }
 
