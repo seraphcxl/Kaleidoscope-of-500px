@@ -13,16 +13,73 @@
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-- (void)setParallaxView:(UIView *)parallaxView OnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+- (void)resetFrameForParallax:(DCHParallax_Orientation)orientation {
+    do {
+        CGRect frame = self.bounds;
+        
+        BOOL needCalcX = NO;
+        BOOL needCalcY = NO;
+        
+        switch (orientation) {
+            case DCHParallax_Orientation_Both:
+            { needCalcX = needCalcY = YES; }
+                break;
+            case DCHParallax_Orientation_Horizontal:
+            { needCalcX = YES; }
+                break;
+            case DCHParallax_Orientation_Vertial:
+            { needCalcY = YES; }
+                break;
+            default:
+                break;
+        }
+        
+        if (needCalcX) {
+            NSInteger deltaX = frame.size.width / 4;
+            frame.origin.x -= deltaX;
+            frame.size.width += deltaX * 2;
+        }
+        if (needCalcY) {
+            NSInteger deltaY = frame.size.height / 4;
+            frame.origin.y -= deltaY;
+            frame.size.height += deltaY * 2;
+        }
+        
+        self.frame = frame;
+    } while (NO);
+}
+
+- (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
     do {
         if (!parallaxView || !scrollView || !view) {
             break;
         }
         [self setParallaxView:parallaxView];
         
+        BOOL needCalcX = NO;
+        BOOL needCalcY = NO;
+        
+        switch (orientation) {
+            case DCHParallax_Orientation_Both:
+            { needCalcX = needCalcY = YES; }
+                break;
+            case DCHParallax_Orientation_Horizontal:
+            { needCalcX = YES; }
+                break;
+            case DCHParallax_Orientation_Vertial:
+            { needCalcY = YES; }
+                break;
+            default:
+                break;
+        }
+        
         CGRect parallaxViewRect = parallaxView.frame;
-        parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
-        parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
+        if (needCalcX) {
+            parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
+        }
+        if (needCalcY) {
+            parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
+        }
         parallaxView.frame = parallaxViewRect;
     } while (NO);
 }

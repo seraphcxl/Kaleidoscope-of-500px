@@ -17,8 +17,11 @@
 #import "DCH500pxPhotoStore.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
+
+const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 
 @interface DCHGalleryCollectionViewController ()
 
@@ -46,12 +49,25 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
     
-    self.title = @"Popular on 500px";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refreshGallery)];
+    self.navigationItem.title = @"500px Gallery";
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        @strongify(self)
+        do {
+            [self refreshGallery];
+        } while (NO);
+    }];
     
     // Register cell classes
     [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
     self.collectionView.backgroundColor = [UIColor ironColor];
+    
+    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
+        layout.itemSize = CGSizeMake(imgSize, imgSize);
+    }
+    
     // Do any additional setup after loading the view.
 }
 
@@ -65,7 +81,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        if (self.viewModel.model.count == 0) {
+        if (self.viewModel.models.count == 0) {
             [self refreshGallery];
         }
     } while (NO);
@@ -85,20 +101,22 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     [super viewDidDisappear:animated];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Private
 - (void)refreshGallery {
     do {
         [NSThread runInMain:^{
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        [self.viewModel refreshGallery];
+        [self.viewModel refreshGallery:PXAPIHelperPhotoFeaturePopular];
     } while (NO);
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - DCHEventResponder
 - (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
@@ -110,7 +128,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         
         if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
             switch ([event code]) {
-                case DCDisplayEventCode_RefreshPopularPhotos:
+                case DCDisplayEventCode_RefreshFeaturedPhotos:
                 {
                     @weakify(self);
                     [NSThread runInMain:^{
@@ -149,15 +167,15 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 //#warning Incomplete method implementation -- Return the number of items in the section
-    NSLog(@"CollectionView count: %lu", (unsigned long)self.viewModel.model.count);
-    return self.viewModel.model.count;
+    NSLog(@"CollectionView count: %lu", (unsigned long)self.viewModel.models.count);
+    return self.viewModel.models.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     DCHGalleryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    [cell refreshWithPhotoModel:self.viewModel.model[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -169,7 +187,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.model initialPhotoIndex:indexPath.item];
+        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.item];
         DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
         [self.navigationController pushViewController:fullSizeVC animated:YES];
     } while (NO);

@@ -9,11 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+DCHAssociatedObjectExtension.h"
 
+typedef NS_ENUM(NSUInteger, DCHParallax_Orientation) {
+    DCHParallax_Orientation_Both,
+    DCHParallax_Orientation_Horizontal,
+    DCHParallax_Orientation_Vertial,
+};
+
 @interface UIView (DCHParallax)
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_HEADER(ParallaxView)
 
-- (void)setParallaxView:(UIView *)parallaxView OnScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
+- (void)resetFrameForParallax:(DCHParallax_Orientation)orientation;
+
+- (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 
 - (void)parallaxViewOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view;
 

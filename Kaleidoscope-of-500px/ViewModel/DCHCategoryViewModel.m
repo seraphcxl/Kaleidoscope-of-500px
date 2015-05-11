@@ -1,12 +1,12 @@
 //
-//  DCHGalleryCollectionViewModel.m
+//  DCHCategoryViewModel.m
 //  Kaleidoscope-of-500px
 //
-//  Created by Derek Chen on 4/8/15.
+//  Created by Derek Chen on 4/20/15.
 //  Copyright (c) 2015 Derek Chen. All rights reserved.
 //
 
-#import "DCHGalleryCollectionViewModel.h"
+#import "DCHCategoryViewModel.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxPhotoStore.h"
 #import <libextobjc/EXTScope.h>
@@ -14,13 +14,14 @@
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 
-@interface DCHGalleryCollectionViewModel ()
+@interface DCHCategoryViewModel ()
 
-@property (nonatomic, strong) NSArray *models;
+@property (nonatomic, strong) NSDictionary *models;
+@property (nonatomic, strong) NSMutableDictionary *loadingStatusDic;
 
 @end
 
-@implementation DCHGalleryCollectionViewModel
+@implementation DCHCategoryViewModel
 
 - (void)dealloc {
     do {
@@ -32,7 +33,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshFeaturedPhotos];
+        [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshPhotoCategory];
+        self.loadingStatusDic = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -48,9 +50,9 @@
         
         if ([[self.inputEvent domain] isEqualToString:DCHDisplayEventDomain]) {
             switch ([self.inputEvent code]) {
-                case DCDisplayEventCode_RefreshFeaturedPhotos:
+                case DCDisplayEventCode_RefreshPhotoCategory:
                 {
-                    self.models = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].photoModels;
+                    self.models = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].categories;
                     [self emitChange];
                     result = YES;
                 }
@@ -64,16 +66,23 @@
     return result;
 }
 
-- (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature {
+- (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category {
     DCHEventOperationTicket *result = nil;
     do {
-        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature]}];
-        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+        if ([self.loadingStatusDic objectForKey:@(category)]) {
+            break;
+        }
+        [self.loadingStatusDic setObject:@(1) forKey:@(category)];
+        @weakify(self)
+        DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: @(category)}];
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+            @strongify(self)
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
                     NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
                 }
             } while (NO);
+            [self.loadingStatusDic removeObjectForKey:@(category)];
         }];
     } while (NO);
     return result;
