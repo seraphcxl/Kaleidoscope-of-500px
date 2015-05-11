@@ -9,6 +9,7 @@
 #import "DCHCategoryCollectionViewController.h"
 #import "DCHCategoryViewModel.h"
 #import "DCHCategoryModel.h"
+#import "DCHPhotoModel.h"
 #import "DCH500pxEventCreater.h"
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
@@ -50,15 +51,16 @@
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHCategoryCollectionViewCell cellIdentifier]];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DCHCategoryCollectionHeaderView class]) bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader withReuseIdentifier:NSStringFromClass([DCHCategoryCollectionHeaderView class])];
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([DCHCategoryCollectionFooterView class]) bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter withReuseIdentifier:NSStringFromClass([DCHCategoryCollectionFooterView class])];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
     // Do any additional setup after loading the view.
     self.collectionView.backgroundColor = [UIColor ironColor];
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
     layout.columnCount = 2;
     layout.minimumColumnSpacing = 4;
     layout.minimumInteritemSpacing = 4;
-    layout.minimumContentHeight = 96;
+    layout.sectionInset = UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f);
+//    layout.minimumContentHeight = 96;
     layout.headerHeight = 32;
     layout.footerHeight = 16;
     self.collectionView.collectionViewLayout = layout;
@@ -138,7 +140,7 @@
     DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
     if (model) {
         DCHPhotoModel *photoModel = nil;
-        DCHArraySafeRead(model.models, indexPath.row, photoModel);
+        DCHArraySafeRead(model.models, indexPath.item, photoModel);
         [cell refreshWithPhotoModel:photoModel];
     } else {
         ;
@@ -149,10 +151,15 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionReusableView *result = nil;
     do {
+        DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
         if ([kind isEqualToString:CHTCollectionElementKindSectionHeader]) {
-            result = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass([DCHCategoryCollectionHeaderView class]) forIndexPath:indexPath];
+            DCHCategoryCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier] forIndexPath:indexPath];
+            [headerView refreshWithCategoryModel:model];
+            result = headerView;
         } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
-            result = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:NSStringFromClass([DCHCategoryCollectionFooterView class]) forIndexPath:indexPath];
+            DCHCategoryCollectionFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier] forIndexPath:indexPath];
+            [footerView refreshWithCategoryModel:model];
+            result = footerView;
         } else {
             NSAssert(0, @"Not allowed!");
         }
@@ -229,7 +236,23 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGSize result = CGSizeZero;
     do {
-        ;
+        if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+            break;
+        }
+        DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+        if (model) {
+            DCHPhotoModel *photoModel = nil;
+            DCHArraySafeRead(model.models, indexPath.item, photoModel);
+            if (photoModel) {
+                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing - layout.sectionInset.left - layout.sectionInset.right) / 2.0f;
+                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+                result = CGSizeMake(width, height);
+            }
+        } else {
+            ;
+        }
+        
     } while (NO);
     return result;
 }

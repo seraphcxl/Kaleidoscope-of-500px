@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class DCHCategoryModel;
+
 @interface DCHCategoryCollectionHeaderView : UICollectionReusableView
+
++ (NSString *)viewlIdentifier;
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+- (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel;
 
 @end

@@ -35,6 +35,8 @@
         }
         self.photoName = dictionary[@"name"];
         self.identifier = dictionary[@"id"];
+        self.width = dictionary[@"width"];
+        self.height = dictionary[@"height"];
         self.photographerName = dictionary[@"user"][@"username"];
         self.rating = dictionary[@"rating"];
         

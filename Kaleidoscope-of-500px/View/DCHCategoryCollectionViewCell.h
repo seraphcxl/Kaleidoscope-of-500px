@@ -14,6 +14,8 @@
 
 + (NSString *)cellIdentifier;
 
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
+
 - (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel;
 
 @end

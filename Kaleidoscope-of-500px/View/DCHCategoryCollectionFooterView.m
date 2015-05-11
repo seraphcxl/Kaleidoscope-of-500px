@@ -7,11 +7,31 @@
 //
 
 #import "DCHCategoryCollectionFooterView.h"
+#import "DCHCategoryModel.h"
+
+@interface DCHCategoryCollectionFooterView ()
+
+@property (nonatomic, strong) DCHCategoryModel *categoryModel;
+
+@end
 
 @implementation DCHCategoryCollectionFooterView
+
++ (NSString *)viewlIdentifier {
+    return NSStringFromClass([self class]);
+}
+
+- (void)dealloc {
+    self.categoryModel = nil;
+}
 
 - (void)awakeFromNib {
     // Initialization code
 }
 
+- (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
+    do {
+        self.categoryModel = categoryModel;
+    } while (NO);
+}
 @end

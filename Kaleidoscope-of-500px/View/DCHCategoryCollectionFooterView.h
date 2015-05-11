@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class DCHCategoryModel;
+
 @interface DCHCategoryCollectionFooterView : UICollectionReusableView
+
++ (NSString *)viewlIdentifier;
+
+- (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel;
 
 @end

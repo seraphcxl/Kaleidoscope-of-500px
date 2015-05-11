@@ -12,6 +12,8 @@
 
 @property (nonatomic, copy) NSString *photoName;
 @property (nonatomic, copy) NSNumber *identifier;
+@property (nonatomic, copy) NSNumber *width;
+@property (nonatomic, copy) NSNumber *height;
 @property (nonatomic, copy) NSString *photographerName;
 @property (nonatomic, copy) NSNumber *rating;
 @property (nonatomic, copy) NSString *thumbnailURL;
