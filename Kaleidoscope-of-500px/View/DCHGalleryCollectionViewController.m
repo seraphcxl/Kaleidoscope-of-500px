@@ -63,16 +63,10 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
     self.collectionView.backgroundColor = [UIColor ironColor];
     
-//    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-//        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-//        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
-//        layout.itemSize = CGSizeMake(imgSize, imgSize);
-//    }
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
     layout.columnCount = 2;
     layout.minimumColumnSpacing = 8;
     layout.minimumInteritemSpacing = 8;
-    layout.minimumContentHeight = 8;
     layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
     self.collectionView.collectionViewLayout = layout;
     // Do any additional setup after loading the view.

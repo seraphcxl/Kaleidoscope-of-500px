@@ -21,9 +21,12 @@
 #import "DCHCategoryCollectionFooterView.h"
 #import <Tourbillon/DCHTourbillon.h>
 #import <libextobjc/EXTScope.h>
-#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import "UIView+DCHParallax.h"
+//#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 
-@interface DCHCategoryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
+const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
+
+@interface DCHCategoryCollectionViewController ()
 
 @property (nonatomic, strong) DCHCategoryViewModel *viewModel;
 
@@ -51,19 +54,21 @@
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
-    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
-    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
     // Do any additional setup after loading the view.
     self.collectionView.backgroundColor = [UIColor ironColor];
-    CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-    layout.columnCount = 2;
-    layout.minimumColumnSpacing = 4;
-    layout.minimumInteritemSpacing = 4;
-    layout.sectionInset = UIEdgeInsetsMake(0.0f, 8.0f, 0.0f, 8.0f);
-//    layout.minimumContentHeight = 96;
-    layout.headerHeight = 32;
-    layout.footerHeight = 16;
-    self.collectionView.collectionViewLayout = layout;
+    
+    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+        layout.minimumInteritemSpacing = 8;
+        layout.minimumLineSpacing = 8;
+        layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+        layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 32);
+        layout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 8);
+        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHCategoryCollectionViewController_kCountInLine;
+        layout.itemSize = CGSizeMake(imgSize, imgSize);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -141,7 +146,7 @@
     if (model) {
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
-        [cell refreshWithPhotoModel:photoModel];
+        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     } else {
         ;
     }
@@ -152,11 +157,11 @@
     UICollectionReusableView *result = nil;
     do {
         DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
-        if ([kind isEqualToString:CHTCollectionElementKindSectionHeader]) {
+        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
             DCHCategoryCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier] forIndexPath:indexPath];
             [headerView refreshWithCategoryModel:model];
             result = headerView;
-        } else if ([kind isEqualToString:CHTCollectionElementKindSectionFooter]) {
+        } else if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
             DCHCategoryCollectionFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier] forIndexPath:indexPath];
             [footerView refreshWithCategoryModel:model];
             result = footerView;
@@ -168,7 +173,14 @@
 }
 
 #pragma mark <UICollectionViewDelegate>
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    do {
+        NSArray *cells = [self.collectionView visibleCells];
+        for (DCHImageCollectionViewCell *cell in cells) {
+            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+        }
+    } while (NO);
+}
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -233,28 +245,28 @@
 }
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGSize result = CGSizeZero;
-    do {
-        if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
-            break;
-        }
-        DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
-        if (model) {
-            DCHPhotoModel *photoModel = nil;
-            DCHArraySafeRead(model.models, indexPath.item, photoModel);
-            if (photoModel) {
-                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
-                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing - layout.sectionInset.left - layout.sectionInset.right) / 2.0f;
-                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-                result = CGSizeMake(width, height);
-            }
-        } else {
-            ;
-        }
-        
-    } while (NO);
-    return result;
-}
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    CGSize result = CGSizeZero;
+//    do {
+//        if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+//            break;
+//        }
+//        DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+//        if (model) {
+//            DCHPhotoModel *photoModel = nil;
+//            DCHArraySafeRead(model.models, indexPath.item, photoModel);
+//            if (photoModel) {
+//                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+//                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing - layout.sectionInset.left - layout.sectionInset.right) / 2.0f;
+//                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+//                result = CGSizeMake(width, height);
+//            }
+//        } else {
+//            ;
+//        }
+//        
+//    } while (NO);
+//    return result;
+//}
 
 @end

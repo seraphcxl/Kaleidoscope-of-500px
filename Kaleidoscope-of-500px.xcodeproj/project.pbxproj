@@ -26,7 +26,6 @@
 		8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE51AD53D4300C1B80D /* DCH500pxEventCreater.m */; };
 		8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */; };
 		8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4CEE1AD5503000C1B80D /* DCH500pxDispatcher.m */; };
-		8DB2608F1B008774008B69D3 /* DCHCategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB2608E1B008774008B69D3 /* DCHCategoryTableViewCell.m */; };
 		8DB260921B0087CA008B69D3 /* DCHCategoryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB260911B0087CA008B69D3 /* DCHCategoryCollectionViewController.m */; };
 		8DB2609B1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB260991B008A55008B69D3 /* DCHCategoryCollectionHeaderView.m */; };
 		8DB2609C1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DB2609A1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.xib */; };
@@ -39,7 +38,6 @@
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
-		8DDE72D71AE51626004EA153 /* DCHCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
 		8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */; };
 /* End PBXBuildFile section */
@@ -90,8 +88,6 @@
 		8DAC4CE81AD53DC300C1B80D /* DCH500pxEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxEvent.m; sourceTree = "<group>"; };
 		8DAC4CED1AD5503000C1B80D /* DCH500pxDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxDispatcher.h; sourceTree = "<group>"; };
 		8DAC4CEE1AD5503000C1B80D /* DCH500pxDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxDispatcher.m; sourceTree = "<group>"; };
-		8DB2608D1B008774008B69D3 /* DCHCategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryTableViewCell.h; sourceTree = "<group>"; };
-		8DB2608E1B008774008B69D3 /* DCHCategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryTableViewCell.m; sourceTree = "<group>"; };
 		8DB260901B0087CA008B69D3 /* DCHCategoryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryCollectionViewController.h; sourceTree = "<group>"; };
 		8DB260911B0087CA008B69D3 /* DCHCategoryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryCollectionViewController.m; sourceTree = "<group>"; };
 		8DB260981B008A55008B69D3 /* DCHCategoryCollectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryCollectionHeaderView.h; sourceTree = "<group>"; };
@@ -113,8 +109,6 @@
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
 		8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		8DDE72D51AE51626004EA153 /* DCHCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryTableViewController.h; sourceTree = "<group>"; };
-		8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryTableViewController.m; sourceTree = "<group>"; };
 		8DDE72DC1AE51BD4004EA153 /* DCHCategoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryViewModel.h; sourceTree = "<group>"; };
 		8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryViewModel.m; sourceTree = "<group>"; };
 		8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryModel.h; sourceTree = "<group>"; };
@@ -339,10 +333,6 @@
 		8DDE72D41AE515DF004EA153 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				8DB2608D1B008774008B69D3 /* DCHCategoryTableViewCell.h */,
-				8DB2608E1B008774008B69D3 /* DCHCategoryTableViewCell.m */,
-				8DDE72D51AE51626004EA153 /* DCHCategoryTableViewController.h */,
-				8DDE72D61AE51626004EA153 /* DCHCategoryTableViewController.m */,
 				8DB260901B0087CA008B69D3 /* DCHCategoryCollectionViewController.h */,
 				8DB260911B0087CA008B69D3 /* DCHCategoryCollectionViewController.m */,
 				8DB260981B008A55008B69D3 /* DCHCategoryCollectionHeaderView.h */,
@@ -565,8 +555,6 @@
 				8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */,
 				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
-				8DB2608F1B008774008B69D3 /* DCHCategoryTableViewCell.m in Sources */,
-				8DDE72D71AE51626004EA153 /* DCHCategoryTableViewController.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,
 			);
