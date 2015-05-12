@@ -46,9 +46,11 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                         break;
                     }
                     PXAPIHelperPhotoFeature feature = PXAPIHelperPhotoFeaturePopular;
+                    NSUInteger page = 0;
                     NSDictionary *payloadDic = (NSDictionary *)[outputEvent payload];
                     feature = [payloadDic[DC500pxEventCode_QueryFeaturedPhotos_kFeature] integerValue];
-                    [self queryPhotosByFeature:feature withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+                    page = [payloadDic[DC500pxEventCode_QueryFeaturedPhotos_kPage] unsignedIntegerValue];
+                    [self queryPhotosByFeature:feature withPage:page andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
                         @strongify(self);
                         do {
                             if (completionHandler) {
@@ -122,10 +124,10 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
     return result;
 }
 
-- (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
+- (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withPage:(NSUInteger)page andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
     NSURLSessionDataTask *result = nil;
     do {
-        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:feature resultsPerPage:kPXAPIHelperMaximumResultsPerPage page:0 photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:feature resultsPerPage:kPXAPIHelperMaximumResultsPerPage page:page photoSizes:PXPhotoModelSizeThumbnail sortOrder:PXAPIHelperSortOrderRating];
         @weakify(self);
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);

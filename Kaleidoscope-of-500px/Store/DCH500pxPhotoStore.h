@@ -22,7 +22,7 @@ DCH_DEFINE_SINGLETON_FOR_HEADER(DCH500pxPhotoStore)
 @property (nonatomic, strong, readonly) NSArray *photoModels;
 @property (nonatomic, strong, readonly) NSMutableDictionary *categories;
 
-- (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
+- (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withPage:(NSUInteger)page andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
 - (NSURLSessionDataTask *)queryPhotoDetails:(DCHPhotoModel *)photoModel withCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
 - (NSURLSessionDataTask *)queryPopularCategoryPhotos:(PXPhotoModelCategory)category withCount:(NSUInteger)count andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
 

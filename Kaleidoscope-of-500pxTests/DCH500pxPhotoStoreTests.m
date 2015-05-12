@@ -38,7 +38,7 @@
     do {
         DCH500pxPhotoStore *store = [[DCH500pxPhotoStore alloc] init];
         __block BOOL finished = NO;
-        NSURLSessionDataTask *task = [store queryPhotosByFeature:PXAPIHelperPhotoFeaturePopular withCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
+        NSURLSessionDataTask *task = [store queryPhotosByFeature:PXAPIHelperPhotoFeaturePopular withPage:0 andCompletionHandler:^(DCH500pxPhotoStore *store, NSError *error) {
             finished = YES;
         } startImmediately:YES];
         [DCHAsyncTest expect:^BOOL{

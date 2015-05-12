@@ -13,6 +13,7 @@
 #import "DCH500pxEventCreater.h"
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
+#import "DCHCategoryModel.h"
 
 @interface DCHCategoryViewModel ()
 
@@ -86,6 +87,17 @@
         }];
     } while (NO);
     return result;
+}
+
+- (void)setNeedRefreshCategories {
+    do {
+        [self.models enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            do {
+                DCHCategoryModel *categoryModel = (DCHCategoryModel *)obj;
+                categoryModel.needRefresh = YES;
+            } while (NO);
+        }];
+    } while (NO);
 }
 
 @end

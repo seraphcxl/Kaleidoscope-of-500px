@@ -25,12 +25,15 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 
 @interface DCHCategoryCollectionViewController ()
 
 @property (nonatomic, strong) DCHCategoryViewModel *viewModel;
+
+- (void)refreshCategories;
 
 @end
 
@@ -49,7 +52,13 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     self.viewModel = [[DCHCategoryViewModel alloc] init];
     
     self.navigationItem.title = @"500px Categories";
-    self.navigationItem.rightBarButtonItem = nil;
+    @weakify(self)
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        @strongify(self)
+        do {
+            [self refreshCategories];
+        } while (NO);
+    }];
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -132,13 +141,17 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
         if (collectionView != self.collectionView) {
             break;
         }
+        BOOL needRefresh = NO;
         DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][section]];
         if (model) {
             result = model.models.count;
+            needRefresh = model.needRefresh;
         } else {
+            needRefresh = YES;
+        }
+        if (needRefresh) {
             [self.viewModel refreshCategory:[[DCHCategoryModel categories][section] integerValue]];
         }
-        
     } while (NO);
     return result;
 }
@@ -262,6 +275,18 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
         }
     } while (NO);
     return result;
+}
+
+#pragma mark - Private
+- (void)refreshCategories {
+    do {
+        [self.viewModel setNeedRefreshCategories];
+        @weakify(self);
+        [NSThread runInMain:^{
+            @strongify(self);
+            [self.collectionView reloadData];
+        }];
+    } while (NO);
 }
 
 #pragma mark - CHTCollectionViewDelegateWaterfallLayout

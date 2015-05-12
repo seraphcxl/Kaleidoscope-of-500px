@@ -12,7 +12,9 @@
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
 @property (nonatomic, strong, readonly) NSArray *models;
+@property (nonatomic, assign, readonly) NSUInteger currentPage;
 
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature;
+- (DCHEventOperationTicket *)loadMoreGallery:(PXAPIHelperPhotoFeature)feature;
 
 @end

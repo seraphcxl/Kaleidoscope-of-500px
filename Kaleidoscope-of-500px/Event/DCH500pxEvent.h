@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, DC500pxEventCode) {
 
 #pragma mark - DC500pxEventCode_QueryFeaturedPhotos
 extern NSString * const DC500pxEventCode_QueryFeaturedPhotos_kFeature;
+extern NSString * const DC500pxEventCode_QueryFeaturedPhotos_kPage;
 
 #pragma mark - DC500pxEventCode_QueryPhotoDetails
 extern NSString * const DC500pxEventCode_QueryPhotoDetails_kPhotoModel;

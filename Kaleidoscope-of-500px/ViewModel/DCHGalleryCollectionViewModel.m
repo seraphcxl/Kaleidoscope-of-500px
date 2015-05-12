@@ -17,6 +17,7 @@
 @interface DCHGalleryCollectionViewModel ()
 
 @property (nonatomic, strong) NSArray *models;
+@property (nonatomic, assign) NSUInteger currentPage;
 
 @end
 
@@ -32,6 +33,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        self.currentPage = 0;
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshFeaturedPhotos];
     }
     return self;
@@ -67,7 +69,8 @@
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature {
     DCHEventOperationTicket *result = nil;
     do {
-        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature]}];
+        self.currentPage = 0;
+        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature], DC500pxEventCode_QueryFeaturedPhotos_kPage: [NSString stringWithFormat:@"%ld", (long)0]}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
@@ -79,4 +82,19 @@
     return result;
 }
 
+- (DCHEventOperationTicket *)loadMoreGallery:(PXAPIHelperPhotoFeature)feature {
+    DCHEventOperationTicket *result = nil;
+    do {
+        ++self.currentPage;
+        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature], DC500pxEventCode_QueryFeaturedPhotos_kPage: [NSString stringWithFormat:@"%ld", (long)self.currentPage]}];
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
+            do {
+                if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
+                    NSLog(@"queryFeaturedPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                }
+            } while (NO);
+        }];
+    } while (NO);
+    return result;
+}
 @end

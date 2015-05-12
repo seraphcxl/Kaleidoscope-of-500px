@@ -14,5 +14,6 @@
 @property (nonatomic, strong, readonly) NSDictionary *models;
 
 - (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category;
+- (void)setNeedRefreshCategories;
 
 @end
