@@ -23,14 +23,17 @@
 #import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 #import "DCHImageCollectionViewCell.h"
 #import "UIView+DCHParallax.h"
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
 const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
+@property (nonatomic, assign) PXAPIHelperPhotoFeature feature;
 
 - (void)refreshGallery;
+- (void)loadMoreGallery;
 
 @end
 
@@ -49,6 +52,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
+    self.feature = PXAPIHelperPhotoFeaturePopular;
     
     self.navigationItem.title = @"500px Gallery";
     @weakify(self)
@@ -70,6 +74,12 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
     layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
     self.collectionView.collectionViewLayout = layout;
     // Do any additional setup after loading the view.
+    [self.collectionView addInfiniteScrollingWithActionHandler:^{
+        @strongify(self)
+        do {
+            [self loadMoreGallery];
+        } while (NO);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -114,10 +124,16 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        [self.viewModel refreshGallery:PXAPIHelperPhotoFeaturePopular];
+        [self.viewModel refreshGallery:self.feature];
     } while (NO);
 }
 
+- (void)loadMoreGallery {
+    do {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        [self.viewModel loadMoreGallery:self.feature];
+    } while (NO);
+}
 
 #pragma mark - DCHEventResponder
 - (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
@@ -134,7 +150,14 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
-                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        NSUInteger page = 0;
+                        NSDictionary *payloadDic = (NSDictionary *)[event payload];
+                        page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
+                        if (page == 0) {
+                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        } else {
+                            [self.collectionView.infiniteScrollingView stopAnimating];
+                        }
                         [self.collectionView reloadData];
                         self.navigationItem.rightBarButtonItem.enabled = YES;
                     }];

@@ -70,7 +70,7 @@
     DCHEventOperationTicket *result = nil;
     do {
         self.currentPage = 0;
-        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature], DC500pxEventCode_QueryFeaturedPhotos_kPage: [NSString stringWithFormat:@"%ld", (long)0]}];
+        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: @(feature), DC500pxEventCode_QueryFeaturedPhotos_kPage: @(0)}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
@@ -86,7 +86,7 @@
     DCHEventOperationTicket *result = nil;
     do {
         ++self.currentPage;
-        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: [NSString stringWithFormat:@"%ld", (long)feature], DC500pxEventCode_QueryFeaturedPhotos_kPage: [NSString stringWithFormat:@"%ld", (long)self.currentPage]}];
+        DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: @(feature), DC500pxEventCode_QueryFeaturedPhotos_kPage: @(self.currentPage)}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {

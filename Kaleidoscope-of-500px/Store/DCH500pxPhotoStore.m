@@ -57,8 +57,8 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                                 completionHandler(self, outputEvent, nil);
                             }
                             
-                            DCHDisplayEvent *refreshPopularPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshFeaturedPhotos andPayload:nil];
-                            [self emitChangeWithEvent:refreshPopularPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
+                            DCHDisplayEvent *refreshFeaturedPhotosEvent = [DCHDisplayEventCreater createDisplayEventByCode:DCDisplayEventCode_RefreshFeaturedPhotos andPayload:@{DCDisplayEventCode_RefreshFeaturedPhotos_kPage: @(page)}];
+                            [self emitChangeWithEvent:refreshFeaturedPhotosEvent inMainThread:YES withCompletionHandler:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                                 do {
                                     NSLog(@"refreshPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
                                 } while (NO);
@@ -141,11 +141,16 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                 }
                 id results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 NSDictionary *rawDic = (NSDictionary *)results;
-                self.photoModels = [rawDic[@"photos"] rx_mapWithBlock:^id(id each) {
+                NSMutableArray *resultAry = [NSMutableArray array];
+                if (page != 0) {
+                    [resultAry addObjectsFromArray:self.photoModels];
+                }
+                [resultAry addObjectsFromArray:[rawDic[@"photos"] rx_mapWithBlock:^id(id each) {
                     NSDictionary *photoDictionary = (NSDictionary *)each;
                     DCHPhotoModel *model = [[DCHPhotoModel alloc] initWithDictionary:photoDictionary];
                     return model;
-                }];
+                }]];
+                self.photoModels = resultAry;
             } while (NO);
             if (completionHandler) {
                 completionHandler(self, error);
