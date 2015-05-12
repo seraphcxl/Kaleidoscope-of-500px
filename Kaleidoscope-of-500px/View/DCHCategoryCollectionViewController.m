@@ -23,6 +23,8 @@
 #import <libextobjc/EXTScope.h>
 #import "UIView+DCHParallax.h"
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
+#import "DCHFullSizeViewModel.h"
+#import "DCHFullSizeViewController.h"
 
 const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 
@@ -46,8 +48,8 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     
     self.viewModel = [[DCHCategoryViewModel alloc] init];
     
-    self.tabBarController.navigationItem.title = @"500px Categories";
-    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+    self.navigationItem.title = @"500px Categories";
+    self.navigationItem.rightBarButtonItem = nil;
     
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -176,6 +178,21 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 }
 
 #pragma mark <UICollectionViewDelegate>
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    do {
+        if (collectionView != self.collectionView || !indexPath) {
+            break;
+        }
+        DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+        if (model) {
+            DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:model.models initialPhotoIndex:indexPath.item];
+            DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
+            [self.navigationController pushViewController:fullSizeVC animated:YES];
+        }
+        
+    } while (NO);
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
         NSArray *cells = [self.collectionView visibleCells];

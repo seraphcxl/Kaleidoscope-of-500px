@@ -82,9 +82,9 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        if (self.viewModel.models.count == 0) {
-            [self refreshGallery];
-        }
+//        if (self.viewModel.models.count == 0) {
+//            [self refreshGallery];
+//        }
     } while (NO);
 }
 
@@ -185,13 +185,12 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 }
 
 #pragma mark <UICollectionViewDelegate>
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     do {
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.item];
+        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.row];
         DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
         [self.navigationController pushViewController:fullSizeVC animated:YES];
     } while (NO);
