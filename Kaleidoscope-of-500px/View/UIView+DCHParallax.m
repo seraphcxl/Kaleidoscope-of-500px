@@ -13,7 +13,7 @@
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-- (void)resetFrameForParallax:(DCHParallax_Orientation)orientation {
+- (void)resetFrameForParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
     do {
         CGRect frame = self.bounds;
         
@@ -35,12 +35,12 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallax
         }
         
         if (needCalcX) {
-            NSInteger deltaX = frame.size.width / 4;
+            NSInteger deltaX = frame.size.width / (int)size;
             frame.origin.x -= deltaX;
             frame.size.width += deltaX * 2;
         }
         if (needCalcY) {
-            NSInteger deltaY = frame.size.height / 4;
+            NSInteger deltaY = frame.size.height / (int)size;
             frame.origin.y -= deltaY;
             frame.size.height += deltaY * 2;
         }

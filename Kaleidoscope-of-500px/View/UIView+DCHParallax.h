@@ -15,11 +15,17 @@ typedef NS_ENUM(NSUInteger, DCHParallax_Orientation) {
     DCHParallax_Orientation_Vertial,
 };
 
+typedef NS_ENUM(NSUInteger, DCHParallax_Size) {
+    DCHParallax_Size_Small = 10,
+    DCHParallax_Size_Middle = 8,
+    DCHParallax_Size_Large = 6,
+};
+
 @interface UIView (DCHParallax)
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_HEADER(ParallaxView)
 
-- (void)resetFrameForParallax:(DCHParallax_Orientation)orientation;
+- (void)resetFrameForParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size;
 
 - (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 

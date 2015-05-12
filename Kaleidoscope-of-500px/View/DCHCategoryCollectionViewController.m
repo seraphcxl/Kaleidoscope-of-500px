@@ -16,7 +16,7 @@
 #import "DCHDisplayEventCreater.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxPhotoStore.h"
-#import "DCHCategoryCollectionViewCell.h"
+#import "DCHImageCollectionViewCell.h"
 #import "DCHCategoryCollectionHeaderView.h"
 #import "DCHCategoryCollectionFooterView.h"
 #import <Tourbillon/DCHTourbillon.h>
@@ -50,7 +50,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHCategoryCollectionViewCell cellIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CHTCollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
     // Do any additional setup after loading the view.
@@ -134,7 +134,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DCHCategoryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHCategoryCollectionViewCell cellIdentifier] forIndexPath:indexPath];
+    DCHImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier] forIndexPath:indexPath];
     
     // Configure the cell
     DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];

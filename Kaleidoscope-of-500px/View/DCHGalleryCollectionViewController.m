@@ -8,22 +8,25 @@
 
 #import "DCHGalleryCollectionViewController.h"
 #import "DCHGalleryCollectionViewModel.h"
-#import "DCHGalleryCollectionViewCell.h"
 #import "DCH500pxEventCreater.h"
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 #import "DCHDisplayEventCreater.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxPhotoStore.h"
+#import "DCHPhotoModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
+#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import "DCHImageCollectionViewCell.h"
+#import "UIView+DCHParallax.h"
 
 const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 
-@interface DCHGalleryCollectionViewController ()
+@interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
 
@@ -32,8 +35,6 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 @end
 
 @implementation DCHGalleryCollectionViewController
-
-static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (void)dealloc {
     do {
@@ -59,15 +60,21 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     }];
     
     // Register cell classes
-    [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
     self.collectionView.backgroundColor = [UIColor ironColor];
     
-    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
-        layout.itemSize = CGSizeMake(imgSize, imgSize);
-    }
-    
+//    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
+//        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+//        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
+//        layout.itemSize = CGSizeMake(imgSize, imgSize);
+//    }
+    CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
+    layout.columnCount = 2;
+    layout.minimumColumnSpacing = 8;
+    layout.minimumInteritemSpacing = 8;
+    layout.minimumContentHeight = 8;
+    layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+    self.collectionView.collectionViewLayout = layout;
     // Do any additional setup after loading the view.
 }
 
@@ -172,10 +179,13 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DCHGalleryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    DCHImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier] forIndexPath:indexPath];
     
     // Configure the cell
-    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+//    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+    DCHPhotoModel *photoModel = nil;
+    DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
+    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -196,10 +206,30 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
         NSArray *cells = [self.collectionView visibleCells];
-        for (DCHGalleryCollectionViewCell *cell in cells) {
+        for (DCHImageCollectionViewCell *cell in cells) {
             [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
         }
     } while (NO);
+}
+
+#pragma mark - CHTCollectionViewDelegateWaterfallLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize result = CGSizeZero;
+    do {
+        if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+            break;
+        }
+        DCHPhotoModel *photoModel = nil;
+        DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
+        if (photoModel) {
+            CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+            NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewController_kCountInLine;
+            NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+            result = CGSizeMake(width, height);
+        }
+        
+    } while (NO);
+    return result;
 }
 
 /*
