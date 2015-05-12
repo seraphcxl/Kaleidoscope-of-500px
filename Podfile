@@ -16,6 +16,7 @@ pod 'SDWebImage', '~> 3.7.2'
 pod 'CHTCollectionViewWaterfallLayout', '~> 0.9.1'
 pod 'KVOController', '~> 1.0.3'
 pod 'SVPullToRefresh', '~> 0.4.1'
+pod 'CSStickyHeaderFlowLayout', '~> 0.2.5'
 
 end
 

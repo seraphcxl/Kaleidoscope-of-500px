@@ -22,7 +22,7 @@
 #import <Tourbillon/DCHTourbillon.h>
 #import <libextobjc/EXTScope.h>
 #import "UIView+DCHParallax.h"
-//#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 
 const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 
@@ -54,21 +54,24 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:CSStickyHeaderParallaxHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
     // Do any additional setup after loading the view.
     self.collectionView.backgroundColor = [UIColor ironColor];
     
-    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-        layout.minimumInteritemSpacing = 8;
-        layout.minimumLineSpacing = 8;
-        layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
-        layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 32);
-        layout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 8);
-        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHCategoryCollectionViewController_kCountInLine;
-        layout.itemSize = CGSizeMake(imgSize, imgSize);
-    }
+    CSStickyHeaderFlowLayout *layout = [[CSStickyHeaderFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 8;
+    layout.minimumLineSpacing = 8;
+    layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+    layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 32);
+    layout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 8);
+    NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHCategoryCollectionViewController_kCountInLine;
+    layout.itemSize = CGSizeMake(imgSize, imgSize);
+//    layout.parallaxHeaderAlwaysOnTop = YES;
+//    layout.parallaxHeaderReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 48);
+//    layout.parallaxHeaderMinimumReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 32);
+    self.collectionView.collectionViewLayout = layout;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -157,7 +160,7 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     UICollectionReusableView *result = nil;
     do {
         DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
-        if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
+        if ([kind isEqualToString:CSStickyHeaderParallaxHeader] || [kind isEqualToString:UICollectionElementKindSectionHeader]) {
             DCHCategoryCollectionHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier] forIndexPath:indexPath];
             [headerView refreshWithCategoryModel:model];
             result = headerView;
