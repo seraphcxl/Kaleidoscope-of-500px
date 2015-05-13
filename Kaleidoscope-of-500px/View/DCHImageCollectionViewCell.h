@@ -17,4 +17,6 @@
 - (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel;
 - (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 
+- (UIImage *)image;
+
 @end

@@ -26,10 +26,11 @@
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
 #import <BlocksKit/BlocksKit+UIKit.h>
+#import <IDMPhotoBrowser/IDMPhotoBrowser.h>
 
 const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 
-@interface DCHCategoryCollectionViewController ()
+@interface DCHCategoryCollectionViewController () <IDMPhotoBrowserDelegate>
 
 @property (nonatomic, strong) DCHCategoryViewModel *viewModel;
 
@@ -164,7 +165,8 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     if (model) {
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
-        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+        [cell refreshWithPhotoModel:photoModel];
+//        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     } else {
         ;
     }
@@ -198,9 +200,33 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
         }
         DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
         if (model) {
-            DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:model.models initialPhotoIndex:indexPath.item];
-            DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
-            [self.navigationController pushViewController:fullSizeVC animated:YES];
+//            DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:model.models initialPhotoIndex:indexPath.item];
+//            DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
+//            [self.navigationController pushViewController:fullSizeVC animated:YES];
+            NSMutableArray *photoURLAry = [NSMutableArray arrayWithCapacity:model.models.count];
+            [model.models enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                do {
+                    DCHPhotoModel *photoModel = (DCHPhotoModel *)obj;
+                    if (photoModel.fullsizedURL) {
+                        [photoURLAry addObject:photoModel.fullsizedURL];
+                    }
+                } while (NO);
+            }];
+            DCHImageCollectionViewCell *imgCell = (DCHImageCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+            IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotoURLs:photoURLAry animatedFromView:imgCell]; // using initWithPhotos:animatedFromView: method to use the zoom-in animation
+            browser.delegate = self;
+            browser.displayActionButton = NO;
+            browser.displayArrowButton = YES;
+            browser.displayCounterLabel = YES;
+            browser.usePopAnimation = YES;
+            browser.scaleImage = [imgCell image];
+            [browser setInitialPageIndex:indexPath.item];
+//            [self.navigationController pushViewController:browser animated:YES];
+            [self presentViewController:browser animated:YES completion:^{
+                do {
+                    ;
+                } while (NO);
+            }];
         }
         
     } while (NO);
@@ -208,10 +234,10 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
-        NSArray *cells = [self.collectionView visibleCells];
-        for (DCHImageCollectionViewCell *cell in cells) {
-            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-        }
+//        NSArray *cells = [self.collectionView visibleCells];
+//        for (DCHImageCollectionViewCell *cell in cells) {
+//            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+//        }
     } while (NO);
 }
 /*
@@ -313,5 +339,38 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
 //    } while (NO);
 //    return result;
 //}
+
+#pragma mark - IDMPhotoBrowserDelegate
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index {
+    do {
+        ;
+    } while (NO);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissAtPageIndex:(NSUInteger)index {
+    do {
+        ;
+    } while (NO);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)index {
+    do {
+        ;
+    } while (NO);
+}
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didDismissActionSheetWithButtonIndex:(NSUInteger)buttonIndex photoIndex:(NSUInteger)photoIndex {
+    do {
+        ;
+    } while (NO);
+}
+
+- (IDMCaptionView *)photoBrowser:(IDMPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index {
+    IDMCaptionView *result = nil;
+    do {
+        ;
+    } while (NO);
+    return result;
+}
 
 @end

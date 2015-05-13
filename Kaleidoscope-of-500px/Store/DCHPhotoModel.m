@@ -41,14 +41,14 @@
         self.rating = dictionary[@"rating"];
         
         self.thumbnailURL = [self urlForImageSize:3 inDictionary:dictionary[@"images"]];
-        
+        self.fullsizedURL = [self urlForImageSize:4 inDictionary:dictionary[@"images"]];
         if (dictionary[@"voted"]) {
             self.votedFor = [dictionary[@"voted"] boolValue];
         }
         
         // Extended attributes fetched with subsequent request
         if (dictionary[@"comments_count"]) {
-            self.fullsizedURL = [self urlForImageSize:4 inDictionary:dictionary[@"images"]];
+            
         }
     } while (NO);
 }

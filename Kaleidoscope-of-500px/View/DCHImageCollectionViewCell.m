@@ -99,4 +99,14 @@
     } while (NO);
 }
 
+- (UIImage *)image {
+    UIImage *result = nil;
+    do {
+        if (self.imageView) {
+            result = self.imageView.image;
+        }
+    } while (NO);
+    return result;
+}
+
 @end
