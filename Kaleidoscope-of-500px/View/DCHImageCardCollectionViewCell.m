@@ -11,12 +11,14 @@
 #import "DCHPhotoModel.h"
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIImage+ImageEffects.h"
+#import "UIView+DCHParallax.h"
 
 const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
 
 @interface DCHImageCardCollectionViewCell ()
 
 @property (nonatomic, strong) DCHPhotoModel *photoModel;
+@property (nonatomic, strong) UIImageView *featureImageView;
 
 @end
 
@@ -28,6 +30,9 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
 
 - (void)dealloc {
     do {
+        [self.featureImageView removeFromSuperview];
+        self.featureImageView = nil;
+        
         self.photoModel = nil;
     } while (NO);
 }
@@ -41,6 +46,14 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
     do {
         self.photoModel = photoModel;
         
+        if (!self.featureImageView) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.featureImageContainerView.bounds];
+            imageView.autoresizingMask = (UIViewAutoresizingNone);
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            [self.featureImageContainerView addSubview:imageView];
+            self.featureImageView = imageView;
+        }
+        
         self.titlelabel.text = @"";
         self.descriptionLabel.text = @"";
         if (self.photoModel) {
@@ -53,6 +66,8 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
         self.backgroundImageView.image = nil;
         
         if (self.photoModel) {
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);
+            [self.featureImageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailData) {
                 UIImage *featureImage = [UIImage imageWithData:self.photoModel.thumbnailData];
                 self.featureImageView.image = featureImage;
@@ -81,6 +96,18 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
         } else {
             
         }
+    } while (NO);
+}
+
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+    do {
+        if (!scrollView || !view) {
+            break;
+        }
+        
+        [self refreshWithPhotoModel:photoModel];
+        
+        [self setParallaxView:self.featureImageView inContainerView:self.featureImageContainerView forOrientation:DCHParallax_Orientation_Vertial onScrollView:scrollView scrollOnView:view];
     } while (NO);
 }
 

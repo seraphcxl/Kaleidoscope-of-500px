@@ -203,8 +203,8 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
 //    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-    [cell refreshWithPhotoModel:photoModel];
-//    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+//    [cell refreshWithPhotoModel:photoModel];
+    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -223,10 +223,10 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
-//        NSArray *cells = [self.collectionView visibleCells];
-//        for (DCHImageCollectionViewCell *cell in cells) {
-//            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-//        }
+        NSArray *cells = [self.collectionView visibleCells];
+        for (DCHImageCardCollectionViewCell *cell in cells) {
+            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+        }
     } while (NO);
 }
 
@@ -243,6 +243,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
             CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
             NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewController_kCountInLine;
             NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+            photoModel.uiDisplaySize = CGSizeMake(width, height);
             result = CGSizeMake(width, (height + DCHImageCardCollectionViewCell_DescLabelHeight));
         }
         

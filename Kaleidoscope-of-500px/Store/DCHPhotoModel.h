@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface DCHPhotoModel : NSObject
 
@@ -30,6 +31,7 @@
 
 // UI
 @property (nonatomic, copy) NSString *uiDescStr;
+@property (nonatomic, assign) CGSize uiDisplaySize;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;

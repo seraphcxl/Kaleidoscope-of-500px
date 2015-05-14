@@ -11,7 +11,8 @@
 
 @implementation UIView (DCHParallax)
 
-DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_ASSIGN)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_kParallaxContainerView, OBJC_ASSOCIATION_ASSIGN)
 
 - (void)resetFrameInFrame:(CGRect)frame forParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
     do {
@@ -52,11 +53,16 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallax
 }
 
 - (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+    [self setParallaxView:parallaxView inContainerView:self forOrientation:orientation onScrollView:scrollView scrollOnView:view];
+}
+
+- (void)setParallaxView:(UIView *)parallaxView inContainerView:(UIView *)containerView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
     do {
-        if (!parallaxView || !scrollView || !view) {
+        if (!parallaxView || !containerView || !scrollView || !view) {
             break;
         }
         [self setParallaxView:parallaxView];
+        [self setParallaxContainerView:containerView];
         
         BOOL needCalcX = NO;
         BOOL needCalcY = NO;
@@ -118,9 +124,14 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallax
             break;
         }
         UIView *parallaxView = (UIView *)[self getParallaxView];
-        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-        float distanceFromCenter = CGRectGetWidth(view.frame) / 2 - CGRectGetMinX(rectInSuperview);
-        float difference = CGRectGetWidth(parallaxView.frame) - CGRectGetWidth(self.frame);
+        UIView *parallaxContainerView = (UIView *)[self getParallaxContainerView];
+        
+        CGRect rectSelfInSuperview = [scrollView convertRect:self.frame toView:view];
+        CGRect rectContainerInSelf = [self convertRect:parallaxContainerView.frame toView:self];
+        CGRect rect = CGRectMake(rectContainerInSelf.origin.x + rectSelfInSuperview.origin.x, rectContainerInSelf.origin.y + rectSelfInSuperview.origin.y, CGRectGetWidth(rectContainerInSelf), CGRectGetHeight(rectContainerInSelf));
+        
+        float distanceFromCenter = CGRectGetWidth(view.frame) / 2 - CGRectGetMinX(rect);
+        float difference = CGRectGetWidth(parallaxView.frame) - CGRectGetWidth(parallaxContainerView.frame);
         float move = (distanceFromCenter / CGRectGetWidth(view.frame)) * difference;
         
         result = (- (difference / 2) + move);
@@ -138,9 +149,13 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallax
             break;
         }
         UIView *parallaxView = (UIView *)[self getParallaxView];
-        CGRect rectInSuperview = [scrollView convertRect:self.frame toView:view];
-        float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rectInSuperview);
-        float difference = CGRectGetHeight(parallaxView.frame) - CGRectGetHeight(self.frame);
+        UIView *parallaxContainerView = (UIView *)[self getParallaxContainerView];
+        
+        CGRect rectSelfInSuperview = [scrollView convertRect:self.frame toView:view];
+        CGRect rectContainerInSelf = [self convertRect:parallaxContainerView.frame toView:self];
+        CGRect rect = CGRectMake(rectContainerInSelf.origin.x + rectSelfInSuperview.origin.x, rectContainerInSelf.origin.y + rectSelfInSuperview.origin.y, CGRectGetWidth(rectContainerInSelf), CGRectGetHeight(rectContainerInSelf));
+        float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rect);
+        float difference = CGRectGetHeight(parallaxView.frame) - CGRectGetHeight(parallaxContainerView.frame);
         float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
         
         result = (- (difference / 2) + move);
