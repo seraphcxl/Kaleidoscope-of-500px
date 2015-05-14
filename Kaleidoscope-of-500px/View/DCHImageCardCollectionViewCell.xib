@@ -26,10 +26,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sa4-Up-PNm" userLabel="featureImageView">
-                        <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>
+                        <rect key="frame" x="4" y="4" width="167" height="229"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-ul-98V" userLabel="gradientView" customClass="DCHLinearGradientView">
-                        <rect key="frame" x="-1" y="0.0" width="176" height="233"/>
+                        <rect key="frame" x="4" y="4" width="167" height="229"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-JX-Chh" userLabel="titlelabel">
@@ -47,7 +47,7 @@
             <constraints>
                 <constraint firstItem="Egr-ul-98V" firstAttribute="width" secondItem="sa4-Up-PNm" secondAttribute="width" id="1IV-Ht-3u4"/>
                 <constraint firstAttribute="bottom" secondItem="I6o-hy-sYM" secondAttribute="bottom" id="9Ya-u5-diF"/>
-                <constraint firstItem="sa4-Up-PNm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DAY-YJ-f7Y"/>
+                <constraint firstItem="sa4-Up-PNm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="DAY-YJ-f7Y"/>
                 <constraint firstItem="I6o-hy-sYM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="F1K-c3-IV7"/>
                 <constraint firstAttribute="trailing" secondItem="YfR-JX-Chh" secondAttribute="trailing" constant="16" id="LDc-sr-XaU"/>
                 <constraint firstItem="tVe-w1-k5X" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="N3b-0n-Hh7"/>
@@ -57,8 +57,8 @@
                 <constraint firstItem="tVe-w1-k5X" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dVl-QO-eZ0"/>
                 <constraint firstItem="YfR-JX-Chh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="e98-f2-RVx"/>
                 <constraint firstItem="I6o-hy-sYM" firstAttribute="top" secondItem="sa4-Up-PNm" secondAttribute="bottom" id="l81-ji-xFW"/>
-                <constraint firstAttribute="trailing" secondItem="sa4-Up-PNm" secondAttribute="trailing" id="l8h-Pl-5km"/>
-                <constraint firstItem="sa4-Up-PNm" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="msM-jH-Chi"/>
+                <constraint firstAttribute="trailing" secondItem="sa4-Up-PNm" secondAttribute="trailing" constant="4" id="l8h-Pl-5km"/>
+                <constraint firstItem="sa4-Up-PNm" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="msM-jH-Chi"/>
                 <constraint firstItem="Egr-ul-98V" firstAttribute="centerY" secondItem="sa4-Up-PNm" secondAttribute="centerY" id="nrP-tI-p4m"/>
                 <constraint firstItem="Egr-ul-98V" firstAttribute="height" secondItem="sa4-Up-PNm" secondAttribute="height" id="ogB-7E-txe"/>
                 <constraint firstItem="I6o-hy-sYM" firstAttribute="top" secondItem="YfR-JX-Chh" secondAttribute="bottom" id="urQ-mG-5ck"/>

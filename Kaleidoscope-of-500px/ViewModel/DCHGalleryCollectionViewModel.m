@@ -118,7 +118,7 @@
         NSMutableString *desc1 = [NSMutableString string];
         NSMutableString *desc2 = [NSMutableString string];
         
-        if (photoModel.photographerName) {
+        if (!DCH_IsEmpty(photoModel.photographerName)) {
             [desc0 appendString:photoModel.photographerName];
         }
         if (photoModel.rating) {
@@ -128,7 +128,7 @@
             [desc0 appendFormat:@"Rating:%.2f", [photoModel.rating floatValue]];
         }
         
-        if (photoModel.camera) {
+        if (!DCH_IsEmpty(photoModel.camera)) {
             [desc1 appendString:photoModel.camera];
         }
 //        if (photoModel.lens) {
@@ -138,10 +138,10 @@
 //            [desc1 appendString:photoModel.lens];
 //        }
         
-        if (photoModel.aperture) {
+        if (!DCH_IsEmpty(photoModel.aperture)) {
             [desc2 appendFormat:@"f:%@", photoModel.aperture];
         }
-        if (photoModel.focalLength) {
+        if (!DCH_IsEmpty(photoModel.focalLength)) {
             if (![desc2 isEqualToString:@""]) {
                 [desc2 appendString:@" "];
             }
@@ -153,7 +153,7 @@
             }
             [desc2 appendFormat:@"iso:%d", [photoModel.iso intValue]];
         }
-        if (photoModel.shutterSpeed) {
+        if (!DCH_IsEmpty(photoModel.shutterSpeed)) {
             if (![desc2 isEqualToString:@""]) {
                 [desc2 appendString:@" "];
             }
