@@ -17,6 +17,7 @@
 #import "DCH500pxEvent.h"
 #import "DCHCategoryModel.h"
 
+const NSUInteger DCH500pxPhotoStore_FirstPageNum = 1;
 const NSUInteger DCH500pxPhotoStore_QueryPhotoCategory_PhotoCount = 10;
 
 @interface DCH500pxPhotoStore ()
@@ -142,7 +143,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
                 id results = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 NSDictionary *rawDic = (NSDictionary *)results;
                 NSMutableArray *resultAry = [NSMutableArray array];
-                if (page != 0) {
+                if (page != DCH500pxPhotoStore_FirstPageNum) {
                     [resultAry addObjectsFromArray:self.photoModels];
                 }
                 [resultAry addObjectsFromArray:[rawDic[@"photos"] rx_mapWithBlock:^id(id each) {

@@ -14,8 +14,6 @@
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 
-const NSUInteger DCHGalleryCollectionViewModel_FirstPageNum = 1;
-
 @interface DCHGalleryCollectionViewModel ()
 
 @property (nonatomic, strong) NSArray *models;
@@ -35,7 +33,7 @@ const NSUInteger DCHGalleryCollectionViewModel_FirstPageNum = 1;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.currentPage = DCHGalleryCollectionViewModel_FirstPageNum;
+        self.currentPage = DCH500pxPhotoStore_FirstPageNum;
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] addEventResponder:self forEventDomain:DCHDisplayEventDomain code:DCDisplayEventCode_RefreshFeaturedPhotos];
     }
     return self;
@@ -71,7 +69,7 @@ const NSUInteger DCHGalleryCollectionViewModel_FirstPageNum = 1;
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature {
     DCHEventOperationTicket *result = nil;
     do {
-        self.currentPage = DCHGalleryCollectionViewModel_FirstPageNum;
+        self.currentPage = DCH500pxPhotoStore_FirstPageNum;
         DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: @(feature), DC500pxEventCode_QueryFeaturedPhotos_kPage: @(self.currentPage)}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             do {

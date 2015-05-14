@@ -10,6 +10,8 @@
 #import <Tourbillon/DCHTourbillon.h>
 #import <500px-iOS-api/PXAPI.h>
 
+extern const NSUInteger DCH500pxPhotoStore_FirstPageNum;
+
 @class DCHPhotoModel;
 @class DCH500pxPhotoStore;
 

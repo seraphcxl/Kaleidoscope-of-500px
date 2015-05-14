@@ -26,7 +26,7 @@
 #import "UIView+DCHParallax.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
 
-const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
+const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
 
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
@@ -69,7 +69,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
     self.collectionView.backgroundColor = [UIColor ironColor];
     
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-    layout.columnCount = 2;
+    layout.columnCount = DCHGalleryCollectionViewController_kCountInLine;
     layout.minimumColumnSpacing = 8;
     layout.minimumInteritemSpacing = 8;
     layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
@@ -154,7 +154,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
                         NSUInteger page = 0;
                         NSDictionary *payloadDic = (NSDictionary *)[event payload];
                         page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
-                        if (page == DCHGalleryCollectionViewModel_FirstPageNum) {
+                        if (page == DCH500pxPhotoStore_FirstPageNum) {
                             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                         } else {
                             [self.collectionView.infiniteScrollingView stopAnimating];
