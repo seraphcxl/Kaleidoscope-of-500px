@@ -13,10 +13,8 @@
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
-- (void)resetFrameForParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
+- (void)resetFrameInFrame:(CGRect)frame forParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
     do {
-        CGRect frame = self.bounds;
-        
         BOOL needCalcX = NO;
         BOOL needCalcY = NO;
         
@@ -47,6 +45,10 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallax
         
         self.frame = frame;
     } while (NO);
+}
+
+- (void)resetFrameForParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
+    [self resetFrameInFrame:self.bounds forParallaxOrientation:orientation andSize:size];
 }
 
 - (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {

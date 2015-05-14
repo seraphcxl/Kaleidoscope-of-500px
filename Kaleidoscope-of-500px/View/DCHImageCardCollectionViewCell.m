@@ -12,7 +12,7 @@
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIImage+ImageEffects.h"
 
-const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 50.0f;
+const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
 
 @interface DCHImageCardCollectionViewCell ()
 
@@ -45,7 +45,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 50.0f;
         self.descriptionLabel.text = @"";
         if (self.photoModel) {
             self.titlelabel.text = self.photoModel.photoName;
-            self.descriptionLabel.text = [NSString stringWithFormat:@"%@ R:%.0f", self.photoModel.photographerName, [self.photoModel.rating floatValue]];
+            self.descriptionLabel.text = self.photoModel.uiDescStr;
         }
         
         [self.featureImageView sd_cancelCurrentAnimationImagesLoad];

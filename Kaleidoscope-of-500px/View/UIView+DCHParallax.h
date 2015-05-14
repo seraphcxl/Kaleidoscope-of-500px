@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, DCHParallax_Size) {
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_HEADER(ParallaxView)
 
+- (void)resetFrameInFrame:(CGRect)frame forParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size;
+
 - (void)resetFrameForParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size;
 
 - (void)setParallaxView:(UIView *)parallaxView forOrientation:(DCHParallax_Orientation)orientation onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;

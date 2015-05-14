@@ -8,18 +8,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DCHImageCardCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="175" height="283"/>
+            <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="175" height="283"/>
+                <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-w1-k5X" userLabel="backgroundImageView">
-                        <rect key="frame" x="0.0" y="0.0" width="175" height="283"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-hy-sYM" userLabel="descriptionLabel">
-                        <rect key="frame" x="8" y="233" width="159" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-hy-sYM" userLabel="descriptionLabel">
+                        <rect key="frame" x="16" y="233" width="143" height="75"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="50" id="PY7-jS-UlY"/>
+                            <constraint firstAttribute="height" constant="75" id="PY7-jS-UlY"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -48,11 +48,11 @@
                 <constraint firstItem="Egr-ul-98V" firstAttribute="width" secondItem="sa4-Up-PNm" secondAttribute="width" id="1IV-Ht-3u4"/>
                 <constraint firstAttribute="bottom" secondItem="I6o-hy-sYM" secondAttribute="bottom" id="9Ya-u5-diF"/>
                 <constraint firstItem="sa4-Up-PNm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="DAY-YJ-f7Y"/>
-                <constraint firstItem="I6o-hy-sYM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="F1K-c3-IV7"/>
+                <constraint firstItem="I6o-hy-sYM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="F1K-c3-IV7"/>
                 <constraint firstAttribute="trailing" secondItem="YfR-JX-Chh" secondAttribute="trailing" constant="16" id="LDc-sr-XaU"/>
                 <constraint firstItem="tVe-w1-k5X" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="N3b-0n-Hh7"/>
                 <constraint firstItem="Egr-ul-98V" firstAttribute="centerX" secondItem="sa4-Up-PNm" secondAttribute="centerX" id="PPY-2U-49c"/>
-                <constraint firstAttribute="trailing" secondItem="I6o-hy-sYM" secondAttribute="trailing" constant="8" id="UqF-93-MBu"/>
+                <constraint firstAttribute="trailing" secondItem="I6o-hy-sYM" secondAttribute="trailing" constant="16" id="UqF-93-MBu"/>
                 <constraint firstAttribute="bottom" secondItem="tVe-w1-k5X" secondAttribute="bottom" id="bDd-zD-yf2"/>
                 <constraint firstItem="tVe-w1-k5X" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dVl-QO-eZ0"/>
                 <constraint firstItem="YfR-JX-Chh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="e98-f2-RVx"/>
