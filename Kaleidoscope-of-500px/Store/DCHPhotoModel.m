@@ -37,7 +37,7 @@
         self.identifier = dictionary[@"id"];
         self.width = dictionary[@"width"];
         self.height = dictionary[@"height"];
-        self.photographerName = dictionary[@"user"][@"username"];
+        self.photographerName = dictionary[@"user"][@"fullname"];
         self.rating = dictionary[@"rating"];
         
         self.thumbnailURL = [self urlForImageSize:3 inDictionary:dictionary[@"images"]];

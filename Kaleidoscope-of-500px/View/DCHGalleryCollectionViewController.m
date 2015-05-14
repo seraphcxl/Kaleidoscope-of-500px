@@ -21,7 +21,8 @@
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
 #import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
-#import "DCHImageCollectionViewCell.h"
+//#import "DCHImageCollectionViewCell.h"
+#import "DCHImageCardCollectionViewCell.h"
 #import "UIView+DCHParallax.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
 
@@ -64,7 +65,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
     }];
     
     // Register cell classes
-    [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCardCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier]];
     self.collectionView.backgroundColor = [UIColor ironColor];
     
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
@@ -153,7 +154,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
                         NSUInteger page = 0;
                         NSDictionary *payloadDic = (NSDictionary *)[event payload];
                         page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
-                        if (page == 0) {
+                        if (page == DCHGalleryCollectionViewModel_FirstPageNum) {
                             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                         } else {
                             [self.collectionView.infiniteScrollingView stopAnimating];
@@ -196,13 +197,14 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DCHImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier] forIndexPath:indexPath];
+    DCHImageCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier] forIndexPath:indexPath];
     
     // Configure the cell
 //    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+    [cell refreshWithPhotoModel:photoModel];
+//    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -221,10 +223,10 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
-        NSArray *cells = [self.collectionView visibleCells];
-        for (DCHImageCollectionViewCell *cell in cells) {
-            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-        }
+//        NSArray *cells = [self.collectionView visibleCells];
+//        for (DCHImageCollectionViewCell *cell in cells) {
+//            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+//        }
     } while (NO);
 }
 
@@ -241,7 +243,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
             CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
             NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewController_kCountInLine;
             NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-            result = CGSizeMake(width, height);
+            result = CGSizeMake(width, (height + DCHImageCardCollectionViewCell_DescLabelHeight));
         }
         
     } while (NO);

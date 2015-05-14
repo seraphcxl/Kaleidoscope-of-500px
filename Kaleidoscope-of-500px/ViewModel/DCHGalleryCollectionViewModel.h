@@ -9,6 +9,8 @@
 #import "DCHViewModel.h"
 #import <500px-iOS-api/PXAPI.h>
 
+extern const NSUInteger DCHGalleryCollectionViewModel_FirstPageNum;
+
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
 @property (nonatomic, strong, readonly) NSArray *models;
