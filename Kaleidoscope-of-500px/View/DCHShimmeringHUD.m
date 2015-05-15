@@ -35,6 +35,30 @@
     } while (NO);
 }
 
+- (instancetype)init {
+    return [self initWitText:nil font:nil color:nil andBackgroundColor:nil];
+}
+
+- (instancetype)initWitText:(NSString *)text font:(UIFont *)font color:(UIColor *)color andBackgroundColor:(UIColor *)backgroundColor {
+    self = [super init];
+    if (self) {
+        [self createHUD];
+        if (!DCH_IsEmpty(text)) {
+            self.loadingLabel.text = text;
+        }
+        if (!DCH_IsEmpty(font)) {
+            self.loadingLabel.font = font;
+        }
+        if (!DCH_IsEmpty(color)) {
+            self.loadingLabel.textColor = color;
+        }
+        if (!DCH_IsEmpty(backgroundColor)) {
+            self.shimmeringView.backgroundColor = backgroundColor;
+        }
+    }
+    return self;
+}
+
 - (void)createHUD {
     do {
         self.shimmeringView = [[FBShimmeringView alloc] init];
@@ -53,7 +77,11 @@
     } while (NO);
 }
 
-- (void)showHUDTo:(UIView *)view withText:(NSString *)text font:(UIFont *)font andBackgroundColor:(UIColor *)backgroundColor {
+- (void)showHUDTo:(UIView *)view andShimmeringImmediately:(BOOL)shimmeringImmediately {
+    [self showHUDTo:view withText:nil font:nil color:nil backgroundColor:nil andShimmeringImmediately:shimmeringImmediately];
+}
+
+- (void)showHUDTo:(UIView *)view withText:(NSString *)text font:(UIFont *)font color:(UIColor *)color backgroundColor:(UIColor *)backgroundColor andShimmeringImmediately:(BOOL)shimmeringImmediately {
     do {
         if (!view || (self.baseView && self.baseView != view)) {
             break;
@@ -61,24 +89,28 @@
         if (!self.shimmeringView) {
             [self createHUD];
         }
-        if (DCH_IsEmpty(text)) {
-            self.loadingLabel.text = @"";
-        } else {
+        if (!DCH_IsEmpty(text)) {
             self.loadingLabel.text = text;
         }
-        if (DCH_IsEmpty(font)) {
-            ;
-        } else {
+        if (!DCH_IsEmpty(font)) {
             self.loadingLabel.font = font;
+        }
+        if (!DCH_IsEmpty(color)) {
+            self.loadingLabel.textColor = color;
         }
         if (backgroundColor) {
             self.shimmeringView.backgroundColor = backgroundColor;
         }
+        self.shimmeringView.shimmering = shimmeringImmediately;
         
-        self.baseView = view;
-        ++self.showCount;
         self.shimmeringView.frame = view.bounds;
-        [view addSubview:self.shimmeringView];
+        ++self.showCount;
+        if (self.baseView == view) {
+            ;
+        } else {
+            self.baseView = view;
+            [view addSubview:self.shimmeringView];
+        }
     } while (NO);
 }
 

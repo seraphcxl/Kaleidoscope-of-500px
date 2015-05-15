@@ -13,7 +13,9 @@
 
 @property (nonatomic, strong, readonly) FBShimmeringView *shimmeringView;
 
-- (void)showHUDTo:(UIView *)view withText:(NSString *)text font:(UIFont *)font andBackgroundColor:(UIColor *)backgroundColor;
+- (instancetype)initWitText:(NSString *)text font:(UIFont *)font color:(UIColor *)color andBackgroundColor:(UIColor *)backgroundColor;
+- (void)showHUDTo:(UIView *)view andShimmeringImmediately:(BOOL)shimmeringImmediately;
+- (void)showHUDTo:(UIView *)view withText:(NSString *)text font:(UIFont *)font color:(UIColor *)color backgroundColor:(UIColor *)backgroundColor andShimmeringImmediately:(BOOL)shimmeringImmediately;
 - (void)dismiss;
 - (void)hardDismiss;
 

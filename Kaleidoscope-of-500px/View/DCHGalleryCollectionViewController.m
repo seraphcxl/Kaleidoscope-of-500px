@@ -129,7 +129,7 @@
     do {
         [NSThread runInMain:^{
 //            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [self.shimmeringHUD showHUDTo:self.view withText:@"Loading" font:nil andBackgroundColor:nil];
+            [self.shimmeringHUD showHUDTo:self.view andShimmeringImmediately:YES];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
         [self.viewModel refreshGallery:self.feature];
@@ -235,6 +235,12 @@
         for (DCHImageCardCollectionViewCell *cell in cells) {
             [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
         }
+    } while (NO);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    do {
+        [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
     } while (NO);
 }
 
