@@ -39,6 +39,8 @@
         self.width = [self checkEmpty:dictionary[@"width"]];
         self.height = [self checkEmpty:dictionary[@"height"]];
         self.photographerName = [self checkEmpty:dictionary[@"user"][@"fullname"]];
+        self.photographerCountry = [self checkEmpty:dictionary[@"user"][@"country"]];
+        self.photographerCity = [self checkEmpty:dictionary[@"user"][@"city"]];
         self.rating = [self checkEmpty:dictionary[@"rating"]];
         self.camera = [self checkEmpty:dictionary[@"camera"]];
         self.lens = [self checkEmpty:dictionary[@"lens"]];
@@ -46,6 +48,9 @@
         self.focalLength = [self checkEmpty:dictionary[@"focal_length"]];
         self.iso = [self checkEmpty:dictionary[@"iso"]];
         self.shutterSpeed = [self checkEmpty:dictionary[@"shutter_speed"]];
+        self.commentsCount = [self checkEmpty:dictionary[@"comments_count"]];
+        self.favoritesCount = [self checkEmpty:dictionary[@"favorites_count"]];
+        self.votesCount = [self checkEmpty:dictionary[@"votes_count"]];
         
         self.thumbnailURL = [self urlForImageSize:3 inDictionary:dictionary[@"images"]];
         self.fullsizedURL = [self urlForImageSize:4 inDictionary:dictionary[@"images"]];

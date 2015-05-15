@@ -42,8 +42,7 @@
     do {
         if (!self.imageView) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-            [imageView resetFrameForParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
-            imageView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
+            imageView.autoresizingMask = (UIViewAutoresizingNone);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             [self.contentView addSubview:imageView];
             self.imageView = imageView;
@@ -54,6 +53,8 @@
         [self.imageView sd_cancelCurrentAnimationImagesLoad];
         self.imageView.image = nil;
         if (photoModel) {
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);
+            [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailData) {
                 self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];
             } else {

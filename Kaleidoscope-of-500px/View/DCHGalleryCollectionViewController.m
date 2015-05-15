@@ -26,8 +26,6 @@
 #import "UIView+DCHParallax.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
 
-const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
-
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
@@ -69,7 +67,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
     self.collectionView.backgroundColor = [UIColor ironColor];
     
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
-    layout.columnCount = DCHGalleryCollectionViewController_kCountInLine;
+    layout.columnCount = DCHGalleryCollectionViewModel_kCountInLine;
     layout.minimumColumnSpacing = 8;
     layout.minimumInteritemSpacing = 8;
     layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
@@ -237,16 +235,7 @@ const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 1;
         if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
             break;
         }
-        DCHPhotoModel *photoModel = nil;
-        DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-        if (photoModel) {
-            CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
-            NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewController_kCountInLine;
-            NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-            photoModel.uiDisplaySize = CGSizeMake(width, height);
-            result = CGSizeMake(width, (height + DCHImageCardCollectionViewCell_DescLabelHeight));
-        }
-        
+        result = [self.viewModel calcCellSizeForCollectionLayout:collectionViewLayout andIndex:indexPath.item];
     } while (NO);
     return result;
 }

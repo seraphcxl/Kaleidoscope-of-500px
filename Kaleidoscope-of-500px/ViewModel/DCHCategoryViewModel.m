@@ -14,6 +14,9 @@
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 #import "DCHCategoryModel.h"
+#import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
+
+const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 
 @interface DCHCategoryViewModel ()
 

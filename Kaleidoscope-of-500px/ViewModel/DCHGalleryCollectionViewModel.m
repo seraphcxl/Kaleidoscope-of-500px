@@ -14,6 +14,10 @@
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 #import "DCHPhotoModel.h"
+#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import "DCHImageCardCollectionViewCell.h"
+
+const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
 
 @interface DCHGalleryCollectionViewModel ()
 
@@ -107,6 +111,26 @@
     return result;
 }
 
+- (CGSize)calcCellSizeForCollectionLayout:(UICollectionViewLayout *)collectionViewLayout andIndex:(NSUInteger)index {
+    CGSize result = CGSizeZero;
+    do {
+        if (![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+            break;
+        }
+        DCHPhotoModel *photoModel = nil;
+        DCHArraySafeRead(self.models, index, photoModel);
+        if (photoModel) {
+            CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+            NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewModel_kCountInLine;
+            NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+            photoModel.uiDisplaySize = CGSizeMake(width, height);
+            result = CGSizeMake(width, (height + DCHImageCardCollectionViewCell_DescLabelHeight));
+        }
+        
+    } while (NO);
+    return result;
+}
+
 - (NSString *)createUIDescForPhotoModel:(DCHPhotoModel *)photoModel {
     NSString *result = nil;
     do {
@@ -117,26 +141,33 @@
         NSMutableString *desc0 = [NSMutableString string];
         NSMutableString *desc1 = [NSMutableString string];
         NSMutableString *desc2 = [NSMutableString string];
+        NSMutableString *desc3 = [NSMutableString string];
         
         if (!DCH_IsEmpty(photoModel.photographerName)) {
             [desc0 appendString:photoModel.photographerName];
         }
-        if (photoModel.rating) {
+        if (!DCH_IsEmpty(photoModel.photographerCity)) {
             if (![desc0 isEqualToString:@""]) {
                 [desc0 appendString:@" "];
             }
-            [desc0 appendFormat:@"Rating:%.2f", [photoModel.rating floatValue]];
+            [desc0 appendString:photoModel.photographerCity];
+        }
+        if (!DCH_IsEmpty(photoModel.photographerCountry)) {
+            if (![desc0 isEqualToString:@""]) {
+                [desc0 appendString:@" "];
+            }
+            [desc0 appendString:photoModel.photographerCountry];
         }
         
         if (!DCH_IsEmpty(photoModel.camera)) {
             [desc1 appendString:photoModel.camera];
         }
-//        if (photoModel.lens) {
-//            if (![desc1 isEqualToString:@""]) {
-//                [desc1 appendString:@" "];
-//            }
-//            [desc1 appendString:photoModel.lens];
-//        }
+        if (photoModel.lens) {
+            if (![desc1 isEqualToString:@""]) {
+                [desc1 appendString:@" "];
+            }
+            [desc1 appendString:photoModel.lens];
+        }
         
         if (!DCH_IsEmpty(photoModel.aperture)) {
             [desc2 appendFormat:@"f:%@", photoModel.aperture];
@@ -157,7 +188,29 @@
             if (![desc2 isEqualToString:@""]) {
                 [desc2 appendString:@" "];
             }
-            [desc2 appendString:photoModel.shutterSpeed];
+            [desc2 appendFormat:@"%@s", photoModel.shutterSpeed];
+        }
+        
+        if (photoModel.rating) {
+            [desc3 appendFormat:@"Rating:%.2f", [photoModel.rating floatValue]];
+        }
+        if (photoModel.commentsCount) {
+            if (![desc3 isEqualToString:@""]) {
+                [desc3 appendString:@" "];
+            }
+            [desc3 appendFormat:@"Comments:%d", [photoModel.commentsCount intValue]];
+        }
+        if (photoModel.favoritesCount) {
+            if (![desc3 isEqualToString:@""]) {
+                [desc3 appendString:@" "];
+            }
+            [desc3 appendFormat:@"Favs:%d", [photoModel.favoritesCount intValue]];
+        }
+        if (photoModel.votesCount) {
+            if (![desc3 isEqualToString:@""]) {
+                [desc3 appendString:@" "];
+            }
+            [desc3 appendFormat:@"Votes:%d", [photoModel.votesCount intValue]];
         }
         
         if (desc0) {
@@ -174,6 +227,12 @@
                 [desc appendFormat:@"\n"];
             }
             [desc appendString:desc2];
+        }
+        if (desc3) {
+            if (![desc isEqualToString:@""]) {
+                [desc appendFormat:@"\n"];
+            }
+            [desc appendString:desc3];
         }
         
         result = desc;

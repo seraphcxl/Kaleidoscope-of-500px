@@ -28,8 +28,6 @@
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <IDMPhotoBrowser/IDMPhotoBrowser.h>
 
-const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
-
 @interface DCHCategoryCollectionViewController () <IDMPhotoBrowserDelegate>
 
 @property (nonatomic, strong) DCHCategoryViewModel *viewModel;
@@ -78,7 +76,7 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
     layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 32);
     layout.footerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 8);
-    NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHCategoryCollectionViewController_kCountInLine;
+    NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHCategoryCollectionViewModel_kCountInLine;
     layout.itemSize = CGSizeMake(imgSize, imgSize);
 //    layout.parallaxHeaderAlwaysOnTop = YES;
 //    layout.parallaxHeaderReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 48);
@@ -165,6 +163,9 @@ const NSUInteger DCHCategoryCollectionViewController_kCountInLine = 2;
     if (model) {
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
+        
+        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)self.collectionViewLayout;
+        photoModel.uiDisplaySize = layout.itemSize;
         [cell refreshWithPhotoModel:photoModel];
 //        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     } else {

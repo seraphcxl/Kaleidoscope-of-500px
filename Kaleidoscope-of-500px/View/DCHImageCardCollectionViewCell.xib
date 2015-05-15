@@ -8,18 +8,18 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DCHImageCardCollectionViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
+            <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
+                <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-w1-k5X" userLabel="backgroundImageView">
-                        <rect key="frame" x="0.0" y="0.0" width="175" height="308"/>
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-hy-sYM" userLabel="descriptionLabel">
-                        <rect key="frame" x="16" y="233" width="143" height="75"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-hy-sYM" userLabel="descriptionLabel">
+                        <rect key="frame" x="16" y="233" width="143" height="100"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="75" id="PY7-jS-UlY"/>
+                            <constraint firstAttribute="height" constant="100" id="PY7-jS-UlY"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,7 +27,6 @@
                     </label>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvm-xo-uwj" userLabel="featureImageContainerView">
                         <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>
-                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-ul-98V" userLabel="gradientView" customClass="DCHLinearGradientView">
                         <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>

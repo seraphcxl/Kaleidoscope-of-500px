@@ -13,7 +13,7 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+DCHParallax.h"
 
-const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 75.0f;
+const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
 @interface DCHImageCardCollectionViewCell ()
 

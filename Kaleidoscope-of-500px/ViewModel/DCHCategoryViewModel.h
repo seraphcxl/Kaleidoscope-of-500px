@@ -9,6 +9,8 @@
 #import "DCHViewModel.h"
 #import <500px-iOS-api/PXAPI.h>
 
+extern const NSUInteger DCHCategoryCollectionViewModel_kCountInLine;
+
 @interface DCHCategoryViewModel : DCHViewModel
 
 @property (nonatomic, strong, readonly) NSDictionary *models;
