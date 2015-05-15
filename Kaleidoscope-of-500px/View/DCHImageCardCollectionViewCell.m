@@ -12,6 +12,7 @@
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIImage+ImageEffects.h"
 #import "UIView+DCHParallax.h"
+#import "DCHLinearGradientView.h"
 
 const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
