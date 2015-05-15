@@ -55,10 +55,10 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             self.featureImageView = imageView;
         }
         
-        self.titlelabel.text = @"";
+        self.titlelabel.attributedText = [[NSAttributedString alloc] initWithString:@""];
         self.descriptionLabel.text = @"";
         if (self.photoModel) {
-            self.titlelabel.text = self.photoModel.photoName;
+            self.titlelabel.attributedText = self.photoModel.uiTitleStr;
             self.descriptionLabel.text = self.photoModel.uiDescStr;
         }
         

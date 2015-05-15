@@ -24,6 +24,7 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
 @property (nonatomic, strong) NSArray *models;
 @property (nonatomic, assign) NSUInteger currentPage;
 
+- (NSAttributedString *)createUITitleForPhotoModel:(DCHPhotoModel *)photoModel;
 - (NSString *)createUIDescForPhotoModel:(DCHPhotoModel *)photoModel;
 
 @end
@@ -60,6 +61,7 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
                     [self.models enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                         do {
                             DCHPhotoModel *photoModel = (DCHPhotoModel *)obj;
+                            photoModel.uiTitleStr = [self createUITitleForPhotoModel:photoModel];
                             photoModel.uiDescStr = [self createUIDescForPhotoModel:photoModel];
                         } while (NO);
                     }];
@@ -131,6 +133,29 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
     return result;
 }
 
+- (NSAttributedString *)createUITitleForPhotoModel:(DCHPhotoModel *)photoModel {
+    NSMutableAttributedString *result = [[NSMutableAttributedString alloc] initWithString:@""];
+    do {
+        if (!photoModel) {
+            break;
+        }
+        NSShadow *titleShdow = [[NSShadow alloc] init];
+        titleShdow.shadowColor = [UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.3];
+        titleShdow.shadowOffset = CGSizeMake(0, 2);
+        titleShdow.shadowBlurRadius = 3;
+        if (!DCH_IsEmpty(photoModel.photoName)) {
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:photoModel.photoName attributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Heavy" size:17], NSForegroundColorAttributeName: [UIColor whiteColor], NSBackgroundColorAttributeName: [UIColor clearColor], NSShadowAttributeName: titleShdow}]];
+        }
+        if (!DCH_IsEmpty(result)) {
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n    -"]];
+        }
+        if (!DCH_IsEmpty(photoModel.photographerName)) {
+            [result appendAttributedString:[[NSAttributedString alloc] initWithString:photoModel.photographerName attributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Medium" size:13], NSForegroundColorAttributeName: [UIColor whiteColor], NSBackgroundColorAttributeName: [UIColor clearColor], NSShadowAttributeName: titleShdow}]];
+        }
+    } while (NO);
+    return result;
+}
+
 - (NSString *)createUIDescForPhotoModel:(DCHPhotoModel *)photoModel {
     NSString *result = nil;
     do {
@@ -143,8 +168,8 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
         NSMutableString *desc2 = [NSMutableString string];
         NSMutableString *desc3 = [NSMutableString string];
         
-        if (!DCH_IsEmpty(photoModel.photographerName)) {
-            [desc0 appendString:photoModel.photographerName];
+        if (!DCH_IsEmpty(photoModel.createdAt)) {
+            [desc0 appendString:photoModel.createdAt];
         }
         if (!DCH_IsEmpty(photoModel.photographerCity)) {
             if (![desc0 isEqualToString:@""]) {

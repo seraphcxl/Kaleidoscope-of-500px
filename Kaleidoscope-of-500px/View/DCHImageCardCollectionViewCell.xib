@@ -32,10 +32,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-JX-Chh" userLabel="titlelabel">
-                        <rect key="frame" x="16" y="203" width="143" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-JX-Chh" userLabel="titlelabel">
+                        <rect key="frame" x="16" y="173" width="143" height="60"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="NLU-LT-pEv"/>
+                            <constraint firstAttribute="height" constant="60" id="NLU-LT-pEv"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="15"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

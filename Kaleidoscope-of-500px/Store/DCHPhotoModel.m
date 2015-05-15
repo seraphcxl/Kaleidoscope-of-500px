@@ -8,6 +8,7 @@
 
 #import "DCHPhotoModel.h"
 #import <RXCollections/RXCollection.h>
+#import <Tourbillon/DCHTourbillon.h>
 
 @interface DCHPhotoModel ()
 
@@ -36,6 +37,8 @@
         }
         self.photoName = [self checkEmpty:dictionary[@"name"]];
         self.identifier = [self checkEmpty:dictionary[@"id"]];
+        self.createdAt = [self checkEmpty:dictionary[@"created_at"]];
+        self.createdAt = [self.createdAt substringToIndex:[self.createdAt rangeOfString:@"T"].location];
         self.width = [self checkEmpty:dictionary[@"width"]];
         self.height = [self checkEmpty:dictionary[@"height"]];
         self.photographerName = [self checkEmpty:dictionary[@"user"][@"fullname"]];
@@ -54,6 +57,7 @@
         
         self.thumbnailURL = [self urlForImageSize:3 inDictionary:dictionary[@"images"]];
         self.fullsizedURL = [self urlForImageSize:4 inDictionary:dictionary[@"images"]];
+        
         if (dictionary[@"voted"]) {
             self.votedFor = [dictionary[@"voted"] boolValue];
         }
@@ -91,13 +95,8 @@
 - (id)checkEmpty:(id)obj {
     id result = nil;
     do {
-        if (!obj || [obj isKindOfClass:[NSNull class]]) {
+        if (DCH_IsEmpty(obj)) {
             break;
-        }
-        if ([obj isMemberOfClass:[NSString class]]) {
-            if ([obj isEqualToString:@""]) {
-                break;
-            }
         }
         result = obj;
     } while (NO);

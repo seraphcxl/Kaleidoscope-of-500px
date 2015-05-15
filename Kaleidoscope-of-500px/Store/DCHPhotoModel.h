@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *photoName;
 @property (nonatomic, copy) NSNumber *identifier;
+@property (nonatomic, copy) NSString *createdAt;
 @property (nonatomic, copy) NSNumber *width;
 @property (nonatomic, copy) NSNumber *height;
 @property (nonatomic, copy) NSString *photographerName;
@@ -35,6 +36,7 @@
 @property (nonatomic, copy) NSNumber *votesCount;
 
 // UI
+@property (nonatomic, copy) NSAttributedString *uiTitleStr;
 @property (nonatomic, copy) NSString *uiDescStr;
 @property (nonatomic, assign) CGSize uiDisplaySize;
 
