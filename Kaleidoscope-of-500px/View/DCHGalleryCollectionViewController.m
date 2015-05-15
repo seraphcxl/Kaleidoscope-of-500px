@@ -27,15 +27,19 @@
 #import <SVPullToRefresh/SVPullToRefresh.h>
 //#import "DCHLoadingViewController.h"
 #import "DCHShimmeringHUD.h"
+#import <REMenu/REMenu.h>
 
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
 @property (nonatomic, assign) PXAPIHelperPhotoFeature feature;
 @property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
+@property (nonatomic, strong) REMenu *menu;
 
 - (void)refreshGallery;
 - (void)loadMoreGallery;
+- (void)toggleMenu;
+- (void)setNaviTitle;
 
 @end
 
@@ -59,26 +63,69 @@
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
     self.feature = PXAPIHelperPhotoFeaturePopular;
     
-    self.navigationItem.title = @"500px Gallery";
     @weakify(self)
+    
+    // Menu
+    NSMutableArray *menuItemAry = [NSMutableArray array];
+    for (NSUInteger idx = 0; idx < (PXAPIHelperPhotoFeatureFreshWeek + 1); ++idx) {
+        PXAPIHelperPhotoFeature feature = (PXAPIHelperPhotoFeature)idx;
+        REMenuItem *item = [[REMenuItem alloc] initWithTitle:[DCH500pxPhotoStore description4Feature:feature] image:nil highlightedImage:nil action:^(REMenuItem *item) {
+            @strongify(self)
+            do {
+                if (item.tag == self.feature) {
+                    ;
+                } else {
+                    self.feature = item.tag;
+                    [self setNaviTitle];
+                    [self refreshGallery];
+                }
+            } while (NO);
+        }];
+        item.tag = feature;
+        [menuItemAry addObject:item];
+    }
+    self.menu = [[REMenu alloc] initWithItems:menuItemAry];
+    
+    // Blurred background in iOS 7
+    //
+    self.menu.liveBlur = YES;
+    self.menu.liveBlurBackgroundStyle = REMenuLiveBackgroundStyleDark;
+    
+    self.menu.separatorOffset = CGSizeMake(15.0, 0.0);
+    self.menu.waitUntilAnimationIsComplete = NO;
+    
+    [self.menu setClosePreparationBlock:^{
+        NSLog(@"Menu will close");
+    }];
+    
+    [self.menu setCloseCompletionHandler:^{
+        NSLog(@"Menu did close");
+    }];
+    
+    // Navi
+    [self setNaviTitle];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain handler:^(id sender) {
         @strongify(self)
         do {
             [self refreshGallery];
         } while (NO);
     }];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] bk_initWithTitle:@"Menu" style:UIBarButtonItemStylePlain handler:^(id sender) {
+        @strongify(self)
+        do {
+            [self toggleMenu];
+        } while (NO);
+    }];
     
-    // Register cell classes
+    // Collection view
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCardCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier]];
     self.collectionView.backgroundColor = [UIColor blackColor];
-    
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
     layout.columnCount = DCHGalleryCollectionViewModel_kCountInLine;
     layout.minimumColumnSpacing = 8;
     layout.minimumInteritemSpacing = 8;
     layout.sectionInset = UIEdgeInsetsMake(4.0f, 0.0f, 4.0f, 0.0f);
     self.collectionView.collectionViewLayout = layout;
-    // Do any additional setup after loading the view.
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
         @strongify(self)
         do {
@@ -86,7 +133,8 @@
         } while (NO);
     }];
     
-    self.shimmeringHUD = [[DCHShimmeringHUD alloc] init];
+    // Shimmering HUD
+    self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor aquaColor] andBackgroundColor:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,9 +147,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-//        if (self.viewModel.models.count == 0) {
-//            [self refreshGallery];
-//        }
+        if (self.viewModel.models.count == 0) {
+            [self refreshGallery];
+        }
     } while (NO);
 }
 
@@ -131,7 +179,7 @@
 //            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [self.shimmeringHUD showHUDTo:self.view andShimmeringImmediately:YES];
         }];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
+        self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = NO;
         [self.viewModel refreshGallery:self.feature];
     } while (NO);
 }
@@ -141,6 +189,24 @@
         self.navigationItem.rightBarButtonItem.enabled = NO;
         [self.viewModel loadMoreGallery:self.feature];
     } while (NO);
+}
+
+- (void)toggleMenu {
+    do {
+        if (self.menu.isOpen) {
+            return [self.menu close];
+        }
+        
+        [self.menu showFromNavigationController:self.navigationController];
+    } while (NO);
+}
+
+- (void)setNaviTitle {
+    @weakify(self)
+    [NSThread runInMain:^{
+        @strongify(self)
+        self.navigationItem.title = [NSString stringWithFormat:@"500px %@", [DCH500pxPhotoStore description4Feature:self.feature]];
+    }];
 }
 
 #pragma mark - DCHEventResponder
@@ -168,7 +234,7 @@
                             [self.collectionView.infiniteScrollingView stopAnimating];
                         }
                         [self.collectionView reloadData];
-                        self.navigationItem.rightBarButtonItem.enabled = YES;
+                        self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
                     }];
                     result = YES;
                 }
@@ -241,6 +307,12 @@
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     do {
         [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+    } while (NO);
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    do {
+//        [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
     } while (NO);
 }
 

@@ -238,4 +238,32 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
     return result;
 }
 
++ (NSString *)description4Feature:(PXAPIHelperPhotoFeature)feature {
+    NSString *result = @"";
+    do {
+        switch (feature) {
+            case PXAPIHelperPhotoFeaturePopular:
+            { result = @"Popular"; }
+                break;
+            case PXAPIHelperPhotoFeatureUpcoming:
+            { result = @"Upcoming"; }
+                break;
+            case PXAPIHelperPhotoFeatureEditors:
+            { result = @"Editors"; }
+                break;
+            case PXAPIHelperPhotoFeatureFreshToday:
+            { result = @"FreshToday"; }
+                break;
+            case PXAPIHelperPhotoFeatureFreshYesterday:
+            { result = @"FreshYesterday"; }
+                break;
+            case PXAPIHelperPhotoFeatureFreshWeek:
+            { result = @"FreshWeek"; }
+                break;
+            default:
+                break;
+        }
+    } while (NO);
+    return result;
+}
 @end

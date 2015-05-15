@@ -63,8 +63,9 @@
     do {
         self.shimmeringView = [[FBShimmeringView alloc] init];
         self.shimmeringView.shimmering = YES;
-        self.shimmeringView.shimmeringBeginFadeDuration = 0.3;
-        self.shimmeringView.shimmeringOpacity = 0.3;
+        self.shimmeringView.shimmeringBeginFadeDuration = 0.2;
+        self.shimmeringView.shimmeringOpacity = 0.8;
+        self.shimmeringView.shimmeringSpeed = 300;
         self.shimmeringView.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.8f];
         
         self.loadingLabel = [[UILabel alloc] initWithFrame:self.shimmeringView.frame];
