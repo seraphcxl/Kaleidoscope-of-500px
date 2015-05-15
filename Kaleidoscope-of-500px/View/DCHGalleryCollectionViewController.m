@@ -8,32 +8,35 @@
 
 #import "DCHGalleryCollectionViewController.h"
 #import "DCHGalleryCollectionViewModel.h"
-#import "DCHGalleryCollectionViewCell.h"
 #import "DCH500pxEventCreater.h"
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
 #import "DCHDisplayEventCreater.h"
 #import "DCHDisplayEvent.h"
 #import "DCH500pxPhotoStore.h"
+#import "DCHPhotoModel.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <libextobjc/EXTScope.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import "DCHFullSizeViewModel.h"
 #import "DCHFullSizeViewController.h"
+#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+//#import "DCHImageCollectionViewCell.h"
+#import "DCHImageCardCollectionViewCell.h"
+#import "UIView+DCHParallax.h"
+#import <SVPullToRefresh/SVPullToRefresh.h>
 
-const NSUInteger DCHGalleryCollectionViewController_kCountInLine = 2;
-
-@interface DCHGalleryCollectionViewController ()
+@interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
+@property (nonatomic, assign) PXAPIHelperPhotoFeature feature;
 
 - (void)refreshGallery;
+- (void)loadMoreGallery;
 
 @end
 
 @implementation DCHGalleryCollectionViewController
-
-static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 
 - (void)dealloc {
     do {
@@ -48,6 +51,7 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
+    self.feature = PXAPIHelperPhotoFeaturePopular;
     
     self.navigationItem.title = @"500px Gallery";
     @weakify(self)
@@ -59,16 +63,22 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
     }];
     
     // Register cell classes
-    [self.collectionView registerClass:[DCHGalleryCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    self.collectionView.backgroundColor = [UIColor ironColor];
+    [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCardCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier]];
+    self.collectionView.backgroundColor = [UIColor blackColor];
     
-    if ([self.collectionViewLayout isKindOfClass:[UICollectionViewFlowLayout class]]) {
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
-        NSUInteger imgSize = ((NSUInteger)(self.collectionView.bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewController_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right)) / DCHGalleryCollectionViewController_kCountInLine / 4 * 4;
-        layout.itemSize = CGSizeMake(imgSize, imgSize);
-    }
-    
+    CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
+    layout.columnCount = DCHGalleryCollectionViewModel_kCountInLine;
+    layout.minimumColumnSpacing = 8;
+    layout.minimumInteritemSpacing = 8;
+    layout.sectionInset = UIEdgeInsetsMake(4.0f, 0.0f, 4.0f, 0.0f);
+    self.collectionView.collectionViewLayout = layout;
     // Do any additional setup after loading the view.
+    [self.collectionView addInfiniteScrollingWithActionHandler:^{
+        @strongify(self)
+        do {
+            [self loadMoreGallery];
+        } while (NO);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,9 +91,9 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        if (self.viewModel.models.count == 0) {
-            [self refreshGallery];
-        }
+//        if (self.viewModel.models.count == 0) {
+//            [self refreshGallery];
+//        }
     } while (NO);
 }
 
@@ -113,10 +123,16 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
             [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
-        [self.viewModel refreshGallery:PXAPIHelperPhotoFeaturePopular];
+        [self.viewModel refreshGallery:self.feature];
     } while (NO);
 }
 
+- (void)loadMoreGallery {
+    do {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        [self.viewModel loadMoreGallery:self.feature];
+    } while (NO);
+}
 
 #pragma mark - DCHEventResponder
 - (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
@@ -133,7 +149,14 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
-                        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        NSUInteger page = 0;
+                        NSDictionary *payloadDic = (NSDictionary *)[event payload];
+                        page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
+                        if (page == DCH500pxPhotoStore_FirstPageNum) {
+                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                        } else {
+                            [self.collectionView.infiniteScrollingView stopAnimating];
+                        }
                         [self.collectionView reloadData];
                         self.navigationItem.rightBarButtonItem.enabled = YES;
                     }];
@@ -172,22 +195,25 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    DCHGalleryCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    DCHImageCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier] forIndexPath:indexPath];
     
     // Configure the cell
-    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+//    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
+    DCHPhotoModel *photoModel = nil;
+    DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
+//    [cell refreshWithPhotoModel:photoModel];
+    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
 
 #pragma mark <UICollectionViewDelegate>
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     do {
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.item];
+        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.row];
         DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
         [self.navigationController pushViewController:fullSizeVC animated:YES];
     } while (NO);
@@ -196,10 +222,22 @@ static NSString * const reuseIdentifier = @"DCHGalleryCollectionViewCell";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
         NSArray *cells = [self.collectionView visibleCells];
-        for (DCHGalleryCollectionViewCell *cell in cells) {
+        for (DCHImageCardCollectionViewCell *cell in cells) {
             [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
         }
     } while (NO);
+}
+
+#pragma mark - CHTCollectionViewDelegateWaterfallLayout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGSize result = CGSizeZero;
+    do {
+        if (collectionView != self.collectionView || ![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+            break;
+        }
+        result = [self.viewModel calcCellSizeForCollectionLayout:collectionViewLayout andIndex:indexPath.item];
+    } while (NO);
+    return result;
 }
 
 /*

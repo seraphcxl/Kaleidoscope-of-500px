@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="DCHImageCardCollectionViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tVe-w1-k5X" userLabel="backgroundImageView">
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="333"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I6o-hy-sYM" userLabel="descriptionLabel">
+                        <rect key="frame" x="16" y="233" width="143" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="PY7-jS-UlY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nvm-xo-uwj" userLabel="featureImageContainerView">
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Egr-ul-98V" userLabel="gradientView" customClass="DCHLinearGradientView">
+                        <rect key="frame" x="0.0" y="0.0" width="175" height="233"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-JX-Chh" userLabel="titlelabel">
+                        <rect key="frame" x="16" y="203" width="143" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="NLU-LT-pEv"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="nvm-xo-uwj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9Hr-pJ-0M2"/>
+                <constraint firstAttribute="bottom" secondItem="I6o-hy-sYM" secondAttribute="bottom" id="9Ya-u5-diF"/>
+                <constraint firstItem="I6o-hy-sYM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="F1K-c3-IV7"/>
+                <constraint firstAttribute="trailing" secondItem="YfR-JX-Chh" secondAttribute="trailing" constant="16" id="LDc-sr-XaU"/>
+                <constraint firstItem="tVe-w1-k5X" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="N3b-0n-Hh7"/>
+                <constraint firstAttribute="trailing" secondItem="nvm-xo-uwj" secondAttribute="trailing" id="NIK-Rl-0Kb"/>
+                <constraint firstItem="nvm-xo-uwj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OTh-9L-HXd"/>
+                <constraint firstItem="Egr-ul-98V" firstAttribute="width" secondItem="nvm-xo-uwj" secondAttribute="width" id="S7a-P1-8lu"/>
+                <constraint firstAttribute="trailing" secondItem="I6o-hy-sYM" secondAttribute="trailing" constant="16" id="UqF-93-MBu"/>
+                <constraint firstItem="I6o-hy-sYM" firstAttribute="top" secondItem="nvm-xo-uwj" secondAttribute="bottom" id="Wuv-Qx-p8i"/>
+                <constraint firstAttribute="bottom" secondItem="tVe-w1-k5X" secondAttribute="bottom" id="bDd-zD-yf2"/>
+                <constraint firstItem="tVe-w1-k5X" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dVl-QO-eZ0"/>
+                <constraint firstItem="YfR-JX-Chh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="e98-f2-RVx"/>
+                <constraint firstItem="Egr-ul-98V" firstAttribute="centerY" secondItem="nvm-xo-uwj" secondAttribute="centerY" id="mmm-Bd-pAq"/>
+                <constraint firstItem="Egr-ul-98V" firstAttribute="height" secondItem="nvm-xo-uwj" secondAttribute="height" id="u7M-ne-OQu"/>
+                <constraint firstItem="I6o-hy-sYM" firstAttribute="top" secondItem="YfR-JX-Chh" secondAttribute="bottom" id="urQ-mG-5ck"/>
+                <constraint firstItem="Egr-ul-98V" firstAttribute="centerX" secondItem="nvm-xo-uwj" secondAttribute="centerX" id="vSA-3W-8tc"/>
+                <constraint firstAttribute="trailing" secondItem="tVe-w1-k5X" secondAttribute="trailing" id="zBb-6E-36M"/>
+            </constraints>
+            <connections>
+                <outlet property="backgroundImageView" destination="tVe-w1-k5X" id="yDv-uD-8pu"/>
+                <outlet property="descriptionLabel" destination="I6o-hy-sYM" id="c7K-c9-nmR"/>
+                <outlet property="featureImageContainerView" destination="nvm-xo-uwj" id="r5r-8j-fv1"/>
+                <outlet property="gradientView" destination="Egr-ul-98V" id="exs-e6-In7"/>
+                <outlet property="titlelabel" destination="YfR-JX-Chh" id="WcH-EH-gSD"/>
+            </connections>
+            <point key="canvasLocation" x="872.5" y="378.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

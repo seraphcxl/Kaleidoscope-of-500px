@@ -12,6 +12,7 @@ NSString * const DCH500pxEventDomain = @"DCH500pxEventDomain";
 
 #pragma mark - DC500pxEventCode_QueryFeaturedPhotos
 NSString * const DC500pxEventCode_QueryFeaturedPhotos_kFeature = @"DC500pxEventCode_QueryFeaturedPhotos_kFeature";
+NSString * const DC500pxEventCode_QueryFeaturedPhotos_kPage = @"DC500pxEventCode_QueryFeaturedPhotos_kPage";
 
 #pragma mark - DC500pxEventCode_QueryPhotoDetails
 NSString * const DC500pxEventCode_QueryPhotoDetails_kPhotoModel = @"DC500pxEventCode_QueryPhotoDetails_kPhotoModel";

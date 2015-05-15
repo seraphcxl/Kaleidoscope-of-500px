@@ -8,11 +8,18 @@
 
 #import "DCHViewModel.h"
 #import <500px-iOS-api/PXAPI.h>
+#import <UIKit/UIKit.h>
+
+extern const NSUInteger DCHGalleryCollectionViewModel_kCountInLine;
 
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
 @property (nonatomic, strong, readonly) NSArray *models;
+@property (nonatomic, assign, readonly) NSUInteger currentPage;
 
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature;
+- (DCHEventOperationTicket *)loadMoreGallery:(PXAPIHelperPhotoFeature)feature;
+
+- (CGSize)calcCellSizeForCollectionLayout:(UICollectionViewLayout *)collectionViewLayout andIndex:(NSUInteger)index;
 
 @end

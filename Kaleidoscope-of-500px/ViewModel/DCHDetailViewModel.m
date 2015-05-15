@@ -43,23 +43,21 @@
     return self;
 }
 
-- (BOOL)respondEvent:(id<DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
     BOOL result = NO;
     do {
         if (event == nil) {
             break;
         }
-        self.inputEvent = event;
-        self.outputEvent = event;
         
-        if ([[self.inputEvent domain] isEqualToString:DCHDisplayEventDomain]) {
-            switch ([self.inputEvent code]) {
+        if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
+            switch ([event code]) {
                 case DCDisplayEventCode_RefreshPhotoDetails:
                 {
                     DCHPhotoModel *tmpPhotoModel = [event payload][DCDisplayEventCode_RefreshPhotoDetails_kPhotoModel];
                     if ([self.model.identifier isEqualToNumber:tmpPhotoModel.identifier]) {
                         self.model = tmpPhotoModel;
-                        [self emitChange];
+                        [self emitChangeWithEvent:event];
                     }
                     result = YES;
                 }
@@ -68,6 +66,9 @@
                 default:
                     break;
             }
+        }
+        if (completionHandler) {
+            completionHandler(self, event, nil);
         }
     } while (NO);
     return result;
@@ -84,10 +85,10 @@
             ;
         } else {
             DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:@{DC500pxEventCode_QueryPhotoDetails_kPhotoModel: self.model}];
-            result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoDetailsEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+            result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoDetailsEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                 do {
                     if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
-                        NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                        NSLog(@"queryPhotoDetailsEvent complte in %@", NSStringFromSelector(_cmd));
                     }
                 } while (NO);
             }];

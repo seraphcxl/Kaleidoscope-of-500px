@@ -13,6 +13,7 @@
 
 @property (nonatomic, assign, readonly) PXPhotoModelCategory category;
 @property (nonatomic, strong, readonly) NSArray *models;
+@property (nonatomic, assign) BOOL needRefresh;
 
 + (NSArray *)categories;
 + (NSString *)description4Category:(PXPhotoModelCategory)category;

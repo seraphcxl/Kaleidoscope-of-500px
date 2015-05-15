@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <DCHFluxKit/DCHFluxKit.h>
+#import <500px-iOS-api/PXAPI.h>
 
 @class DCHGalleryCollectionViewModel;
 
 @interface DCHGalleryCollectionViewController : UICollectionViewController
 
 @property (nonatomic, strong, readonly) DCHGalleryCollectionViewModel *viewModel;
+@property (nonatomic, assign, readonly) PXAPIHelperPhotoFeature feature;
 
 @end

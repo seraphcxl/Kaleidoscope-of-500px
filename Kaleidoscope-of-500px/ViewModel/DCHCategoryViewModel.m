@@ -13,6 +13,10 @@
 #import "DCH500pxEventCreater.h"
 #import "DCH500pxEvent.h"
 #import "DCH500pxDispatcher.h"
+#import "DCHCategoryModel.h"
+#import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
+
+const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 
 @interface DCHCategoryViewModel ()
 
@@ -39,21 +43,18 @@
     return self;
 }
 
-- (BOOL)respondEvent:(id<DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+- (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
     BOOL result = NO;
     do {
         if (event == nil) {
             break;
         }
-        self.inputEvent = event;
-        self.outputEvent = event;
-        
-        if ([[self.inputEvent domain] isEqualToString:DCHDisplayEventDomain]) {
-            switch ([self.inputEvent code]) {
+        if ([[event domain] isEqualToString:DCHDisplayEventDomain]) {
+            switch ([event code]) {
                 case DCDisplayEventCode_RefreshPhotoCategory:
                 {
                     self.models = [DCH500pxPhotoStore sharedDCH500pxPhotoStore].categories;
-                    [self emitChange];
+                    [self emitChangeWithEvent:event];
                     result = YES;
                 }
                     break;
@@ -61,6 +62,9 @@
                 default:
                     break;
             }
+        }
+        if (completionHandler) {
+            completionHandler(self, event, nil);
         }
     } while (NO);
     return result;
@@ -75,17 +79,28 @@
         [self.loadingStatusDic setObject:@(1) forKey:@(category)];
         @weakify(self)
         DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: @(category)}];
-        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id<DCHEvent> outputEvent, NSError *error) {
+        result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
             @strongify(self)
             do {
                 if ([eventResponder isEqual:[DCH500pxPhotoStore sharedDCH500pxPhotoStore]]) {
-                    NSLog(@"queryPopularPhotosEvent complte in %@", NSStringFromSelector(_cmd));
+                    NSLog(@"queryPhotoCategoryEvent complte in %@ Category:%@", NSStringFromSelector(_cmd), [outputEvent payload][DC500pxEventCode_QueryPhotoCategory_kCategory]);
                 }
             } while (NO);
             [self.loadingStatusDic removeObjectForKey:@(category)];
         }];
     } while (NO);
     return result;
+}
+
+- (void)setNeedRefreshCategories {
+    do {
+        [self.models enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+            do {
+                DCHCategoryModel *categoryModel = (DCHCategoryModel *)obj;
+                categoryModel.needRefresh = YES;
+            } while (NO);
+        }];
+    } while (NO);
 }
 
 @end
