@@ -68,7 +68,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionHeaderView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:[DCHCategoryCollectionHeaderView viewlIdentifier]];
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHCategoryCollectionFooterView viewlIdentifier] bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[DCHCategoryCollectionFooterView viewlIdentifier]];
     // Do any additional setup after loading the view.
-    self.collectionView.backgroundColor = [UIColor ironColor];
+    self.collectionView.backgroundColor = [UIColor blackColor];
     
     CSStickyHeaderFlowLayout *layout = [[CSStickyHeaderFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 8;
@@ -164,7 +164,7 @@
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
         
-        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)self.collectionViewLayout;
+        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)self.collectionView.collectionViewLayout;
         photoModel.uiDisplaySize = layout.itemSize;
         [cell refreshWithPhotoModel:photoModel];
 //        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];

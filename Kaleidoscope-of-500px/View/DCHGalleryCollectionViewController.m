@@ -64,13 +64,13 @@
     
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCardCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier]];
-    self.collectionView.backgroundColor = [UIColor ironColor];
+    self.collectionView.backgroundColor = [UIColor blackColor];
     
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
     layout.columnCount = DCHGalleryCollectionViewModel_kCountInLine;
     layout.minimumColumnSpacing = 8;
     layout.minimumInteritemSpacing = 8;
-    layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+    layout.sectionInset = UIEdgeInsetsMake(4.0f, 0.0f, 4.0f, 0.0f);
     self.collectionView.collectionViewLayout = layout;
     // Do any additional setup after loading the view.
     [self.collectionView addInfiniteScrollingWithActionHandler:^{
