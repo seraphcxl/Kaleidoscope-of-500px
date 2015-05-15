@@ -25,11 +25,14 @@
 #import "DCHImageCardCollectionViewCell.h"
 #import "UIView+DCHParallax.h"
 #import <SVPullToRefresh/SVPullToRefresh.h>
+//#import "DCHLoadingViewController.h"
+#import "DCHShimmeringHUD.h"
 
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
 @property (nonatomic, assign) PXAPIHelperPhotoFeature feature;
+@property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
 
 - (void)refreshGallery;
 - (void)loadMoreGallery;
@@ -42,6 +45,9 @@
     do {
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] removeEventResponder:self.viewModel];
         self.viewModel = nil;
+        
+        [self.shimmeringHUD hardDismiss];
+        self.shimmeringHUD = nil;
     } while (NO);
 }
 
@@ -79,6 +85,8 @@
             [self loadMoreGallery];
         } while (NO);
     }];
+    
+    self.shimmeringHUD = [[DCHShimmeringHUD alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -120,7 +128,8 @@
 - (void)refreshGallery {
     do {
         [NSThread runInMain:^{
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self.shimmeringHUD showHUDTo:self.view withText:@"Loading" font:nil andBackgroundColor:nil];
         }];
         self.navigationItem.rightBarButtonItem.enabled = NO;
         [self.viewModel refreshGallery:self.feature];
@@ -153,7 +162,8 @@
                         NSDictionary *payloadDic = (NSDictionary *)[event payload];
                         page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
                         if (page == DCH500pxPhotoStore_FirstPageNum) {
-                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                            [self.shimmeringHUD dismiss];
                         } else {
                             [self.collectionView.infiniteScrollingView stopAnimating];
                         }

@@ -17,6 +17,19 @@
         self.endColor = [UIColor clearColor];
         self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
         self.gradientSize = 0.5f;
+        self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.startColor = [UIColor blackColor];
+        self.endColor = [UIColor clearColor];
+        self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
+        self.gradientSize = 0.5f;
+        self.backgroundColor = [UIColor clearColor];
     }
     return self;
 }
@@ -27,6 +40,7 @@
         self.endColor = [UIColor clearColor];
         self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
         self.gradientSize = 0.5f;
+        self.backgroundColor = [UIColor clearColor];
     } while (NO);
 }
 

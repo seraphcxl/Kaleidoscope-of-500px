@@ -18,6 +18,7 @@ pod 'KVOController', '~> 1.0.3'
 pod 'SVPullToRefresh', '~> 0.4.1'
 pod 'CSStickyHeaderFlowLayout', '~> 0.2.5'
 pod 'IDMPhotoBrowser', '~> 1.6.2'
+pod 'Shimmer', '~> 1.0.2'
 
 end
 
