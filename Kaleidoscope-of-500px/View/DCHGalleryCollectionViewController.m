@@ -61,7 +61,7 @@
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     self.viewModel = [[DCHGalleryCollectionViewModel alloc] init];
-    self.feature = PXAPIHelperPhotoFeaturePopular;
+    self.feature = kPXAPIHelperDefaultFeature;
     
     @weakify(self)
     
@@ -147,15 +147,15 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        if (self.viewModel.models.count == 0) {
-            [self refreshGallery];
-        }
+//        if (self.viewModel.models.count == 0) {
+//            [self refreshGallery];
+//        }
     } while (NO);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     do {
-        ;
+        [self.shimmeringHUD hardDismiss];
     } while (NO);
     [super viewWillDisappear:animated];
 }

@@ -8,6 +8,7 @@
 
 #import "DCHViewModel.h"
 #import <500px-iOS-api/PXAPI.h>
+#import <UIKit/UIKit.h>
 
 extern const NSUInteger DCHCategoryCollectionViewModel_kCountInLine;
 
@@ -16,6 +17,9 @@ extern const NSUInteger DCHCategoryCollectionViewModel_kCountInLine;
 @property (nonatomic, strong, readonly) NSDictionary *models;
 
 - (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category;
+
 - (void)setNeedRefreshCategories;
+
+- (CGSize)calcCellSizeForCollectionLayout:(UICollectionViewLayout *)collectionViewLayout andIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -14,12 +14,14 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DCHPhotoModel.h"
+#import "DCHShimmeringHUD.h"
 
 @interface DCHDetailViewController ()
 
 @property (nonatomic, assign) NSInteger photoIndex;
 @property (nonatomic, strong) DCHDetailViewModel *viewModel;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
 
 @end
 
@@ -28,6 +30,9 @@
 - (void)dealloc {
     do {
         self.viewModel = nil;
+        
+        [self.shimmeringHUD hardDismiss];
+        self.shimmeringHUD = nil;
     } while (NO);
 }
 
@@ -45,11 +50,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     do {
-        self.view.backgroundColor = [UIColor aquaColor];
+        self.view.backgroundColor = [UIColor blackColor];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:imageView];
         self.imageView = imageView;
+        
+        // Shimmering HUD
+        self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:nil];
     } while (NO);
 }
 
@@ -62,7 +70,8 @@
             self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
         } else {
             [self.viewModel loadPhotoDetails];
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self.shimmeringHUD showHUDTo:self.view andShimmeringImmediately:YES];
         }
     } while (NO);
 }
@@ -83,7 +92,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     do {
-        ;
+        [self.shimmeringHUD hardDismiss];
     } while (NO);
     [super viewWillDisappear:animated];
 }
@@ -125,12 +134,15 @@
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
+                        [self.imageView sd_cancelCurrentImageLoad];
+                        self.imageView.image = nil;
                         if (self.viewModel.model.fullsizedData) {
-                            ;
+                            self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
                         } else {
                             if (self.viewModel.model.fullsizedURL) {
                                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                                    [self.shimmeringHUD dismiss];
                                     do {
                                         if (error) {
                                             NSLog(@"sd_setImageWithURL err:%@", error);

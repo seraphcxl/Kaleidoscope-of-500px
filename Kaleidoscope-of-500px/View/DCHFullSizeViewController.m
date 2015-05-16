@@ -55,7 +55,7 @@
             ;
         }];
         
-        self.view.backgroundColor = [UIColor grapeColor];
+        self.view.backgroundColor = [UIColor salmonColor];
         self.title = self.viewModel.initialPhotoName;
         self.pageViewController.view.frame = self.view.bounds;
         [self.view addSubview:self.pageViewController.view];

@@ -164,8 +164,7 @@
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
         
-        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)self.collectionView.collectionViewLayout;
-        photoModel.uiDisplaySize = layout.itemSize;
+        [self.viewModel calcCellSizeForCollectionLayout:self.collectionView.collectionViewLayout andIndexPath:indexPath];
         [cell refreshWithPhotoModel:photoModel];
 //        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     } else {

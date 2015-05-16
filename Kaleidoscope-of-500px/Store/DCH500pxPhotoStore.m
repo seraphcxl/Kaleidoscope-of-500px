@@ -128,7 +128,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
 - (NSURLSessionDataTask *)queryPhotosByFeature:(PXAPIHelperPhotoFeature)feature withPage:(NSUInteger)page andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately {
     NSURLSessionDataTask *result = nil;
     do {
-        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:feature resultsPerPage:50 page:page photoSizes:(PXPhotoModelSizeThumbnail | PXPhotoModelSizeLarge) sortOrder:PXAPIHelperSortOrderRating];
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:feature resultsPerPage:50 page:page photoSizes:kPXAPIHelperDefaultPhotoSize sortOrder:PXAPIHelperSortOrderRating];
         @weakify(self);
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);
@@ -203,7 +203,7 @@ DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
         if (!self.categories) {
             self.categories = [NSMutableDictionary dictionary];
         }
-        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:count page:0 photoSizes:(PXPhotoModelSizeThumbnail | PXPhotoModelSizeLarge) sortOrder:PXAPIHelperSortOrderRating except:PXAPIHelperUnspecifiedCategory only:category];
+        NSURLRequest *request = [[PXRequest apiHelper] urlRequestForPhotoFeature:PXAPIHelperPhotoFeaturePopular resultsPerPage:count page:0 photoSizes:kPXAPIHelperDefaultPhotoSize sortOrder:PXAPIHelperSortOrderRating except:PXAPIHelperUnspecifiedCategory only:category];
         @weakify(self);
         result = [[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);

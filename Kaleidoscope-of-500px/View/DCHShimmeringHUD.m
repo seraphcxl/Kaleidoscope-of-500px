@@ -126,6 +126,7 @@
 
 - (void)hardDismiss {
     do {
+        self.showCount = 0;
         [self.shimmeringView removeFromSuperview];
         self.baseView = nil;
     } while (NO);

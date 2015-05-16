@@ -8,6 +8,7 @@
 
 #import "DCHCategoryCollectionHeaderView.h"
 #import "DCHCategoryModel.h"
+#import <Tourbillon/DCHTourbillon.h>
 
 @interface DCHCategoryCollectionHeaderView ()
 
@@ -27,6 +28,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.backgroundColor = [UIColor salmonColor];
 }
 
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
