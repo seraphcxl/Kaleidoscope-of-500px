@@ -31,6 +31,8 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
 - (void)dealloc {
     do {
+        [self resetParallaxViews];
+        
         [self.featureImageView removeFromSuperview];
         self.featureImageView = nil;
         
@@ -121,5 +123,4 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
     } while (NO);
     return result;
 }
-
 @end

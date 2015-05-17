@@ -50,14 +50,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     do {
-        self.view.backgroundColor = [UIColor blackColor];
+        self.view.backgroundColor = [UIColor tungstenColor];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         [self.view addSubview:imageView];
         self.imageView = imageView;
         
         // Shimmering HUD
-        self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:nil];
+        self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
     } while (NO);
 }
 

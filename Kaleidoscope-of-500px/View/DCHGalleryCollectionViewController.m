@@ -119,7 +119,7 @@
     
     // Collection view
     [self.collectionView registerNib:[UINib nibWithNibName:[DCHImageCardCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCardCollectionViewCell cellIdentifier]];
-    self.collectionView.backgroundColor = [UIColor blackColor];
+    self.collectionView.backgroundColor = [UIColor tungstenColor];
     CHTCollectionViewWaterfallLayout *layout = [[CHTCollectionViewWaterfallLayout alloc] init];
     layout.columnCount = DCHGalleryCollectionViewModel_kCountInLine;
     layout.minimumColumnSpacing = 8;
@@ -134,7 +134,7 @@
     }];
     
     // Shimmering HUD
-    self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor aquaColor] andBackgroundColor:nil];
+    self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor aquaColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -227,13 +227,16 @@
                         NSUInteger page = 0;
                         NSDictionary *payloadDic = (NSDictionary *)[event payload];
                         page = [payloadDic[DCDisplayEventCode_RefreshFeaturedPhotos_kPage] unsignedIntegerValue];
+                        [self.collectionView reloadData];
                         if (page == DCH500pxPhotoStore_FirstPageNum) {
 //                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                             [self.shimmeringHUD dismiss];
+//                            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
                         } else {
                             [self.collectionView.infiniteScrollingView stopAnimating];
                         }
-                        [self.collectionView reloadData];
+                        
+                        
                         self.navigationItem.leftBarButtonItem.enabled = self.navigationItem.rightBarButtonItem.enabled = YES;
                     }];
                     result = YES;
@@ -277,8 +280,8 @@
 //    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-//    [cell refreshWithPhotoModel:photoModel];
-    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+    [cell refreshWithPhotoModel:photoModel];
+//    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -297,22 +300,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
-        NSArray *cells = [self.collectionView visibleCells];
-        for (DCHImageCardCollectionViewCell *cell in cells) {
-            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-        }
-    } while (NO);
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    do {
-        [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-    } while (NO);
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    do {
-//        [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+//        NSArray *cells = [self.collectionView visibleCells];
+//        for (DCHImageCardCollectionViewCell *cell in cells) {
+//            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+//        }
     } while (NO);
 }
 

@@ -13,6 +13,8 @@
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_ASSIGN)
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_kParallaxContainerView, OBJC_ASSOCIATION_ASSIGN)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxBaseView, UIView_DCHParallax_kParallaxBaseView, OBJC_ASSOCIATION_ASSIGN)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kParallaxScrollView, OBJC_ASSOCIATION_ASSIGN)
 
 - (void)resetFrameInFrame:(CGRect)frame forParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
     do {
@@ -63,6 +65,8 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
         }
         [self setParallaxView:parallaxView];
         [self setParallaxContainerView:containerView];
+        [self setParallaxBaseView:view];
+        [self setParallaxScrollView:scrollView];
         
         BOOL needCalcX = NO;
         BOOL needCalcY = NO;
@@ -95,20 +99,27 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
 // github.com/jberlana/JBParallaxCell
 - (void)parallaxViewOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
     do {
-        if (!scrollView || !view) {
+        [self setParallaxBaseView:view];
+        [self setParallaxScrollView:scrollView];
+        
+        UIScrollView *myScrollView = [self getParallaxScrollView];
+        UIView *myBaseView = [self getParallaxBaseView];
+        
+        if (!myScrollView || !myBaseView) {
             break;
         }
+        
         if (![[self getParallaxView] isKindOfClass:[UIView class]]) {
             break;
         }
         UIView *parallaxView = (UIView *)[self getParallaxView];
         CGRect parallaxViewRect = parallaxView.frame;
-        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height)) {
-            parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
+        if (DCHFloatingNumberEqualToZero(myScrollView.frame.size.height + myScrollView.contentOffset.y - myScrollView.contentSize.height)) {
+            parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:myScrollView scrollOnView:myBaseView];
         }
         
-        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width)) {
-            parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
+        if (DCHFloatingNumberEqualToZero(myScrollView.frame.size.width + myScrollView.contentOffset.x - myScrollView.contentSize.width)) {
+            parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:myScrollView scrollOnView:myBaseView];
         }
         parallaxView.frame = parallaxViewRect;
     } while (NO);
@@ -154,6 +165,7 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
         CGRect rectSelfInSuperview = [scrollView convertRect:self.frame toView:view];
         CGRect rectContainerInSelf = [self convertRect:parallaxContainerView.frame toView:self];
         CGRect rect = CGRectMake(rectContainerInSelf.origin.x + rectSelfInSuperview.origin.x, rectContainerInSelf.origin.y + rectSelfInSuperview.origin.y, CGRectGetWidth(rectContainerInSelf), CGRectGetHeight(rectContainerInSelf));
+        
         float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rect);
         float difference = CGRectGetHeight(parallaxView.frame) - CGRectGetHeight(parallaxContainerView.frame);
         float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
@@ -163,4 +175,12 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
     return result;
 }
 
+- (void)resetParallaxViews {
+    do {
+        [self setParallaxView:nil];
+        [self setParallaxContainerView:nil];
+        [self setParallaxBaseView:nil];
+        [self setParallaxScrollView:nil];
+    } while (NO);
+}
 @end
