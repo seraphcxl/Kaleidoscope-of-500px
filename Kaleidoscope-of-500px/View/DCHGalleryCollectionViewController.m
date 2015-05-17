@@ -280,8 +280,8 @@
 //    [cell refreshWithPhotoModel:self.viewModel.models[indexPath.row] onScrollView:self.collectionView scrollOnView:self.view];
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-    [cell refreshWithPhotoModel:photoModel];
-//    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+//    [cell refreshWithPhotoModel:photoModel];
+    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }
@@ -300,10 +300,10 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     do {
-//        NSArray *cells = [self.collectionView visibleCells];
-//        for (DCHImageCardCollectionViewCell *cell in cells) {
-//            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
-//        }
+        NSArray *cells = [self.collectionView visibleCells];
+        for (DCHImageCardCollectionViewCell *cell in cells) {
+            [cell parallaxViewOnScrollView:self.collectionView didScrollOnView:self.view];
+        }
     } while (NO);
 }
 

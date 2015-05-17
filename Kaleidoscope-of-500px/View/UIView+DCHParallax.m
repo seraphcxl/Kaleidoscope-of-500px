@@ -65,8 +65,6 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kPa
         }
         [self setParallaxView:parallaxView];
         [self setParallaxContainerView:containerView];
-        [self setParallaxBaseView:view];
-        [self setParallaxScrollView:scrollView];
         
         BOOL needCalcX = NO;
         BOOL needCalcY = NO;
@@ -99,13 +97,7 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kPa
 // github.com/jberlana/JBParallaxCell
 - (void)parallaxViewOnScrollView:(UIScrollView *)scrollView didScrollOnView:(UIView *)view {
     do {
-        [self setParallaxBaseView:view];
-        [self setParallaxScrollView:scrollView];
-        
-        UIScrollView *myScrollView = [self getParallaxScrollView];
-        UIView *myBaseView = [self getParallaxBaseView];
-        
-        if (!myScrollView || !myBaseView) {
+        if (!scrollView || !view) {
             break;
         }
         
@@ -114,12 +106,12 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kPa
         }
         UIView *parallaxView = (UIView *)[self getParallaxView];
         CGRect parallaxViewRect = parallaxView.frame;
-        if (DCHFloatingNumberEqualToZero(myScrollView.frame.size.height + myScrollView.contentOffset.y - myScrollView.contentSize.height)) {
-            parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:myScrollView scrollOnView:myBaseView];
+        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.height + scrollView.contentOffset.y - scrollView.contentSize.height)) {
+            parallaxViewRect.origin.x = [self calcParallaxOriginXOnScrollView:scrollView scrollOnView:view];
         }
         
-        if (DCHFloatingNumberEqualToZero(myScrollView.frame.size.width + myScrollView.contentOffset.x - myScrollView.contentSize.width)) {
-            parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:myScrollView scrollOnView:myBaseView];
+        if (DCHFloatingNumberEqualToZero(scrollView.frame.size.width + scrollView.contentOffset.x - scrollView.contentSize.width)) {
+            parallaxViewRect.origin.y = [self calcParallaxOriginYOnScrollView:scrollView scrollOnView:view];
         }
         parallaxView.frame = parallaxViewRect;
     } while (NO);
@@ -179,8 +171,6 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kPa
     do {
         [self setParallaxView:nil];
         [self setParallaxContainerView:nil];
-        [self setParallaxBaseView:nil];
-        [self setParallaxScrollView:nil];
     } while (NO);
 }
 @end

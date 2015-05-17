@@ -20,7 +20,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
 @property (nonatomic, strong) DCHPhotoModel *photoModel;
 @property (nonatomic, strong) UIImageView *featureImageView;
-
+@property (nonatomic, strong) UIView *featureImageContainerView;
 @end
 
 @implementation DCHImageCardCollectionViewCell
@@ -36,26 +36,21 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         [self.featureImageView removeFromSuperview];
         self.featureImageView = nil;
         
+        [self.featureImageContainerView removeFromSuperview];
+        self.featureImageContainerView = nil;
+        
         self.photoModel = nil;
     } while (NO);
 }
 
 - (void)awakeFromNib {
     // Initialization code
-    self.contentView.clipsToBounds = YES;
+//    self.contentView.clipsToBounds = YES;
 }
 
 - (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel {
     do {
         self.photoModel = photoModel;
-        
-        if (!self.featureImageView) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.featureImageContainerView.bounds];
-            imageView.autoresizingMask = (UIViewAutoresizingNone);
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            [self.featureImageContainerView addSubview:imageView];
-            self.featureImageView = imageView;
-        }
         
         self.titlelabel.attributedText = [[NSAttributedString alloc] initWithString:@""];
         self.descriptionLabel.text = @"";
@@ -64,13 +59,33 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             self.descriptionLabel.text = self.photoModel.uiDescStr;
         }
         
-        [self.featureImageView sd_cancelCurrentAnimationImagesLoad];
-        self.featureImageView.image = nil;
+        if (self.featureImageView) {
+            [self.featureImageView sd_cancelCurrentAnimationImagesLoad];
+            self.featureImageView.image = nil;
+        }
         self.backgroundImageView.image = nil;
         
         if (self.photoModel) {
             CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);
+            
+            if (!self.featureImageContainerView) {
+                UIView *containerView = [[UIView alloc] initWithFrame:CGRectZero];
+                containerView.autoresizingMask = (UIViewAutoresizingNone);
+                containerView.clipsToBounds = YES;
+                [self.contentView insertSubview:containerView belowSubview:self.gradientView];
+                self.featureImageContainerView = containerView;
+            }
+            self.featureImageContainerView.frame = uiDisplayBounds;
+            
+            if (!self.featureImageView) {
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.featureImageContainerView.bounds];
+                imageView.autoresizingMask = (UIViewAutoresizingNone);
+                imageView.contentMode = UIViewContentModeScaleAspectFill;
+                [self.featureImageContainerView addSubview:imageView];
+                self.featureImageView = imageView;
+            }
             [self.featureImageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
+            
             if (self.photoModel.thumbnailData) {
                 UIImage *featureImage = [UIImage imageWithData:self.photoModel.thumbnailData];
                 self.featureImageView.image = featureImage;
@@ -123,4 +138,5 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
     } while (NO);
     return result;
 }
+
 @end
