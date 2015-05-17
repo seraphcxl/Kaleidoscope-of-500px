@@ -50,7 +50,7 @@
         
         self.photoModel = photoModel;
         
-        [self.imageView sd_cancelCurrentAnimationImagesLoad];
+        [self.imageView sd_cancelCurrentImageLoad];
         self.imageView.image = nil;
         if (photoModel) {
             CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);

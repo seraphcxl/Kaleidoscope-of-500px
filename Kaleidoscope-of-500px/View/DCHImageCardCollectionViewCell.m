@@ -60,7 +60,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         }
         
         if (self.featureImageView) {
-            [self.featureImageView sd_cancelCurrentAnimationImagesLoad];
+            [self.featureImageView sd_cancelCurrentImageLoad];
             self.featureImageView.image = nil;
         }
         self.backgroundImageView.image = nil;
