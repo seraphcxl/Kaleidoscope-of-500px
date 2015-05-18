@@ -119,7 +119,7 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 //                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
 //                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHCategoryCollectionViewModel_kCountInLine;
 //                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-//                photoModel.uiDisplaySize = CGSizeMake(width, height);
+//                photoModel.uiThumbnailDisplaySize = CGSizeMake(width, height);
 //                result = CGSizeMake(width, height);
 //            }
 //        }
@@ -133,8 +133,8 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
             DCHPhotoModel *photoModel = nil;
             DCHArraySafeRead(model.models, indexPath.item, photoModel);
             if (photoModel) {
-                photoModel.uiDisplaySize = layout.itemSize;
-                result = photoModel.uiDisplaySize;
+                photoModel.uiThumbnailDisplaySize = layout.itemSize;
+                result = photoModel.uiThumbnailDisplaySize;
             }
         }
         

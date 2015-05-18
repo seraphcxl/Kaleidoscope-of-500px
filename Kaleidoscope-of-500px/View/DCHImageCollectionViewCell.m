@@ -53,7 +53,7 @@
         [self.imageView sd_cancelCurrentImageLoad];
         self.imageView.image = nil;
         if (photoModel) {
-            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiThumbnailDisplaySize.width, self.photoModel.uiThumbnailDisplaySize.height);
             [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailData) {
                 self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];

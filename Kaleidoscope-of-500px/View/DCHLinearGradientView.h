@@ -17,8 +17,7 @@ typedef NS_ENUM(NSUInteger, DCHLinearGradientView_Orientation) {
 
 @interface DCHLinearGradientView : UIView
 
-@property (nonatomic, strong) UIColor *startColor;
-@property (nonatomic, strong) UIColor *endColor;
+@property (nonatomic, strong) UIColor *color;
 
 @property (nonatomic, assign) DCHLinearGradientView_Orientation orientation;
 @property (nonatomic, assign) CGFloat gradientSize;  // 0->1

@@ -43,6 +43,7 @@
 		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
+		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
@@ -126,6 +127,8 @@
 		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
 		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
+		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColotArt.h"; sourceTree = "<group>"; };
+		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColotArt.m"; sourceTree = "<group>"; };
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
 		8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -286,6 +289,8 @@
 				8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */,
 				8D5DAD681B05F645005D26E8 /* DCHShimmeringHUD.h */,
 				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
+				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */,
+				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
@@ -571,6 +576,7 @@
 			files = (
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
 				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
+				8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */,
 				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
 				8D5DAD6A1B05F645005D26E8 /* DCHShimmeringHUD.m in Sources */,
 				8DB2609B1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.m in Sources */,

@@ -13,8 +13,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.startColor = [UIColor blackColor];
-        self.endColor = [UIColor clearColor];
+        self.color = [UIColor blackColor];
         self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
         self.gradientSize = 0.5f;
         self.backgroundColor = [UIColor clearColor];
@@ -25,8 +24,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.startColor = [UIColor blackColor];
-        self.endColor = [UIColor clearColor];
+        self.color = [UIColor blackColor];
         self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
         self.gradientSize = 0.5f;
         self.backgroundColor = [UIColor clearColor];
@@ -36,8 +34,7 @@
 
 - (void)awakeFromNib {
     do {
-        self.startColor = [UIColor blackColor];
-        self.endColor = [UIColor clearColor];
+        self.color = [UIColor blackColor];
         self.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
         self.gradientSize = 0.5f;
         self.backgroundColor = [UIColor clearColor];
@@ -56,8 +53,9 @@
         NSInteger componentCount = 2;
         CGFloat locations[2] = {0.0, 1.0};
         CGFloat components[8] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-        [self.startColor getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
-        [self.endColor getRed:&components[4] green:&components[5] blue:&components[6] alpha:&components[7]];
+        [self.color getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
+        [self.color getRed:&components[4] green:&components[5] blue:&components[6] alpha:&components[7]];
+        components[7] = 0.0f;
         
         CGColorSpaceRef myColorSpace = CGColorSpaceCreateDeviceRGB();
         CGGradientRef myGradient = CGGradientCreateWithColorComponents(myColorSpace, components, locations, componentCount);

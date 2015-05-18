@@ -38,7 +38,8 @@
 // UI
 @property (nonatomic, copy) NSAttributedString *uiTitleStr;
 @property (nonatomic, copy) NSString *uiDescStr;
-@property (nonatomic, assign) CGSize uiDisplaySize;
+@property (nonatomic, assign) CGSize uiThumbnailDisplaySize;
+@property (nonatomic, assign) CGSize uiFullSizeDisplaySize;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;

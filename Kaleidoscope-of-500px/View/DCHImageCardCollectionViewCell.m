@@ -13,6 +13,7 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+DCHParallax.h"
 #import "DCHLinearGradientView.h"
+#import "UIImage+DCHColotArt.h"
 
 const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
@@ -66,7 +67,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         self.backgroundImageView.image = nil;
         
         if (self.photoModel) {
-            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiDisplaySize.width, self.photoModel.uiDisplaySize.height);
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiThumbnailDisplaySize.width, self.photoModel.uiThumbnailDisplaySize.height);
             
             if (!self.featureImageContainerView) {
                 UIView *containerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -90,6 +91,8 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                 UIImage *featureImage = [UIImage imageWithData:self.photoModel.thumbnailData];
                 self.featureImageView.image = featureImage;
                 self.backgroundImageView.image = [featureImage applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+//                self.gradientView.color = [featureImage findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//                [self.gradientView setNeedsDisplay];
             } else {
                 if (self.photoModel.thumbnailURL) {
                     [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -101,6 +104,8 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                             if (!image) {
                                 break;
                             }
+//                            self.gradientView.color = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//                            [self.gradientView setNeedsDisplay];
                             if ([self.photoModel.thumbnailURL isEqualToString:[imageURL absoluteString]]) {
                                 self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
                                 [NSThread runInMain:^{
