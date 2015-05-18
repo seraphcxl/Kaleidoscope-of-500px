@@ -108,34 +108,35 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 - (CGSize)calcCellSizeForCollectionLayout:(UICollectionViewLayout *)collectionViewLayout andIndexPath:(NSIndexPath *)indexPath {
     CGSize result = CGSizeZero;
     do {
-//        if (![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
-//            break;
-//        }
-//        DCHCategoryModel *model = [self.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
-//        if (model) {
-//            DCHPhotoModel *photoModel = nil;
-//            DCHArraySafeRead(model.models, indexPath.item, photoModel);
-//            if (photoModel) {
-//                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
-//                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHCategoryCollectionViewModel_kCountInLine;
-//                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-//                photoModel.uiDisplaySize = CGSizeMake(width, height);
-//                result = CGSizeMake(width, height);
-//            }
-//        }
-        if (![collectionViewLayout isKindOfClass:[CSStickyHeaderFlowLayout class]]) {
+        if (![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
             break;
         }
-        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)collectionViewLayout;
         DCHCategoryModel *model = [self.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
         if (model) {
             DCHPhotoModel *photoModel = nil;
             DCHArraySafeRead(model.models, indexPath.item, photoModel);
             if (photoModel) {
-                photoModel.uiDisplaySize = layout.itemSize;
-                result = photoModel.uiDisplaySize;
+                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHCategoryCollectionViewModel_kCountInLine;
+                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+                photoModel.uiDisplaySize = CGSizeMake(width, height);
+                result = CGSizeMake(width, height);
             }
         }
+        
+//        if (![collectionViewLayout isKindOfClass:[CSStickyHeaderFlowLayout class]]) {
+//            break;
+//        }
+//        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)collectionViewLayout;
+//        DCHCategoryModel *model = [self.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+//        if (model) {
+//            DCHPhotoModel *photoModel = nil;
+//            DCHArraySafeRead(model.models, indexPath.item, photoModel);
+//            if (photoModel) {
+//                photoModel.uiDisplaySize = layout.itemSize;
+//                result = photoModel.uiDisplaySize;
+//            }
+//        }
         
     } while (NO);
     return result;

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
 
-@interface DCHStickyHeaderWaterfallLayout : UICollectionViewFlowLayout
+@interface DCHStickyHeaderWaterfallLayout : CHTCollectionViewWaterfallLayout
 
 @property (nonatomic, assign) BOOL disableStickyHeaders;
 
