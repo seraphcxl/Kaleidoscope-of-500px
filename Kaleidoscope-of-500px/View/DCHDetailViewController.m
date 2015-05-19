@@ -15,6 +15,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DCHPhotoModel.h"
 #import "DCHShimmeringHUD.h"
+#import "DCHLinearGradientView.h"
+#import "UIImage+DCHColotArt.h"
 
 @interface DCHDetailViewController ()
 
@@ -22,6 +24,8 @@
 @property (nonatomic, strong) DCHDetailViewModel *viewModel;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
+@property (nonatomic, strong) DCHLinearGradientView *gradientView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
 
@@ -33,6 +37,16 @@
         
         [self.shimmeringHUD hardDismiss];
         self.shimmeringHUD = nil;
+        
+        [self.imageView removeFromSuperview];
+        self.imageView = nil;
+        
+        [self.gradientView removeFromSuperview];
+        self.gradientView = nil;
+        
+        [self.backgroundView removeFromSuperview];
+        self.backgroundView = nil;
+        
     } while (NO);
 }
 
@@ -51,13 +65,22 @@
     // Do any additional setup after loading the view from its nib.
     do {
         self.view.backgroundColor = [UIColor tungstenColor];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.view addSubview:imageView];
-        self.imageView = imageView;
+        
+//        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.backgroundView.backgroundColor = [UIColor clearColor];
+//        [self.view addSubview:self.backgroundView];
+        
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view addSubview:self.imageView];
         
         // Shimmering HUD
         self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
+        
+//        self.gradientView = [[DCHLinearGradientView alloc] initWithFrame:CGRectZero];
+//        self.gradientView.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
+//        self.gradientView.gradientSize = 1;
+//        [self.view addSubview:self.gradientView];
     } while (NO);
 }
 
@@ -67,7 +90,13 @@
         self.viewModel.eventResponder = self;
         [self.imageView sd_cancelCurrentImageLoad];
         if (self.viewModel.model.fullsizedData) {
-            self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+            UIImage *image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+            self.imageView.image = image;
+//            UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//            self.gradientView.color = clr;
+//            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+//            [self.gradientView setNeedsDisplay];
+//            [self.backgroundView setNeedsDisplay];
         } else {
             [self.viewModel loadPhotoDetails];
 //            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -86,7 +115,16 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     do {
-        self.imageView.frame = self.view.bounds;
+        NSUInteger width = ([UIScreen mainScreen].bounds.size.width);
+        NSUInteger height = width * [self.viewModel.model.height longValue] / [self.viewModel.model.width longValue];
+        self.imageView.frame = CGRectMake(0.0f, 0.0f, width, height);
+        self.imageView.center = self.view.center;
+        
+//        self.gradientView.frame = self.imageView.frame;
+//        
+//        NSUInteger y = self.view.bounds.size.height - self.imageView.frame.size.height - self.imageView.frame.origin.y;
+//        NSUInteger h = self.view.bounds.size.height - y;
+//        self.backgroundView.frame = CGRectMake(0.0f, y, self.view.bounds.size.width, h);
     } while (NO);
 }
 
@@ -137,7 +175,13 @@
                         [self.imageView sd_cancelCurrentImageLoad];
                         self.imageView.image = nil;
                         if (self.viewModel.model.fullsizedData) {
-                            self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+                            UIImage *image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+                            self.imageView.image = image;
+//                            UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//                            self.gradientView.color = clr;
+//                            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+//                            [self.gradientView setNeedsDisplay];
+//                            [self.backgroundView setNeedsDisplay];
                         } else {
                             if (self.viewModel.model.fullsizedURL) {
                                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -151,6 +195,11 @@
                                         if (!image) {
                                             break;
                                         }
+//                                        UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//                                        self.gradientView.color = clr;
+//                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+//                                        [self.gradientView setNeedsDisplay];
+//                                        [self.backgroundView setNeedsDisplay];
                                         if ([self.viewModel.model.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                                             self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
                                         }
