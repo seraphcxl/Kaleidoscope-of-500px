@@ -55,25 +55,18 @@
         if (photoModel) {
             CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiThumbnailDisplaySize.width, self.photoModel.uiThumbnailDisplaySize.height);
             [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
-            if (self.photoModel.thumbnailData) {
-                self.imageView.image = [UIImage imageWithData:self.photoModel.thumbnailData];
-            } else {
-                if (self.photoModel.thumbnailURL) {
-                    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        do {
-                            if (error) {
-                                NSLog(@"sd_setImageWithURL err:%@", error);
-                                break;
-                            }
-                            if (!image) {
-                                break;
-                            }
-                            if ([self.photoModel.thumbnailURL isEqualToString:[imageURL absoluteString]]) {
-                                self.photoModel.thumbnailData = UIImageJPEGRepresentation(image, 0.6);
-                            }
-                        } while (NO);
-                    }];
-                }
+            if (self.photoModel.thumbnailURL) {
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    do {
+                        if (error) {
+                            NSLog(@"sd_setImageWithURL err:%@", error);
+                            break;
+                        }
+                        if (!image) {
+                            break;
+                        }
+                    } while (NO);
+                }];
             }
         } else {
             

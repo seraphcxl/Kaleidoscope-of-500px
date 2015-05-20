@@ -87,34 +87,25 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             }
             [self.featureImageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             
-            if (self.photoModel.fullsizedData) {
-                UIImage *featureImage = [UIImage imageWithData:self.photoModel.fullsizedData];
-                self.featureImageView.image = featureImage;
-                self.backgroundImageView.image = [featureImage applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
-//                self.gradientView.color = [featureImage findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
-//                [self.gradientView setNeedsDisplay];
-            } else {
-                if (self.photoModel.fullsizedURL) {
-                    [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                        do {
-                            if (error) {
-                                NSLog(@"sd_setImageWithURL err:%@", error);
-                                break;
-                            }
-                            if (!image) {
-                                break;
-                            }
-//                            self.gradientView.color = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
-//                            [self.gradientView setNeedsDisplay];
-                            if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
-                                self.photoModel.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
-                                [NSThread runInMain:^{
-                                    self.backgroundImageView.image = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
-                                }];
-                            }
-                        } while (NO);
-                    }];
-                }
+            if (self.photoModel.fullsizedURL) {
+                [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    do {
+                        if (error) {
+                            NSLog(@"sd_setImageWithURL err:%@", error);
+                            break;
+                        }
+                        if (!image) {
+                            break;
+                        }
+                        //                            self.gradientView.color = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+                        //                            [self.gradientView setNeedsDisplay];
+                        if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
+                            [NSThread runInMain:^{
+                                self.backgroundImageView.image = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+                            }];
+                        }
+                    } while (NO);
+                }];
             }
         } else {
             

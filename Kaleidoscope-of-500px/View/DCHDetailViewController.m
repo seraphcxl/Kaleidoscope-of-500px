@@ -89,9 +89,16 @@
     do {
         self.viewModel.eventResponder = self;
         [self.imageView sd_cancelCurrentImageLoad];
-        if (self.viewModel.model.fullsizedData) {
-            UIImage *image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
-            self.imageView.image = image;
+        if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL]]) {
+            [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                do {
+                    ;
+                } while (NO);
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                do {
+                    self.imageView.image = image;
+                } while (NO);
+            }];
 //            UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
 //            self.gradientView.color = clr;
 //            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
@@ -174,38 +181,25 @@
                         @strongify(self);
                         [self.imageView sd_cancelCurrentImageLoad];
                         self.imageView.image = nil;
-                        if (self.viewModel.model.fullsizedData) {
-                            UIImage *image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
-                            self.imageView.image = image;
-//                            UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
-//                            self.gradientView.color = clr;
-//                            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
-//                            [self.gradientView setNeedsDisplay];
-//                            [self.backgroundView setNeedsDisplay];
-                        } else {
-                            if (self.viewModel.model.fullsizedURL) {
-                                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                                    [self.shimmeringHUD dismiss];
-                                    do {
-                                        if (error) {
-                                            NSLog(@"sd_setImageWithURL err:%@", error);
-                                            break;
-                                        }
-                                        if (!image) {
-                                            break;
-                                        }
-//                                        UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
-//                                        self.gradientView.color = clr;
-//                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
-//                                        [self.gradientView setNeedsDisplay];
-//                                        [self.backgroundView setNeedsDisplay];
-                                        if ([self.viewModel.model.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
-                                            self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
-                                        }
-                                    } while (NO);
-                                }];
-                            }
+                        if (self.viewModel.model.fullsizedURL) {
+                            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                //                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                                [self.shimmeringHUD dismiss];
+                                do {
+                                    if (error) {
+                                        NSLog(@"sd_setImageWithURL err:%@", error);
+                                        break;
+                                    }
+                                    if (!image) {
+                                        break;
+                                    }
+                                    //                                        UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+                                    //                                        self.gradientView.color = clr;
+                                    //                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+                                    //                                        [self.gradientView setNeedsDisplay];
+                                    //                                        [self.backgroundView setNeedsDisplay];
+                                } while (NO);
+                            }];
                         }
                     }];
                     result = YES;

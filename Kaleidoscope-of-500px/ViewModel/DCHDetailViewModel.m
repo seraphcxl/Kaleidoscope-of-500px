@@ -13,6 +13,7 @@
 #import "DCH500pxDispatcher.h"
 #import "DCH500pxPhotoStore.h"
 #import "DCHDisplayEvent.h"
+#import <SDWebImage/SDWebImageManager.h>
 
 @interface DCHDetailViewModel ()
 
@@ -81,7 +82,7 @@
 - (DCHEventOperationTicket *)loadPhotoDetails {
     DCHEventOperationTicket *result = nil;
     do {
-        if (self.model.fullsizedData) {
+        if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.model.fullsizedURL]]) {
             ;
         } else {
             DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:@{DC500pxEventCode_QueryPhotoDetails_kPhotoModel: self.model}];

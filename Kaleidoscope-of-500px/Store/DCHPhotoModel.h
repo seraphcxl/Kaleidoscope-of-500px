@@ -27,9 +27,7 @@
 @property (nonatomic, copy) NSNumber *iso;
 @property (nonatomic, copy) NSString *shutterSpeed;
 @property (nonatomic, copy) NSString *thumbnailURL;
-@property (nonatomic, strong) NSData *thumbnailData;
 @property (nonatomic, copy) NSString *fullsizedURL;
-@property (nonatomic, strong) NSData *fullsizedData;
 @property (nonatomic, assign, getter = isVotedFor) BOOL votedFor;
 @property (nonatomic, copy) NSNumber *commentsCount;
 @property (nonatomic, copy) NSNumber *favoritesCount;
