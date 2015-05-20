@@ -44,6 +44,7 @@
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
 		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */; };
+		8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
@@ -129,6 +130,8 @@
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
 		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColotArt.h"; sourceTree = "<group>"; };
 		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColotArt.m"; sourceTree = "<group>"; };
+		8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleAnimatedTransitioning.h; sourceTree = "<group>"; };
+		8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleAnimatedTransitioning.m; sourceTree = "<group>"; };
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
 		8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -298,6 +301,7 @@
 				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
 				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */,
 				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
+				8DD9B3601B0C669100AA5CB5 /* Animation */,
 				8D3B8D961B0B12770092A554 /* Gradient */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
@@ -374,6 +378,15 @@
 				8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */,
 			);
 			name = FullSize;
+			sourceTree = "<group>";
+		};
+		8DD9B3601B0C669100AA5CB5 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */,
+				8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */,
+			);
+			name = Animation;
 			sourceTree = "<group>";
 		};
 		8DDE72D41AE515DF004EA153 /* Category */ = {
@@ -608,6 +621,7 @@
 				8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */,
 				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
 				8D959FE91B04439A001E4C46 /* DCHImageCardCollectionViewCell.m in Sources */,
+				8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,
