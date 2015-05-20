@@ -14,7 +14,7 @@ extern const NSUInteger DCHCategoryCollectionViewModel_kCountInLine;
 
 @interface DCHCategoryViewModel : DCHViewModel
 
-@property (nonatomic, strong, readonly) NSDictionary *models;
+@property (nonatomic, copy, readonly) NSDictionary *models;
 
 - (DCHEventOperationTicket *)refreshCategory:(PXPhotoModelCategory)category;
 

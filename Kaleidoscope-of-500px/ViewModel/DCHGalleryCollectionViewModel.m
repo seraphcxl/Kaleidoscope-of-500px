@@ -21,7 +21,7 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
 
 @interface DCHGalleryCollectionViewModel ()
 
-@property (nonatomic, strong) NSArray *models;
+@property (nonatomic, copy) NSArray *models;
 @property (nonatomic, assign) NSUInteger currentPage;
 
 - (NSAttributedString *)createUITitleForPhotoModel:(DCHPhotoModel *)photoModel;

@@ -28,6 +28,8 @@
 //#import "DCHLoadingViewController.h"
 #import "DCHShimmeringHUD.h"
 #import <REMenu/REMenu.h>
+#import "DCHBubblePhotoBrowser.h"
+#import "DCHBubblePhotoBrowserViewModel.h"
 
 @interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
 
@@ -231,7 +233,9 @@
                         if (page == DCH500pxPhotoStore_FirstPageNum) {
 //                            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                             [self.shimmeringHUD dismiss];
-                            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+                            if (self.viewModel.models.count > 0) {
+                                [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+                            }
                         } else {
                             [self.collectionView.infiniteScrollingView stopAnimating];
                         }
@@ -292,9 +296,16 @@
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.row];
-        DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
-        [self.navigationController pushViewController:fullSizeVC animated:YES];
+//        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.row];
+//        DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
+//        [self.navigationController pushViewController:fullSizeVC animated:YES];
+        DCHBubblePhotoBrowserViewModel *bubblePhotoBrowserViewModel = [[DCHBubblePhotoBrowserViewModel alloc] initWithPhotoArray:self.viewModel.models];
+        DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel andInitialPhotoIndex:indexPath.item];
+        [self presentViewController:bubblePhotoBrowser animated:YES completion:^{
+            do {
+                ;
+            } while (NO);
+        }];
     } while (NO);
 }
 

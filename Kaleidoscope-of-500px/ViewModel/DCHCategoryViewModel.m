@@ -22,7 +22,7 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 
 @interface DCHCategoryViewModel ()
 
-@property (nonatomic, strong) NSDictionary *models;
+@property (nonatomic, copy) NSDictionary *models;
 @property (nonatomic, strong) NSMutableDictionary *loadingStatusDic;
 
 @end

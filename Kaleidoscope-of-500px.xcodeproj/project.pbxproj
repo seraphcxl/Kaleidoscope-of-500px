@@ -45,6 +45,8 @@
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
 		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */; };
 		8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */; };
+		8DD9B3671B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */; };
+		8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
@@ -132,6 +134,10 @@
 		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColotArt.m"; sourceTree = "<group>"; };
 		8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleAnimatedTransitioning.h; sourceTree = "<group>"; };
 		8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleAnimatedTransitioning.m; sourceTree = "<group>"; };
+		8DD9B3651B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowser.h; sourceTree = "<group>"; };
+		8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowser.m; sourceTree = "<group>"; };
+		8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowserViewModel.h; sourceTree = "<group>"; };
+		8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowserViewModel.m; sourceTree = "<group>"; };
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
 		8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -263,6 +269,7 @@
 		8DAC4C921AD4BCC700C1B80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrower */,
 				8DDE72DB1AE51B9C004EA153 /* Category */,
 				8DC1D1161ADCB29E00EC71C1 /* Gallery */,
 				8DC1D1171ADCB2AB00EC71C1 /* Detail */,
@@ -303,6 +310,7 @@
 				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
 				8DD9B3601B0C669100AA5CB5 /* Animation */,
 				8D3B8D961B0B12770092A554 /* Gradient */,
+				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrower */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
@@ -387,6 +395,24 @@
 				8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */,
 			);
 			name = Animation;
+			sourceTree = "<group>";
+		};
+		8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrower */ = {
+			isa = PBXGroup;
+			children = (
+				8DD9B3651B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.h */,
+				8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */,
+			);
+			name = BubblePhotoBrower;
+			sourceTree = "<group>";
+		};
+		8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrower */ = {
+			isa = PBXGroup;
+			children = (
+				8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */,
+				8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */,
+			);
+			name = BubblePhotoBrower;
 			sourceTree = "<group>";
 		};
 		8DDE72D41AE515DF004EA153 /* Category */ = {
@@ -595,6 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DD9B3671B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m in Sources */,
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
 				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
 				8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */,
@@ -622,6 +649,7 @@
 				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
 				8D959FE91B04439A001E4C46 /* DCHImageCardCollectionViewCell.m in Sources */,
 				8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */,
+				8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,

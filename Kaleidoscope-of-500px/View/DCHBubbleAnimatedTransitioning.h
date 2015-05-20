@@ -20,6 +20,6 @@ typedef NS_ENUM(NSUInteger, DCHBubbleAnimatedTransitioning_Mode) {
 @property (nonatomic, assign) CGFloat duration;
 @property (nonatomic, assign) DCHBubbleAnimatedTransitioning_Mode transitionMode;
 @property (nonatomic, assign) UIColor *bubbleColor;
-@property (nonatomic, strong) UIView *bubbleView;
+@property (nonatomic, strong, readonly) UIView *bubbleView;
 
 @end

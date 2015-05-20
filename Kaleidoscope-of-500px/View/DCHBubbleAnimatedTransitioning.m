@@ -8,6 +8,12 @@
 
 #import "DCHBubbleAnimatedTransitioning.h"
 
+@interface DCHBubbleAnimatedTransitioning ()
+
+@property (nonatomic, strong) UIView *bubbleView;
+
+@end
+
 @implementation DCHBubbleAnimatedTransitioning
 
 - (void)dealloc {
