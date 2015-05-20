@@ -30,13 +30,17 @@
 #import <REMenu/REMenu.h>
 #import "DCHBubblePhotoBrowser.h"
 #import "DCHBubblePhotoBrowserViewModel.h"
+#import "DCHBubbleAnimatedTransitioning.h"
 
-@interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout>
+@interface DCHGalleryCollectionViewController () <CHTCollectionViewDelegateWaterfallLayout, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, strong) DCHGalleryCollectionViewModel *viewModel;
 @property (nonatomic, assign) PXAPIHelperPhotoFeature feature;
 @property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
 @property (nonatomic, strong) REMenu *menu;
+
+@property (nonatomic, strong) DCHBubbleAnimatedTransitioning *transition;
+@property (nonatomic, assign) CGPoint transitionStartPoint;
 
 - (void)refreshGallery;
 - (void)loadMoreGallery;
@@ -137,6 +141,8 @@
     
     // Shimmering HUD
     self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor aquaColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
+    
+    self.transition = [[DCHBubbleAnimatedTransitioning alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -209,6 +215,29 @@
         @strongify(self)
         self.navigationItem.title = [NSString stringWithFormat:@"500px %@", [DCH500pxPhotoStore description4Feature:self.feature]];
     }];
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    id <UIViewControllerAnimatedTransitioning> result = nil;
+    do {
+        self.transition.transitionMode = DCHBubbleAnimatedTransitioning_Mode_Present;
+        self.transition.startingPoint = self.transitionStartPoint;
+        self.transition.bubbleColor = [UIColor clearColor];
+        result = self.transition;
+    } while (NO);
+    return result;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    id <UIViewControllerAnimatedTransitioning> result = nil;
+    do {
+        self.transition.transitionMode = DCHBubbleAnimatedTransitioning_Mode_Dismiss;
+        self.transition.startingPoint = self.transitionStartPoint;
+        self.transition.bubbleColor = [UIColor clearColor];
+        result = self.transition;
+    } while (NO);
+    return result;
 }
 
 #pragma mark - DCHEventResponder
@@ -301,6 +330,18 @@
 //        [self.navigationController pushViewController:fullSizeVC animated:YES];
         DCHBubblePhotoBrowserViewModel *bubblePhotoBrowserViewModel = [[DCHBubblePhotoBrowserViewModel alloc] initWithPhotoArray:self.viewModel.models];
         DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel initialPhotoIndex:indexPath.item andTitle:[DCH500pxPhotoStore description4Feature:self.feature]];
+        
+        DCHImageCardCollectionViewCell *cell = (DCHImageCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        CGRect rectCellInCollectionView = [collectionView convertRect:cell.frame toView:self.view];
+        CGRect rectContainerInSelf = [cell convertRect:cell.featureImageView.frame toView:cell];
+        CGRect rect = CGRectMake(rectContainerInSelf.origin.x + rectCellInCollectionView.origin.x, rectContainerInSelf.origin.y + rectCellInCollectionView.origin.y, CGRectGetWidth(rectContainerInSelf), CGRectGetHeight(rectContainerInSelf));
+        
+        self.transitionStartPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+        
+        bubblePhotoBrowser.transitioningDelegate = self;
+        bubblePhotoBrowser.modalPresentationStyle = UIModalPresentationCustom;
+        bubblePhotoBrowser.view.frame = CGRectMake(0.0f, 0.0f, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        
         [self presentViewController:bubblePhotoBrowser animated:YES completion:^{
             do {
                 ;

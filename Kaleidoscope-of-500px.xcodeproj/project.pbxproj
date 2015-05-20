@@ -43,14 +43,15 @@
 		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
-		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */; };
+		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */; };
 		8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */; };
-		8DD9B3671B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */; };
 		8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
 		8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */; };
+		8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */; };
+		8DF1A7561B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,12 +131,10 @@
 		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
 		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
-		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColotArt.h"; sourceTree = "<group>"; };
-		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColotArt.m"; sourceTree = "<group>"; };
+		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColorArt.h"; sourceTree = "<group>"; };
+		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColorArt.m"; sourceTree = "<group>"; };
 		8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleAnimatedTransitioning.h; sourceTree = "<group>"; };
 		8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleAnimatedTransitioning.m; sourceTree = "<group>"; };
-		8DD9B3651B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowser.h; sourceTree = "<group>"; };
-		8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowser.m; sourceTree = "<group>"; };
 		8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowserViewModel.h; sourceTree = "<group>"; };
 		8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowserViewModel.m; sourceTree = "<group>"; };
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
@@ -145,6 +144,9 @@
 		8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryViewModel.m; sourceTree = "<group>"; };
 		8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryModel.h; sourceTree = "<group>"; };
 		8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryModel.m; sourceTree = "<group>"; };
+		8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowser.h; sourceTree = "<group>"; };
+		8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowser.m; sourceTree = "<group>"; };
+		8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHBubblePhotoBrowser.xib; sourceTree = "<group>"; };
 		B51AAFF2696B240ACE0844B0 /* Pods-Kaleidoscope-of-500pxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kaleidoscope-of-500pxTests/Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD4D23B059020F2993A0CDA0 /* libPods-Kaleidoscope-of-500px.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kaleidoscope-of-500px.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -306,8 +308,8 @@
 				8D959FE81B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib */,
 				8D5DAD681B05F645005D26E8 /* DCHShimmeringHUD.h */,
 				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
-				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */,
-				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
+				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */,
+				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */,
 				8DD9B3601B0C669100AA5CB5 /* Animation */,
 				8D3B8D961B0B12770092A554 /* Gradient */,
 				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */,
@@ -400,8 +402,9 @@
 		8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				8DD9B3651B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.h */,
-				8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */,
+				8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */,
+				8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */,
+				8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */,
 			);
 			name = BubblePhotoBrowser;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				8DB2609C1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.xib in Resources */,
 				892E7E6719E511C8005D1BA7 /* Main.storyboard in Resources */,
 				8D959FEA1B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib in Resources */,
+				8DF1A7561B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib in Resources */,
 				892E7E6C19E511C8005D1BA7 /* LaunchScreen.xib in Resources */,
 				8DB260A11B008A6A008B69D3 /* DCHCategoryCollectionFooterView.xib in Resources */,
 				8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */,
@@ -621,10 +625,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD9B3671B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m in Sources */,
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
 				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
-				8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColotArt.m in Sources */,
+				8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColorArt.m in Sources */,
 				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
 				8D5DAD6A1B05F645005D26E8 /* DCHShimmeringHUD.m in Sources */,
 				8DB2609B1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.m in Sources */,
@@ -649,6 +652,7 @@
 				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
 				8D959FE91B04439A001E4C46 /* DCHImageCardCollectionViewCell.m in Sources */,
 				8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */,
+				8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */,
 				8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,

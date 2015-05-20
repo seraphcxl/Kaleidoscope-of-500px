@@ -16,7 +16,7 @@
 #import "DCHPhotoModel.h"
 #import "DCHShimmeringHUD.h"
 #import "DCHLinearGradientView.h"
-#import "UIImage+DCHColotArt.h"
+#import "UIImage+DCHColorArt.h"
 
 @interface DCHDetailViewController ()
 
@@ -99,7 +99,7 @@
                     self.imageView.image = image;
                 } while (NO);
             }];
-//            UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+//            UIColor *clr = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
 //            self.gradientView.color = clr;
 //            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
 //            [self.gradientView setNeedsDisplay];
@@ -193,7 +193,7 @@
                                     if (!image) {
                                         break;
                                     }
-                                    //                                        UIColor *clr = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+                                    //                                        UIColor *clr = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
                                     //                                        self.gradientView.color = clr;
                                     //                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
                                     //                                        [self.gradientView setNeedsDisplay];

@@ -1,15 +1,15 @@
 //
-//  UIImage+DCHColotArt.m
+//  UIImage+DCHColorArt.m
 //  Kaleidoscope-of-500px
 //
 //  Created by Derek Chen on 5/18/15.
 //  Copyright (c) 2015 Derek Chen. All rights reserved.
 //
 
-#import "UIImage+DCHColotArt.h"
+#import "UIImage+DCHColorArt.h"
 #import <Tourbillon/DCHTourbillon.h>
 
-@implementation UIImage (DCHColotArt)
+@implementation UIImage (DCHColorArt)
 
 - (UIColor *)findMajorColor {
     UIColor *result = nil;
@@ -52,7 +52,7 @@
     return result;
 }
 
-- (UIColor *)findEdgeColorWithType:(DCHColotArt_EdgeType)type countOfLine:(NSUInteger)countOfLine andMinimumPercentage:(CGFloat)minimumPercentage {
+- (UIColor *)findEdgeColorWithType:(DCHColorArt_EdgeType)type countOfLine:(NSUInteger)countOfLine andMinimumPercentage:(CGFloat)minimumPercentage {
     UIColor *result = nil;
     CFDataRef rawData = nil;
     do {
@@ -64,25 +64,25 @@
         CGRect cropRect = CGRectZero;
         CGFloat pixels = 0;
         switch (type) {
-            case DCHColotArt_EdgeType_Top:
+            case DCHColorArt_EdgeType_Top:
             {
                 cropRect = CGRectMake(0.0f, 0.0f, width, countOfLine);
                 pixels = width;
             }
                 break;
-            case DCHColotArt_EdgeType_Bottom:
+            case DCHColorArt_EdgeType_Bottom:
             {
                 cropRect = CGRectMake(0.0f, height - countOfLine, width, countOfLine);
                 pixels = width;
             }
                 break;
-            case DCHColotArt_EdgeType_Left:
+            case DCHColorArt_EdgeType_Left:
             {
                 cropRect = CGRectMake(0.0f, 0.0f, countOfLine, height);
                 pixels = height;
             }
                 break;
-            case DCHColotArt_EdgeType_Right:
+            case DCHColorArt_EdgeType_Right:
             {
                 cropRect = CGRectMake(width - countOfLine, 0.0f, countOfLine, height);
                 pixels = height;

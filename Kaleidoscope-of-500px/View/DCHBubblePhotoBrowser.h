@@ -10,8 +10,16 @@
 #import <DCHFluxKit/DCHFluxKit.h>
 
 @class DCHBubblePhotoBrowserViewModel;
+@class DCHLinearGradientView;
+@class FBShimmeringView;
 
 @interface DCHBubblePhotoBrowser : UIViewController
+
+@property (weak, nonatomic) IBOutlet UICollectionView *thumbnailCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *bigImageView;
+@property (weak, nonatomic) IBOutlet UIButton *titleButton;
+@property (weak, nonatomic) IBOutlet DCHLinearGradientView *gradientView;
+@property (weak, nonatomic) IBOutlet FBShimmeringView *shimmeringView;
 
 - (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel initialPhotoIndex:(NSUInteger)index andTitle:(NSString *)title;
 

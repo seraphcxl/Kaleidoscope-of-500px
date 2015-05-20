@@ -19,6 +19,7 @@ extern const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet DCHLinearGradientView *gradientView;
 @property (weak, nonatomic) IBOutlet UILabel *titlelabel;
+@property (nonatomic, strong, readonly) UIImageView *featureImageView;
 
 + (NSString *)cellIdentifier;
 

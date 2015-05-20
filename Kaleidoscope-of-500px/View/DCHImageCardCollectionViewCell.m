@@ -13,7 +13,7 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+DCHParallax.h"
 #import "DCHLinearGradientView.h"
-#import "UIImage+DCHColotArt.h"
+#import "UIImage+DCHColorArt.h"
 
 const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
@@ -97,7 +97,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                         if (!image) {
                             break;
                         }
-                        //                            self.gradientView.color = [image findEdgeColorWithType:DCHColotArt_EdgeType_Bottom andCountOfLine:2];
+                        //                            self.gradientView.color = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
                         //                            [self.gradientView setNeedsDisplay];
                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                             [NSThread runInMain:^{

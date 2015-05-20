@@ -7,13 +7,14 @@
 //
 
 #import "DCHBubblePhotoBrowser.h"
+#import "DCHLinearGradientView.h"
+#import <Shimmer/FBShimmeringView.h>
 #import <Tourbillon/DCHTourbillon.h>
 #import <libextobjc/EXTScope.h>
 #import "DCHBubblePhotoBrowserViewModel.h"
 #import "DCHImageCollectionViewCell.h"
 #import "DCHPhotoModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-//#import <BlocksKit/BlocksKit.h>
 
 const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
@@ -21,11 +22,15 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
 @property (nonatomic, strong) DCHBubblePhotoBrowserViewModel *viewModel;
 @property (nonatomic, assign) NSUInteger initialPhotoIndex;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *photoBrowserTitle;
+@property (nonatomic, strong) UILabel *loadingLabel;
 
-@property (nonatomic, strong) UICollectionView *thumbnailCollectionView;
-@property (nonatomic, strong) UIImageView *bigImageView;
-@property (nonatomic, strong) UIButton *titleButton;
+- (void)titleButtonClick:(id)sender;
+- (void)loadingImage:(DCHPhotoModel *)photoModel;
+
+@end
+
+@interface DCHBubblePhotoBrowser ()
 
 @end
 
@@ -33,13 +38,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
 - (void)dealloc {
     do {
-        [self.bigImageView removeFromSuperview];
-        self.bigImageView = nil;
-        
-        self.thumbnailCollectionView.dataSource = nil;
-        self.thumbnailCollectionView.delegate = nil;
-        [self.thumbnailCollectionView removeFromSuperview];
-        self.thumbnailCollectionView = nil;
+        self.viewModel = nil;
     } while (NO);
 }
 
@@ -51,50 +50,41 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     if (self) {
         self.viewModel = viewModel;
         self.initialPhotoIndex = index;
-        self.title = title;
+        self.photoBrowserTitle = title;
     }
     return self;
 }
 
 - (void)viewDidLoad {
-    do {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.minimumInteritemSpacing = 8.0f;
-        layout.sectionInset = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
-        layout.itemSize = CGSizeMake(kDCHBubblePhotoBrowser_ThumbnailSize, kDCHBubblePhotoBrowser_ThumbnailSize);
-        self.thumbnailCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-        [self.thumbnailCollectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
-        self.thumbnailCollectionView.delegate = self;
-        self.thumbnailCollectionView.dataSource = self;
-        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
-        [self.view addSubview:self.thumbnailCollectionView];
-        
-        DCHPhotoModel *photoModel = nil;
-        DCHArraySafeRead(self.viewModel.models, self.initialPhotoIndex, photoModel);
-        self.bigImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        self.bigImageView.clipsToBounds = YES;
-        self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
-        [self.bigImageView sd_cancelCurrentImageLoad];
-        if (photoModel) {
-            [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                do {
-                    ;
-                } while (NO);
-            }];
-        }
-        [self.view addSubview:self.bigImageView];
-        
-        self.titleButton = [[UIButton alloc] initWithFrame:CGRectZero];
-        self.titleButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:24.0];
-        self.titleButton.titleLabel.textColor = [UIColor whiteColor];
-        self.titleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
-        [self.titleButton setTitle:self.title forState:UIControlStateNormal];
-        [self.titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.titleButton.titleLabel sizeToFit];
-        self.titleButton.frame = CGRectMake(16.0f, 16.0f, self.titleButton.titleLabel.bounds.size.width, self.titleButton.titleLabel.bounds.size.height);
-        [self.view addSubview:self.titleButton];
-    } while (NO);
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self.thumbnailCollectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
+    self.thumbnailCollectionView.delegate = self;
+    self.thumbnailCollectionView.dataSource = self;
+    [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    
+    self.titleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self.titleButton setTitle:self.photoBrowserTitle forState:UIControlStateNormal];
+    [self.titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.shimmeringView.shimmering = NO;
+    self.shimmeringView.shimmeringBeginFadeDuration = 0.2;
+    self.shimmeringView.shimmeringOpacity = 0.8;
+    self.shimmeringView.shimmeringSpeed = 300;
+    
+    self.loadingLabel = [[UILabel alloc] initWithFrame:self.shimmeringView.frame];
+    self.loadingLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:24.0f];
+    self.loadingLabel.textColor = [UIColor whiteColor];
+    self.loadingLabel.textAlignment = NSTextAlignmentLeft;
+    self.loadingLabel.backgroundColor = [UIColor clearColor];
+    self.shimmeringView.contentView = self.loadingLabel;
+    
+    DCHPhotoModel *photoModel = nil;
+    DCHArraySafeRead(self.viewModel.models, self.initialPhotoIndex, photoModel);
+    self.bigImageView.clipsToBounds = YES;
+    self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    [self loadingImage:photoModel];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,16 +93,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.viewModel.eventResponder = self;
         
         self.view.backgroundColor = [UIColor tungstenColor];
-        
-        CGRect bounds = self.view.bounds;
-        
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.thumbnailCollectionView.collectionViewLayout;
-        CGFloat thumbnailCollectionViewWidth = bounds.size.width;
-        CGFloat thumbnailCollectionViewHeight = kDCHBubblePhotoBrowser_ThumbnailSize + layout.sectionInset.top + layout.sectionInset.bottom;
-        self.thumbnailCollectionView.frame = CGRectMake(0.0f, bounds.size.height - thumbnailCollectionViewHeight, thumbnailCollectionViewWidth, thumbnailCollectionViewHeight);
         self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
-        
-        self.bigImageView.frame = CGRectMake(0.0f, 0.0f, bounds.size.width, bounds.size.height - thumbnailCollectionViewHeight);
         self.bigImageView.backgroundColor = [UIColor tungstenColor];
     } while (NO);
 }
@@ -138,6 +119,11 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     [super viewDidDisappear:animated];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)titleButtonClick:(id)sender {
     do {
         [self dismissViewControllerAnimated:YES completion:^{
@@ -148,6 +134,40 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     } while (NO);
 }
 
+- (void)loadingImage:(DCHPhotoModel *)photoModel {
+    do {
+        if (!photoModel) {
+            break;
+        }
+        self.gradientView.hidden = YES;
+        [self.bigImageView sd_cancelCurrentImageLoad];
+        self.loadingLabel.text = photoModel.photoName;
+        self.shimmeringView.shimmering = YES;
+        if (photoModel) {
+            @weakify(self);
+            [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                @strongify(self);
+                do {
+                    [NSThread runInMain:^{
+                        @strongify(self);
+                        self.shimmeringView.shimmering = NO;
+                        self.gradientView.hidden = NO;
+                    }];
+                } while (NO);
+            }];
+        }
+    } while (NO);
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.viewModel.models.count;
@@ -172,15 +192,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-        [self.bigImageView sd_cancelCurrentImageLoad];
-        if (photoModel) {
-            [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                do {
-                    ;
-                } while (NO);
-            }];
-        }
+        [self loadingImage:photoModel];
     } while (NO);
 }
-
 @end
