@@ -15,6 +15,8 @@
 + (NSString *)viewlIdentifier;
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIButton *actionButton;
+- (IBAction)actionForClick:(id)sender;
 
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel;
 

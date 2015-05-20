@@ -31,6 +31,12 @@
     self.backgroundColor = [UIColor salmonColor];
 }
 
+- (IBAction)actionForClick:(id)sender {
+    do {
+        ;
+    } while (NO);
+}
+
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
     do {
         self.categoryModel = categoryModel;

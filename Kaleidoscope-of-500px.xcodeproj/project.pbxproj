@@ -235,6 +235,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8D3B8D961B0B12770092A554 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				8D959FEB1B044F63001E4C46 /* DCHLinearGradientView.h */,
+				8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */,
+				8D959FEE1B047AB9001E4C46 /* DCHRadialGradientView.h */,
+				8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */,
+				8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */,
+				8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */,
+			);
+			name = Gradient;
+			sourceTree = "<group>";
+		};
 		8DAC4C911AD4BCC700C1B80D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,16 +294,11 @@
 				8D959FE61B04439A001E4C46 /* DCHImageCardCollectionViewCell.h */,
 				8D959FE71B04439A001E4C46 /* DCHImageCardCollectionViewCell.m */,
 				8D959FE81B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib */,
-				8D959FEB1B044F63001E4C46 /* DCHLinearGradientView.h */,
-				8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */,
-				8D959FEE1B047AB9001E4C46 /* DCHRadialGradientView.h */,
-				8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */,
-				8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */,
-				8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */,
 				8D5DAD681B05F645005D26E8 /* DCHShimmeringHUD.h */,
 				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
 				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColotArt.h */,
 				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
+				8D3B8D961B0B12770092A554 /* Gradient */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
