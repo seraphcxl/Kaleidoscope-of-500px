@@ -52,7 +52,7 @@
     return result;
 }
 
-- (UIColor *)findEdgeColorWithType:(DCHColotArt_EdgeType)type andCountOfLine:(NSUInteger)countOfLine {
+- (UIColor *)findEdgeColorWithType:(DCHColotArt_EdgeType)type countOfLine:(NSUInteger)countOfLine andMinimumPercentage:(CGFloat)minimumPercentage {
     UIColor *result = nil;
     CFDataRef rawData = nil;
     do {
@@ -62,25 +62,30 @@
         CGFloat width = CGImageGetWidth(self.CGImage);
         CGFloat height = CGImageGetHeight(self.CGImage);
         CGRect cropRect = CGRectZero;
+        CGFloat pixels = 0;
         switch (type) {
             case DCHColotArt_EdgeType_Top:
             {
                 cropRect = CGRectMake(0.0f, 0.0f, width, countOfLine);
+                pixels = width;
             }
                 break;
             case DCHColotArt_EdgeType_Bottom:
             {
                 cropRect = CGRectMake(0.0f, height - countOfLine, width, countOfLine);
+                pixels = width;
             }
                 break;
             case DCHColotArt_EdgeType_Left:
             {
                 cropRect = CGRectMake(0.0f, 0.0f, countOfLine, height);
+                pixels = height;
             }
                 break;
             case DCHColotArt_EdgeType_Right:
             {
                 cropRect = CGRectMake(width - countOfLine, 0.0f, countOfLine, height);
+                pixels = height;
             }
                 break;
             default:
@@ -117,6 +122,12 @@
         }];
         if (sortedAry.count > 0) {
             result = [sortedAry objectAtIndex:0];
+            NSNumber *clrPercentage = [dic objectForKey:result];
+            if ([clrPercentage unsignedIntegerValue] / pixels > minimumPercentage) {
+                ;
+            } else {
+                result = nil;
+            }
         }
     } while (NO);
     if (rawData) {
