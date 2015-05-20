@@ -269,7 +269,7 @@
 		8DAC4C921AD4BCC700C1B80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrower */,
+				8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrowser */,
 				8DDE72DB1AE51B9C004EA153 /* Category */,
 				8DC1D1161ADCB29E00EC71C1 /* Gallery */,
 				8DC1D1171ADCB2AB00EC71C1 /* Detail */,
@@ -310,7 +310,7 @@
 				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColotArt.m */,
 				8DD9B3601B0C669100AA5CB5 /* Animation */,
 				8D3B8D961B0B12770092A554 /* Gradient */,
-				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrower */,
+				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
@@ -397,22 +397,22 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
-		8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrower */ = {
+		8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				8DD9B3651B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.h */,
 				8DD9B3661B0C690A00AA5CB5 /* DCHBubblePhotoBrowser.m */,
 			);
-			name = BubblePhotoBrower;
+			name = BubblePhotoBrowser;
 			sourceTree = "<group>";
 		};
-		8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrower */ = {
+		8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
 				8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */,
 				8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */,
 			);
-			name = BubblePhotoBrower;
+			name = BubblePhotoBrowser;
 			sourceTree = "<group>";
 		};
 		8DDE72D41AE515DF004EA153 /* Category */ = {

@@ -13,16 +13,19 @@
 #import "DCHImageCollectionViewCell.h"
 #import "DCHPhotoModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+//#import <BlocksKit/BlocksKit.h>
 
 const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
 @interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, strong) DCHBubblePhotoBrowserViewModel *viewModel;
+@property (nonatomic, assign) NSUInteger initialPhotoIndex;
+@property (nonatomic, copy) NSString *title;
 
 @property (nonatomic, strong) UICollectionView *thumbnailCollectionView;
 @property (nonatomic, strong) UIImageView *bigImageView;
-@property (nonatomic, assign) NSUInteger initialPhotoIndex;
+@property (nonatomic, strong) UIButton *titleButton;
 
 @end
 
@@ -40,14 +43,15 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     } while (NO);
 }
 
-- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel andInitialPhotoIndex:(NSUInteger)index {
-    if (!viewModel) {
+- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel initialPhotoIndex:(NSUInteger)index andTitle:(NSString *)title {
+    if (!viewModel || DCH_IsEmpty(title)) {
         return nil;
     }
     self = [self init];
     if (self) {
         self.viewModel = viewModel;
         self.initialPhotoIndex = index;
+        self.title = title;
     }
     return self;
 }
@@ -80,6 +84,16 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
             }];
         }
         [self.view addSubview:self.bigImageView];
+        
+        self.titleButton = [[UIButton alloc] initWithFrame:CGRectZero];
+        self.titleButton.titleLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:24.0];
+        self.titleButton.titleLabel.textColor = [UIColor whiteColor];
+        self.titleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+        [self.titleButton setTitle:self.title forState:UIControlStateNormal];
+        [self.titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.titleButton.titleLabel sizeToFit];
+        self.titleButton.frame = CGRectMake(16.0f, 16.0f, self.titleButton.titleLabel.bounds.size.width, self.titleButton.titleLabel.bounds.size.height);
+        [self.view addSubview:self.titleButton];
     } while (NO);
 }
 
@@ -96,10 +110,10 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         CGFloat thumbnailCollectionViewWidth = bounds.size.width;
         CGFloat thumbnailCollectionViewHeight = kDCHBubblePhotoBrowser_ThumbnailSize + layout.sectionInset.top + layout.sectionInset.bottom;
         self.thumbnailCollectionView.frame = CGRectMake(0.0f, bounds.size.height - thumbnailCollectionViewHeight, thumbnailCollectionViewWidth, thumbnailCollectionViewHeight);
-        self.thumbnailCollectionView.backgroundColor = [UIColor aquaColor];
+        self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
         
         self.bigImageView.frame = CGRectMake(0.0f, 0.0f, bounds.size.width, bounds.size.height - thumbnailCollectionViewHeight);
-        self.bigImageView.backgroundColor = [UIColor salmonColor];
+        self.bigImageView.backgroundColor = [UIColor tungstenColor];
     } while (NO);
 }
 
@@ -122,6 +136,16 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.viewModel.eventResponder = nil;
     } while (NO);
     [super viewDidDisappear:animated];
+}
+
+- (void)titleButtonClick:(id)sender {
+    do {
+        [self dismissViewControllerAnimated:YES completion:^{
+            do {
+                ;
+            } while (NO);
+        }];
+    } while (NO);
 }
 
 #pragma mark - UICollectionViewDataSource

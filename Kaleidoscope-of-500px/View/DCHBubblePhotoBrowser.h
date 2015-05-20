@@ -13,6 +13,6 @@
 
 @interface DCHBubblePhotoBrowser : UIViewController
 
-- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel andInitialPhotoIndex:(NSUInteger)index;
+- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel initialPhotoIndex:(NSUInteger)index andTitle:(NSString *)title;
 
 @end

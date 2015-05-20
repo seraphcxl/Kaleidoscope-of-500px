@@ -300,7 +300,7 @@
 //        DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
 //        [self.navigationController pushViewController:fullSizeVC animated:YES];
         DCHBubblePhotoBrowserViewModel *bubblePhotoBrowserViewModel = [[DCHBubblePhotoBrowserViewModel alloc] initWithPhotoArray:self.viewModel.models];
-        DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel andInitialPhotoIndex:indexPath.item];
+        DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel initialPhotoIndex:indexPath.item andTitle:[DCH500pxPhotoStore description4Feature:self.feature]];
         [self presentViewController:bubblePhotoBrowser animated:YES completion:^{
             do {
                 ;
