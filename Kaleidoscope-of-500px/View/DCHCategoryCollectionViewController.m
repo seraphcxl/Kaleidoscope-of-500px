@@ -175,7 +175,7 @@
         DCHArraySafeRead(model.models, indexPath.item, photoModel);
         
         [self.viewModel calcCellSizeForCollectionLayout:self.collectionView.collectionViewLayout andIndexPath:indexPath];
-        [cell refreshWithPhotoModel:photoModel];
+        [cell refreshWithPhotoModel:photoModel imageSize:photoModel.uiCategoryThumbnailDisplaySize];
 //        [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
     } else {
         ;

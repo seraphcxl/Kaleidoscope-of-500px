@@ -38,7 +38,7 @@
     self.contentView.clipsToBounds = YES;
 }
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel {
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize {
     do {
         if (!self.imageView) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -53,7 +53,7 @@
         [self.imageView sd_cancelCurrentImageLoad];
         self.imageView.image = nil;
         if (photoModel) {
-            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiThumbnailDisplaySize.width, self.photoModel.uiThumbnailDisplaySize.height);
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, imageSize.width, imageSize.height);
             [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailURL) {
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -74,13 +74,13 @@
     } while (NO);
 }
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
     do {
         if (!scrollView || !view) {
             break;
         }
         
-        [self refreshWithPhotoModel:photoModel];
+        [self refreshWithPhotoModel:photoModel imageSize:imageSize];
         
         [self setParallaxView:self.imageView forOrientation:DCHParallax_Orientation_Vertial onScrollView:scrollView scrollOnView:view];
     } while (NO);

@@ -49,7 +49,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 //    self.contentView.clipsToBounds = YES;
 }
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel {
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize {
     do {
         self.photoModel = photoModel;
         
@@ -67,7 +67,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         self.backgroundImageView.image = nil;
         
         if (self.photoModel) {
-            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, self.photoModel.uiThumbnailDisplaySize.width, self.photoModel.uiThumbnailDisplaySize.height);
+            CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, imageSize.width, imageSize.height);
             
             if (!self.featureImageContainerView) {
                 UIView *containerView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -113,13 +113,13 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
     } while (NO);
 }
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view {
     do {
         if (!scrollView || !view) {
             break;
         }
         
-        [self refreshWithPhotoModel:photoModel];
+        [self refreshWithPhotoModel:photoModel imageSize:imageSize];
         
         [self setParallaxView:self.featureImageView inContainerView:self.featureImageContainerView forOrientation:DCHParallax_Orientation_Vertial onScrollView:scrollView scrollOnView:view];
     } while (NO);

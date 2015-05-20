@@ -23,8 +23,8 @@ extern const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight;
 
 + (NSString *)cellIdentifier;
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel;
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize;
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 
 - (UIImage *)image;
 

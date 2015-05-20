@@ -133,8 +133,8 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
             DCHPhotoModel *photoModel = nil;
             DCHArraySafeRead(model.models, indexPath.item, photoModel);
             if (photoModel) {
-                photoModel.uiThumbnailDisplaySize = layout.itemSize;
-                result = photoModel.uiThumbnailDisplaySize;
+                photoModel.uiCategoryThumbnailDisplaySize = layout.itemSize;
+                result = photoModel.uiCategoryThumbnailDisplaySize;
             }
         }
         

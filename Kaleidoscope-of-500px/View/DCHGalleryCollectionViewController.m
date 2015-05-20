@@ -140,7 +140,7 @@
     }];
     
     // Shimmering HUD
-    self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor aquaColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
+    self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
     
     self.transition = [[DCHBubbleAnimatedTransitioning alloc] init];
 }
@@ -314,7 +314,7 @@
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
 //    [cell refreshWithPhotoModel:photoModel];
-    [cell refreshWithPhotoModel:photoModel onScrollView:self.collectionView scrollOnView:self.view];
+    [cell refreshWithPhotoModel:photoModel imageSize:photoModel.uiGalleryThumbnailDisplaySize onScrollView:self.collectionView scrollOnView:self.view];
     
     return cell;
 }

@@ -44,11 +44,16 @@
                     </state>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4z-36-U65" userLabel="gradientView" customClass="DCHLinearGradientView">
-                    <rect key="frame" x="0.0" y="408" width="600" height="80"/>
+                    <rect key="frame" x="0.0" y="440" width="600" height="48"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="Ux5-AI-owe"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Ux5-AI-owe"/>
+                        </mask>
+                    </variation>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaP-dQ-12k" userLabel="shimmeringView" customClass="FBShimmeringView">
                     <rect key="frame" x="16" y="440" width="568" height="48"/>
@@ -62,6 +67,7 @@
             <constraints>
                 <constraint firstItem="vVd-TI-dF1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2Cq-uY-t6o"/>
                 <constraint firstAttribute="bottom" secondItem="vVd-TI-dF1" secondAttribute="bottom" id="2bg-MO-LAb"/>
+                <constraint firstItem="Q4z-36-U65" firstAttribute="height" secondItem="jaP-dQ-12k" secondAttribute="height" id="3oP-46-mgt"/>
                 <constraint firstItem="MIh-sU-OnC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="96r-va-vpi"/>
                 <constraint firstAttribute="bottom" secondItem="jaP-dQ-12k" secondAttribute="bottom" constant="95" id="9y0-Gq-bnN"/>
                 <constraint firstAttribute="trailing" secondItem="MIh-sU-OnC" secondAttribute="trailing" id="DIF-fM-WI9"/>

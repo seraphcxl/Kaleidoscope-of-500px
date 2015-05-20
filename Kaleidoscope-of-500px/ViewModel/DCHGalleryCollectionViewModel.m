@@ -125,7 +125,7 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
             CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
             NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHGalleryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHGalleryCollectionViewModel_kCountInLine;
             NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
-            photoModel.uiThumbnailDisplaySize = CGSizeMake(width, height);
+            photoModel.uiGalleryThumbnailDisplaySize = CGSizeMake(width, height);
             result = CGSizeMake(width, (height + DCHImageCardCollectionViewCell_DescLabelHeight));
         }
         

@@ -42,8 +42,8 @@
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(self.models, indexPath.item, photoModel);
         if (photoModel) {
-            photoModel.uiThumbnailDisplaySize = layout.itemSize;
-            result = photoModel.uiThumbnailDisplaySize;
+            photoModel.uiBubbleThumbnailDisplaySize = layout.itemSize;
+            result = photoModel.uiBubbleThumbnailDisplaySize;
         }
         
     } while (NO);

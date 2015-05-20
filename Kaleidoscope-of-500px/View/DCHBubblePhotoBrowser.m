@@ -61,11 +61,12 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     [self.thumbnailCollectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
     self.thumbnailCollectionView.delegate = self;
     self.thumbnailCollectionView.dataSource = self;
-    [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     
     self.titleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.titleButton setTitle:self.photoBrowserTitle forState:UIControlStateNormal];
     [self.titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.gradientView.gradientSize = 1.0f;
     
     self.shimmeringView.shimmering = NO;
     self.shimmeringView.shimmeringBeginFadeDuration = 0.2;
@@ -95,13 +96,15 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.view.backgroundColor = [UIColor tungstenColor];
         self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
         self.bigImageView.backgroundColor = [UIColor tungstenColor];
+        
+        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        ;
+        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
 }
 
@@ -142,6 +145,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.gradientView.hidden = YES;
         [self.bigImageView sd_cancelCurrentImageLoad];
         self.loadingLabel.text = photoModel.photoName;
+        self.loadingLabel.textColor = [UIColor salmonColor];
         self.shimmeringView.shimmering = YES;
         if (photoModel) {
             @weakify(self);
@@ -151,6 +155,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                     [NSThread runInMain:^{
                         @strongify(self);
                         self.shimmeringView.shimmering = NO;
+                        self.loadingLabel.textColor = [UIColor whiteColor];
                         self.gradientView.hidden = NO;
                     }];
                 } while (NO);
@@ -180,7 +185,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     
     DCHPhotoModel *photoModel = nil;
     DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
-    [result refreshWithPhotoModel:photoModel];
+    [result refreshWithPhotoModel:photoModel imageSize:photoModel.uiBubbleThumbnailDisplaySize];
     
     return result;
 }
@@ -189,7 +194,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     do {
         [self.thumbnailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        
+        self.initialPhotoIndex = indexPath.item;
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
         [self loadingImage:photoModel];
