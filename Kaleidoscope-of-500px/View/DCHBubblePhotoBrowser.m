@@ -95,8 +95,8 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.viewModel.eventResponder = self;
         
         self.view.backgroundColor = [UIColor tungstenColor];
-        self.thumbnailCollectionView.backgroundColor = [UIColor clearColor];
-        self.bigImageView.backgroundColor = [UIColor clearColor];
+        self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
+        self.bigImageView.backgroundColor = [UIColor tungstenColor];
         
         [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
@@ -143,30 +143,54 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         if (!photoModel) {
             break;
         }
-        self.view.backgroundColor = photoModel.bottomEdgeColor ? photoModel.bottomEdgeColor : [UIColor tungstenColor];
-        self.gradientView.hidden = YES;
+        
         [self.bigImageView sd_cancelCurrentImageLoad];
         self.loadingLabel.text = photoModel.photoName;
-        self.loadingLabel.textColor = [UIColor aquaColor];
-        self.shimmeringView.shimmering = YES;
-        if (photoModel) {
-            @weakify(self, photoModel);
-            [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                @strongify(self, photoModel);
-                do {
-//                    if ([[imageURL absoluteString] isEqualToString:photoModel.fullsizedURL]) {
-//                        photoModel.bottomEdgeColor = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom countOfLine:1 alphaEnable:NO];
-//                    }
-                    [NSThread runInMain:^{
-                        @strongify(self);
-                        self.view.backgroundColor = photoModel.bottomEdgeColor ? photoModel.bottomEdgeColor : [UIColor tungstenColor];
-                        self.shimmeringView.shimmering = NO;
-                        self.loadingLabel.textColor = [UIColor whiteColor];
-                        self.gradientView.hidden = NO;
-                    }];
-                } while (NO);
-            }];
+        
+        if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:photoModel.fullsizedURL]]) {
+            ;
+        } else {
+            self.loadingLabel.textColor = [UIColor aquaColor];
+            self.shimmeringView.shimmering = YES;
         }
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            do {
+                self.bigImageView.alpha = 0.2f;
+//                [self.bigImageView setTransform:CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5)];
+            } while (NO);
+        } completion:^(BOOL finished) {
+            do {
+                self.gradientView.hidden = YES;
+                
+                if (photoModel) {
+                    @weakify(self);
+                    [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                        @strongify(self);
+                        do {
+                            [NSThread runInMain:^{
+                                @strongify(self);
+                                
+                                self.shimmeringView.shimmering = NO;
+                                self.loadingLabel.textColor = [UIColor whiteColor];
+                                self.gradientView.hidden = NO;
+                                
+                                [UIView animateWithDuration:0.25 animations:^{
+                                    do {
+//                                        [self.bigImageView setTransform:CGAffineTransformIdentity];
+                                        self.bigImageView.alpha = 1.0f;
+                                    } while (NO);
+                                } completion:^(BOOL finished) {
+                                    do {
+                                        ;
+                                    } while (NO);
+                                }];
+                            }];
+                        } while (NO);
+                    }];
+                }
+            } while (NO);
+        }];
     } while (NO);
 }
 
