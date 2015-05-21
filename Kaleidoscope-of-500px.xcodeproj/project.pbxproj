@@ -24,6 +24,7 @@
 		8D959FED1B044F63001E4C46 /* DCHLinearGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */; };
 		8D959FF01B047AB9001E4C46 /* DCHRadialGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */; };
 		8D959FF31B0481AC001E4C46 /* DCHDiagonalGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */; };
+		8D9D0EF41B0DC2A1002317BD /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D0EF31B0DC2A1002317BD /* LineLayout.m */; };
 		8DAC4C971AD4BD5C00C1B80D /* DCH500pxPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */; };
 		8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */; };
 		8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */; };
@@ -96,6 +97,8 @@
 		8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHRadialGradientView.m; sourceTree = "<group>"; };
 		8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDiagonalGradientView.h; sourceTree = "<group>"; };
 		8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDiagonalGradientView.m; sourceTree = "<group>"; };
+		8D9D0EF21B0DC2A1002317BD /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
+		8D9D0EF31B0DC2A1002317BD /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		8DAC4C951AD4BD5C00C1B80D /* DCH500pxPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxPhotoStore.h; sourceTree = "<group>"; };
 		8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStore.m; sourceTree = "<group>"; };
 		8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStoreTests.m; sourceTree = "<group>"; };
@@ -259,6 +262,15 @@
 			name = Gradient;
 			sourceTree = "<group>";
 		};
+		8D9D0EF51B0DC2AA002317BD /* LineLayout */ = {
+			isa = PBXGroup;
+			children = (
+				8D9D0EF21B0DC2A1002317BD /* LineLayout.h */,
+				8D9D0EF31B0DC2A1002317BD /* LineLayout.m */,
+			);
+			name = LineLayout;
+			sourceTree = "<group>";
+		};
 		8DAC4C911AD4BCC700C1B80D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +322,7 @@
 				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
 				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */,
 				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */,
+				8D9D0EF51B0DC2AA002317BD /* LineLayout */,
 				8DD9B3601B0C669100AA5CB5 /* Animation */,
 				8D3B8D961B0B12770092A554 /* Gradient */,
 				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */,
@@ -655,6 +668,7 @@
 				8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */,
 				8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
+				8D9D0EF41B0DC2A1002317BD /* LineLayout.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,
 			);

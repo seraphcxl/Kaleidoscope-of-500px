@@ -25,7 +25,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="112" id="8yg-Ps-CCH"/>
                     </constraints>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="PZD-ep-NFn">
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="PZD-ep-NFn" customClass="LineLayout">
                         <size key="itemSize" width="96" height="96"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>

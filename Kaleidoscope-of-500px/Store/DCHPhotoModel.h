@@ -40,6 +40,7 @@
 @property (nonatomic, assign) CGSize uiCategoryThumbnailDisplaySize;
 @property (nonatomic, assign) CGSize uiBubbleThumbnailDisplaySize;
 @property (nonatomic, assign) CGSize uiFullSizeDisplaySize;
+//@property (nonatomic, strong) UIColor *bottomEdgeColor;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;

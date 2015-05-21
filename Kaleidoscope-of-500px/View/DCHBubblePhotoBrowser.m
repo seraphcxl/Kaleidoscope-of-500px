@@ -145,7 +145,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.gradientView.hidden = YES;
         [self.bigImageView sd_cancelCurrentImageLoad];
         self.loadingLabel.text = photoModel.photoName;
-        self.loadingLabel.textColor = [UIColor salmonColor];
+        self.loadingLabel.textColor = [UIColor aquaColor];
         self.shimmeringView.shimmering = YES;
         if (photoModel) {
             @weakify(self);
