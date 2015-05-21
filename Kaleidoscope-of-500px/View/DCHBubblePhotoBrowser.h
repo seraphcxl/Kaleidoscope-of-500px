@@ -12,11 +12,12 @@
 @class DCHBubblePhotoBrowserViewModel;
 @class DCHLinearGradientView;
 @class FBShimmeringView;
+@class DCHBubbleImageView;
 
 @interface DCHBubblePhotoBrowser : UIViewController
 
 @property (weak, nonatomic) IBOutlet UICollectionView *thumbnailCollectionView;
-@property (weak, nonatomic) IBOutlet UIImageView *bigImageView;
+@property (weak, nonatomic) IBOutlet DCHBubbleImageView *bigImageView;
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @property (weak, nonatomic) IBOutlet DCHLinearGradientView *gradientView;
 @property (weak, nonatomic) IBOutlet FBShimmeringView *shimmeringView;

@@ -16,18 +16,23 @@
 #import "DCHPhotoModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIImage+DCHColorArt.h"
+#import "DCHBubbleImageView.h"
 
 const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
-@interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource, DCHBubbleImageViewTapDelegate>
 
 @property (nonatomic, strong) DCHBubblePhotoBrowserViewModel *viewModel;
 @property (nonatomic, assign) NSUInteger initialPhotoIndex;
 @property (nonatomic, copy) NSString *photoBrowserTitle;
 @property (nonatomic, strong) UILabel *loadingLabel;
 
+@property (nonatomic, assign) BOOL loadingImage;
+
 - (void)titleButtonClick:(id)sender;
 - (void)loadingImage:(DCHPhotoModel *)photoModel;
+
+- (void)showSingleImageView:(BOOL)show;
 
 @end
 
@@ -85,6 +90,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     DCHArraySafeRead(self.viewModel.models, self.initialPhotoIndex, photoModel);
     self.bigImageView.clipsToBounds = YES;
     self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.bigImageView.tapDelegate = self;
     
     [self loadingImage:photoModel];
 }
@@ -165,9 +171,11 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 
                 if (photoModel) {
                     @weakify(self);
+                    self.loadingImage = YES;
                     [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         @strongify(self);
                         do {
+                            self.loadingImage = NO;
                             [NSThread runInMain:^{
                                 @strongify(self);
                                 
@@ -191,6 +199,61 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 }
             } while (NO);
         }];
+    } while (NO);
+}
+
+- (void)showSingleImageView:(BOOL)show {
+    do {
+        if (self.loadingImage) {
+            break;
+        }
+        if (show) {
+            self.gradientView.hidden = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                do {
+                    CGRect thumbnailFrame = self.thumbnailCollectionView.frame;
+                    
+                    self.bigImageView.frame = self.view.bounds;
+                    self.bigImageView.contentMode = UIViewContentModeScaleAspectFit;
+                    
+                    CGRect loadingFrame = self.loadingLabel.frame;
+                    loadingFrame.origin.y += thumbnailFrame.size.height;
+                    self.loadingLabel.frame = loadingFrame;
+                    
+                    thumbnailFrame.origin.y = self.view.bounds.size.height;
+                    self.thumbnailCollectionView.frame = thumbnailFrame;
+                    self.thumbnailCollectionView.alpha = 0.0f;
+                } while (NO);
+            } completion:^(BOOL finished) {
+                do {
+                    self.thumbnailCollectionView.hidden = YES;
+                } while (NO);
+            }];
+        } else {
+            self.thumbnailCollectionView.hidden = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                do {
+                    CGRect bigImgFrame = self.bigImageView.frame;
+                    CGRect thumbnailFrame = self.thumbnailCollectionView.frame;
+                    
+                    bigImgFrame.size.height -= thumbnailFrame.size.height;
+                    self.bigImageView.frame = bigImgFrame;
+                    self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
+                    
+                    CGRect loadingFrame = self.loadingLabel.frame;
+                    loadingFrame.origin.y -= thumbnailFrame.size.height;
+                    self.loadingLabel.frame = loadingFrame;
+                    
+                    thumbnailFrame.origin.y = self.view.bounds.size.height - thumbnailFrame.size.height;
+                    self.thumbnailCollectionView.frame = thumbnailFrame;
+                    self.thumbnailCollectionView.alpha = 1.0f;
+                } while (NO);
+            } completion:^(BOOL finished) {
+                do {
+                    self.gradientView.hidden = NO;
+                } while (NO);
+            }];
+        }
     } while (NO);
 }
 
@@ -228,6 +291,26 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
         [self loadingImage:photoModel];
+    } while (NO);
+}
+
+#pragma mark - DCHBubbleImageViewTapDelegate
+- (void)view:(UIView *)view tapDetected:(UITouch *)touch {
+    do {
+        if (!view || !touch) {
+            break;
+        }
+        NSUInteger tapCount = touch.tapCount;
+        switch (tapCount) {
+            case 1:
+            {
+                [self showSingleImageView:!self.thumbnailCollectionView.hidden];
+            }
+                break;
+                
+            default:
+                break;
+        }
     } while (NO);
 }
 @end

@@ -51,6 +51,7 @@
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
 		8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */; };
+		8DEA766A1B0E09D3003108F1 /* DCHBubbleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */; };
 		8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */; };
 		8DF1A7561B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */; };
 /* End PBXBuildFile section */
@@ -147,6 +148,8 @@
 		8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryViewModel.m; sourceTree = "<group>"; };
 		8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryModel.h; sourceTree = "<group>"; };
 		8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryModel.m; sourceTree = "<group>"; };
+		8DEA76681B0E09D3003108F1 /* DCHBubbleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleImageView.h; sourceTree = "<group>"; };
+		8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleImageView.m; sourceTree = "<group>"; };
 		8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowser.h; sourceTree = "<group>"; };
 		8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowser.m; sourceTree = "<group>"; };
 		8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHBubblePhotoBrowser.xib; sourceTree = "<group>"; };
@@ -418,6 +421,8 @@
 				8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */,
 				8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */,
 				8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */,
+				8DEA76681B0E09D3003108F1 /* DCHBubbleImageView.h */,
+				8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */,
 			);
 			name = BubblePhotoBrowser;
 			sourceTree = "<group>";
@@ -668,6 +673,7 @@
 				8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */,
 				8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
+				8DEA766A1B0E09D3003108F1 /* DCHBubbleImageView.m in Sources */,
 				8D9D0EF41B0DC2A1002317BD /* LineLayout.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,
