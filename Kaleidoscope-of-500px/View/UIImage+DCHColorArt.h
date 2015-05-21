@@ -17,8 +17,8 @@ typedef NS_ENUM(NSUInteger, DCHColorArt_EdgeType) {
 
 @interface UIImage (DCHColorArt)
 
-- (UIColor *)findMajorColor;
-- (UIColor *)findEdgeColorWithType:(DCHColorArt_EdgeType)type countOfLine:(NSUInteger)countOfLine andMinimumPercentage:(CGFloat)minimumPercentage;
+- (UIColor *)findMajorColorWithAlphaEnable:(BOOL)alphaEnable;
+- (UIColor *)findEdgeColorWithType:(DCHColorArt_EdgeType)type countOfLine:(NSUInteger)countOfLine alphaEnable:(BOOL)alphaEnable;
 - (BOOL)isEqualToByBytes:(UIImage *)otherImage;
 
 @end
