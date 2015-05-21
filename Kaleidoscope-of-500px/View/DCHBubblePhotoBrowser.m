@@ -15,6 +15,7 @@
 #import "DCHImageCollectionViewCell.h"
 #import "DCHPhotoModel.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIImage+DCHColorArt.h"
 
 const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
@@ -94,8 +95,8 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.viewModel.eventResponder = self;
         
         self.view.backgroundColor = [UIColor tungstenColor];
-        self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
-        self.bigImageView.backgroundColor = [UIColor tungstenColor];
+        self.thumbnailCollectionView.backgroundColor = [UIColor clearColor];
+        self.bigImageView.backgroundColor = [UIColor clearColor];
         
         [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
@@ -142,18 +143,23 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         if (!photoModel) {
             break;
         }
+        self.view.backgroundColor = photoModel.bottomEdgeColor ? photoModel.bottomEdgeColor : [UIColor tungstenColor];
         self.gradientView.hidden = YES;
         [self.bigImageView sd_cancelCurrentImageLoad];
         self.loadingLabel.text = photoModel.photoName;
         self.loadingLabel.textColor = [UIColor aquaColor];
         self.shimmeringView.shimmering = YES;
         if (photoModel) {
-            @weakify(self);
+            @weakify(self, photoModel);
             [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                @strongify(self);
+                @strongify(self, photoModel);
                 do {
+//                    if ([[imageURL absoluteString] isEqualToString:photoModel.fullsizedURL]) {
+//                        photoModel.bottomEdgeColor = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom countOfLine:1 alphaEnable:NO];
+//                    }
                     [NSThread runInMain:^{
                         @strongify(self);
+                        self.view.backgroundColor = photoModel.bottomEdgeColor ? photoModel.bottomEdgeColor : [UIColor tungstenColor];
                         self.shimmeringView.shimmering = NO;
                         self.loadingLabel.textColor = [UIColor whiteColor];
                         self.gradientView.hidden = NO;
