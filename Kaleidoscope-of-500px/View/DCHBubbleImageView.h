@@ -16,8 +16,15 @@
 
 @end
 
+@protocol DCHBubbleImageViewSwipeDelegate <NSObject>
+
+- (void)view:(UIView *)view swipeDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer;
+
+@end
+
 @interface DCHBubbleImageView : UIImageView
 
 @property (nonatomic, weak) id <DCHBubbleImageViewTapDelegate> tapDelegate;
+@property (nonatomic, weak) id <DCHBubbleImageViewSwipeDelegate> swipeDelegate;
 
 @end

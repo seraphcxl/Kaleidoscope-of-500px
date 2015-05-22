@@ -20,13 +20,14 @@
 
 const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 
-@interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource, DCHBubbleImageViewTapDelegate>
+@interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource, DCHBubbleImageViewTapDelegate, DCHBubbleImageViewSwipeDelegate>
 
 @property (nonatomic, strong) DCHBubblePhotoBrowserViewModel *viewModel;
 @property (nonatomic, assign) NSUInteger initialPhotoIndex;
 @property (nonatomic, copy) NSString *photoBrowserTitle;
 @property (nonatomic, strong) UILabel *loadingLabel;
 
+@property (nonatomic, assign) BOOL singleImageView;
 @property (nonatomic, assign) BOOL loadingImage;
 
 - (void)titleButtonClick:(id)sender;
@@ -67,6 +68,8 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     [self.thumbnailCollectionView registerNib:[UINib nibWithNibName:[DCHImageCollectionViewCell cellIdentifier] bundle:nil] forCellWithReuseIdentifier:[DCHImageCollectionViewCell cellIdentifier]];
     self.thumbnailCollectionView.delegate = self;
     self.thumbnailCollectionView.dataSource = self;
+    self.thumbnailCollectionView.allowsMultipleSelection = NO;
+    self.thumbnailCollectionView.scrollsToTop = NO;
     
     self.titleButton.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.titleButton setTitle:self.photoBrowserTitle forState:UIControlStateNormal];
@@ -91,6 +94,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     self.bigImageView.clipsToBounds = YES;
     self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.bigImageView.tapDelegate = self;
+    self.bigImageView.swipeDelegate = self;
     
     [self loadingImage:photoModel];
 }
@@ -167,7 +171,9 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
             } while (NO);
         } completion:^(BOOL finished) {
             do {
-                self.gradientView.hidden = YES;
+                if (!self.singleImageView) {
+                    self.gradientView.hidden = YES;
+                }
                 
                 if (photoModel) {
                     @weakify(self);
@@ -181,8 +187,9 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                                 
                                 self.shimmeringView.shimmering = NO;
                                 self.loadingLabel.textColor = [UIColor whiteColor];
-                                self.gradientView.hidden = NO;
-                                
+                                if (!self.singleImageView) {
+                                    self.gradientView.hidden = NO;
+                                }
                                 [UIView animateWithDuration:0.25 animations:^{
                                     do {
 //                                        [self.bigImageView setTransform:CGAffineTransformIdentity];
@@ -207,6 +214,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         if (self.loadingImage) {
             break;
         }
+        self.singleImageView = show;
         if (show) {
             self.gradientView.hidden = YES;
             [UIView animateWithDuration:0.3 animations:^{
@@ -310,6 +318,50 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 
             default:
                 break;
+        }
+    } while (NO);
+}
+
+#pragma mark - DCHBubbleImageViewSwipeDelegate
+- (void)view:(UIView *)view swipeDetected:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
+    do {
+        if (!view || !swipeGestureRecognizer) {
+            break;
+        }
+        if (self.singleImageView) {
+            break;
+        }
+        NSArray *selectedItems = [self.thumbnailCollectionView indexPathsForSelectedItems];
+        if (selectedItems.count == 0) {
+            break;
+        }
+        NSInteger numberOfItems = [self.thumbnailCollectionView numberOfItemsInSection:0];
+        NSIndexPath *selectedIndexPath = [selectedItems DCH_safe_objectAtIndex:0];
+        NSIndexPath *newSelectedIndexPath = nil;
+        switch (swipeGestureRecognizer.direction) {
+            case UISwipeGestureRecognizerDirectionLeft:
+            {
+                if (selectedIndexPath.item < numberOfItems - 1) {
+                    newSelectedIndexPath = [NSIndexPath indexPathForItem:(selectedIndexPath.item + 1) inSection:selectedIndexPath.section];
+                }
+            }
+                break;
+            case UISwipeGestureRecognizerDirectionRight:
+            {
+                if (selectedIndexPath.item > 0) {
+                    newSelectedIndexPath = [NSIndexPath indexPathForItem:(selectedIndexPath.item - 1) inSection:selectedIndexPath.section];
+                }
+            }
+                break;
+                
+            default:
+                break;
+        }
+        if (newSelectedIndexPath) {
+            [self.thumbnailCollectionView selectItemAtIndexPath:newSelectedIndexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+            DCHPhotoModel *photoModel = nil;
+            DCHArraySafeRead(self.viewModel.models, newSelectedIndexPath.item, photoModel);
+            [self loadingImage:photoModel];
         }
     } while (NO);
 }
