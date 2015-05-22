@@ -8,6 +8,7 @@
 
 #import "DCHCategoryCollectionHeaderView.h"
 #import "DCHCategoryModel.h"
+#import <Tourbillon/DCHTourbillon.h>
 
 @interface DCHCategoryCollectionHeaderView ()
 
@@ -27,12 +28,20 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.backgroundColor = [UIColor salmonColor];
+}
+
+- (IBAction)actionForClick:(id)sender {
+    do {
+        ;
+    } while (NO);
 }
 
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {
     do {
         self.categoryModel = categoryModel;
         self.titleLabel.text = @"";
+        self.titleLabel.textColor = [UIColor tungstenColor];
         if (self.categoryModel) {
             self.hidden = NO;
             self.titleLabel.text = [DCHCategoryModel description4Category:self.categoryModel.category];

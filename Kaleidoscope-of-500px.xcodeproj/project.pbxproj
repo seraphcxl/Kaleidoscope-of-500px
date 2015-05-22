@@ -17,12 +17,14 @@
 		892E7E7819E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 892E7E7719E511C8005D1BA7 /* Kaleidoscope_of_500pxTests.m */; };
 		8D493A271AE279CC00FF4EB2 /* UIView+DCHParallax.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */; };
 		8D50A7A01AFC7B920057EDD2 /* DCH500pxVMTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D50A79F1AFC7B920057EDD2 /* DCH500pxVMTests.m */; };
+		8D5DAD6A1B05F645005D26E8 /* DCHShimmeringHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */; };
 		8D959FE51B043EF6001E4C46 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FE41B043EF6001E4C46 /* UIImage+ImageEffects.m */; };
 		8D959FE91B04439A001E4C46 /* DCHImageCardCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FE71B04439A001E4C46 /* DCHImageCardCollectionViewCell.m */; };
 		8D959FEA1B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D959FE81B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib */; };
 		8D959FED1B044F63001E4C46 /* DCHLinearGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */; };
 		8D959FF01B047AB9001E4C46 /* DCHRadialGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */; };
 		8D959FF31B0481AC001E4C46 /* DCHDiagonalGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */; };
+		8D9D0EF41B0DC2A1002317BD /* LineLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D9D0EF31B0DC2A1002317BD /* LineLayout.m */; };
 		8DAC4C971AD4BD5C00C1B80D /* DCH500pxPhotoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */; };
 		8DAC4C991AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */; };
 		8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC4C9B1AD4C92300C1B80D /* DCHPhotoModel.m */; };
@@ -42,10 +44,16 @@
 		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
+		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */; };
+		8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */; };
+		8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */; };
 		8DDD54C41B01908000E0DB02 /* DCHImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */; };
 		8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */; };
 		8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */; };
 		8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */; };
+		8DEA766A1B0E09D3003108F1 /* DCHBubbleImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */; };
+		8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */; };
+		8DF1A7561B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +85,8 @@
 		8D493A251AE279CC00FF4EB2 /* UIView+DCHParallax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+DCHParallax.h"; sourceTree = "<group>"; };
 		8D493A261AE279CC00FF4EB2 /* UIView+DCHParallax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+DCHParallax.m"; sourceTree = "<group>"; };
 		8D50A79F1AFC7B920057EDD2 /* DCH500pxVMTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxVMTests.m; sourceTree = "<group>"; };
+		8D5DAD681B05F645005D26E8 /* DCHShimmeringHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHShimmeringHUD.h; sourceTree = "<group>"; };
+		8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHShimmeringHUD.m; sourceTree = "<group>"; };
 		8D959FE31B043EF6001E4C46 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		8D959FE41B043EF6001E4C46 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		8D959FE61B04439A001E4C46 /* DCHImageCardCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCardCollectionViewCell.h; sourceTree = "<group>"; };
@@ -88,6 +98,8 @@
 		8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHRadialGradientView.m; sourceTree = "<group>"; };
 		8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDiagonalGradientView.h; sourceTree = "<group>"; };
 		8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDiagonalGradientView.m; sourceTree = "<group>"; };
+		8D9D0EF21B0DC2A1002317BD /* LineLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineLayout.h; sourceTree = "<group>"; };
+		8D9D0EF31B0DC2A1002317BD /* LineLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineLayout.m; sourceTree = "<group>"; };
 		8DAC4C951AD4BD5C00C1B80D /* DCH500pxPhotoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCH500pxPhotoStore.h; sourceTree = "<group>"; };
 		8DAC4C961AD4BD5C00C1B80D /* DCH500pxPhotoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStore.m; sourceTree = "<group>"; };
 		8DAC4C981AD4C2CB00C1B80D /* DCH500pxPhotoStoreTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCH500pxPhotoStoreTests.m; sourceTree = "<group>"; };
@@ -123,6 +135,12 @@
 		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
 		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
+		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColorArt.h"; sourceTree = "<group>"; };
+		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColorArt.m"; sourceTree = "<group>"; };
+		8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleAnimatedTransitioning.h; sourceTree = "<group>"; };
+		8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleAnimatedTransitioning.m; sourceTree = "<group>"; };
+		8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowserViewModel.h; sourceTree = "<group>"; };
+		8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowserViewModel.m; sourceTree = "<group>"; };
 		8DDD54C11B01908000E0DB02 /* DCHImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHImageCollectionViewCell.h; sourceTree = "<group>"; };
 		8DDD54C21B01908000E0DB02 /* DCHImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHImageCollectionViewCell.m; sourceTree = "<group>"; };
 		8DDD54C61B019B2200E0DB02 /* DCHImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -130,6 +148,11 @@
 		8DDE72DD1AE51BD4004EA153 /* DCHCategoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryViewModel.m; sourceTree = "<group>"; };
 		8DDE72DF1AE51C98004EA153 /* DCHCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHCategoryModel.h; sourceTree = "<group>"; };
 		8DDE72E01AE51C98004EA153 /* DCHCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHCategoryModel.m; sourceTree = "<group>"; };
+		8DEA76681B0E09D3003108F1 /* DCHBubbleImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleImageView.h; sourceTree = "<group>"; };
+		8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubbleImageView.m; sourceTree = "<group>"; };
+		8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubblePhotoBrowser.h; sourceTree = "<group>"; };
+		8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHBubblePhotoBrowser.m; sourceTree = "<group>"; };
+		8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DCHBubblePhotoBrowser.xib; sourceTree = "<group>"; };
 		B51AAFF2696B240ACE0844B0 /* Pods-Kaleidoscope-of-500pxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kaleidoscope-of-500pxTests/Pods-Kaleidoscope-of-500pxTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD4D23B059020F2993A0CDA0 /* libPods-Kaleidoscope-of-500px.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kaleidoscope-of-500px.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -229,6 +252,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8D3B8D961B0B12770092A554 /* Gradient */ = {
+			isa = PBXGroup;
+			children = (
+				8D959FEB1B044F63001E4C46 /* DCHLinearGradientView.h */,
+				8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */,
+				8D959FEE1B047AB9001E4C46 /* DCHRadialGradientView.h */,
+				8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */,
+				8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */,
+				8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */,
+			);
+			name = Gradient;
+			sourceTree = "<group>";
+		};
+		8D9D0EF51B0DC2AA002317BD /* LineLayout */ = {
+			isa = PBXGroup;
+			children = (
+				8D9D0EF21B0DC2A1002317BD /* LineLayout.h */,
+				8D9D0EF31B0DC2A1002317BD /* LineLayout.m */,
+			);
+			name = LineLayout;
+			sourceTree = "<group>";
+		};
 		8DAC4C911AD4BCC700C1B80D /* Dispatcher */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +286,7 @@
 		8DAC4C921AD4BCC700C1B80D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrowser */,
 				8DDE72DB1AE51B9C004EA153 /* Category */,
 				8DC1D1161ADCB29E00EC71C1 /* Gallery */,
 				8DC1D1171ADCB2AB00EC71C1 /* Detail */,
@@ -275,12 +321,14 @@
 				8D959FE61B04439A001E4C46 /* DCHImageCardCollectionViewCell.h */,
 				8D959FE71B04439A001E4C46 /* DCHImageCardCollectionViewCell.m */,
 				8D959FE81B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib */,
-				8D959FEB1B044F63001E4C46 /* DCHLinearGradientView.h */,
-				8D959FEC1B044F63001E4C46 /* DCHLinearGradientView.m */,
-				8D959FEE1B047AB9001E4C46 /* DCHRadialGradientView.h */,
-				8D959FEF1B047AB9001E4C46 /* DCHRadialGradientView.m */,
-				8D959FF11B0481AC001E4C46 /* DCHDiagonalGradientView.h */,
-				8D959FF21B0481AC001E4C46 /* DCHDiagonalGradientView.m */,
+				8D5DAD681B05F645005D26E8 /* DCHShimmeringHUD.h */,
+				8D5DAD691B05F645005D26E8 /* DCHShimmeringHUD.m */,
+				8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */,
+				8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */,
+				8D9D0EF51B0DC2AA002317BD /* LineLayout */,
+				8DD9B3601B0C669100AA5CB5 /* Animation */,
+				8D3B8D961B0B12770092A554 /* Gradient */,
+				8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */,
 				8DDE72D41AE515DF004EA153 /* Category */,
 				8DAC4CC21AD5209700C1B80D /* FullSize */,
 				8DAC4CCB1AD520DD00C1B80D /* Detail */,
@@ -356,6 +404,36 @@
 				8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */,
 			);
 			name = FullSize;
+			sourceTree = "<group>";
+		};
+		8DD9B3601B0C669100AA5CB5 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */,
+				8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+		8DD9B3641B0C68B000AA5CB5 /* BubblePhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				8DF1A7521B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.h */,
+				8DF1A7531B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m */,
+				8DF1A7541B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib */,
+				8DEA76681B0E09D3003108F1 /* DCHBubbleImageView.h */,
+				8DEA76691B0E09D3003108F1 /* DCHBubbleImageView.m */,
+			);
+			name = BubblePhotoBrowser;
+			sourceTree = "<group>";
+		};
+		8DD9B36C1B0C6F4A00AA5CB5 /* BubblePhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				8DD9B36D1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.h */,
+				8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */,
+			);
+			name = BubblePhotoBrowser;
 			sourceTree = "<group>";
 		};
 		8DDE72D41AE515DF004EA153 /* Category */ = {
@@ -480,6 +558,7 @@
 				8DB2609C1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.xib in Resources */,
 				892E7E6719E511C8005D1BA7 /* Main.storyboard in Resources */,
 				8D959FEA1B04439A001E4C46 /* DCHImageCardCollectionViewCell.xib in Resources */,
+				8DF1A7561B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.xib in Resources */,
 				892E7E6C19E511C8005D1BA7 /* LaunchScreen.xib in Resources */,
 				8DB260A11B008A6A008B69D3 /* DCHCategoryCollectionFooterView.xib in Resources */,
 				8DDD54C71B019B2200E0DB02 /* DCHImageCollectionViewCell.xib in Resources */,
@@ -566,7 +645,9 @@
 			files = (
 				8DAC4CBD1AD51F4300C1B80D /* DCHFullSizeViewController.m in Sources */,
 				8DAC4CEF1AD5503000C1B80D /* DCH500pxDispatcher.m in Sources */,
+				8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColorArt.m in Sources */,
 				8DAC4CE61AD53D4300C1B80D /* DCH500pxEventCreater.m in Sources */,
+				8D5DAD6A1B05F645005D26E8 /* DCHShimmeringHUD.m in Sources */,
 				8DB2609B1B008A55008B69D3 /* DCHCategoryCollectionHeaderView.m in Sources */,
 				892E7E6119E511C8005D1BA7 /* AppDelegate.m in Sources */,
 				8DB260921B0087CA008B69D3 /* DCHCategoryCollectionViewController.m in Sources */,
@@ -588,7 +669,12 @@
 				8DC1D1131ADCB29700EC71C1 /* DCHGalleryCollectionViewModel.m in Sources */,
 				8DDE72DE1AE51BD4004EA153 /* DCHCategoryViewModel.m in Sources */,
 				8D959FE91B04439A001E4C46 /* DCHImageCardCollectionViewCell.m in Sources */,
+				8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */,
+				8DF1A7551B0CB0E6007A9DE1 /* DCHBubblePhotoBrowser.m in Sources */,
+				8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */,
 				8DDE72E11AE51C98004EA153 /* DCHCategoryModel.m in Sources */,
+				8DEA766A1B0E09D3003108F1 /* DCHBubbleImageView.m in Sources */,
+				8D9D0EF41B0DC2A1002317BD /* LineLayout.m in Sources */,
 				8DAC4CE91AD53DC300C1B80D /* DCH500pxEvent.m in Sources */,
 				8DB260A01B008A6A008B69D3 /* DCHCategoryCollectionFooterView.m in Sources */,
 			);

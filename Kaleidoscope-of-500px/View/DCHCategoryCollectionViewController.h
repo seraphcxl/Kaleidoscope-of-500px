@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DCHFluxKit/DCHFluxKit.h>
 
 @interface DCHCategoryCollectionViewController : UICollectionViewController
 

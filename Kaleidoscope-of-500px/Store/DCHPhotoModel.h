@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *photoName;
 @property (nonatomic, copy) NSNumber *identifier;
+@property (nonatomic, copy) NSString *createdAt;
 @property (nonatomic, copy) NSNumber *width;
 @property (nonatomic, copy) NSNumber *height;
 @property (nonatomic, copy) NSString *photographerName;
@@ -26,17 +27,20 @@
 @property (nonatomic, copy) NSNumber *iso;
 @property (nonatomic, copy) NSString *shutterSpeed;
 @property (nonatomic, copy) NSString *thumbnailURL;
-@property (nonatomic, strong) NSData *thumbnailData;
 @property (nonatomic, copy) NSString *fullsizedURL;
-@property (nonatomic, strong) NSData *fullsizedData;
 @property (nonatomic, assign, getter = isVotedFor) BOOL votedFor;
 @property (nonatomic, copy) NSNumber *commentsCount;
 @property (nonatomic, copy) NSNumber *favoritesCount;
 @property (nonatomic, copy) NSNumber *votesCount;
 
 // UI
+@property (nonatomic, copy) NSAttributedString *uiTitleStr;
 @property (nonatomic, copy) NSString *uiDescStr;
-@property (nonatomic, assign) CGSize uiDisplaySize;
+@property (nonatomic, assign) CGSize uiGalleryThumbnailDisplaySize;
+@property (nonatomic, assign) CGSize uiCategoryThumbnailDisplaySize;
+@property (nonatomic, assign) CGSize uiBubbleThumbnailDisplaySize;
+@property (nonatomic, assign) CGSize uiFullSizeDisplaySize;
+@property (nonatomic, strong) UIColor *bottomEdgeColor;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;

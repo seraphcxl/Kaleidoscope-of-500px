@@ -13,6 +13,8 @@
 
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxView, UIView_DCHParallax_kParallaxView, OBJC_ASSOCIATION_ASSIGN)
 DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_kParallaxContainerView, OBJC_ASSOCIATION_ASSIGN)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxBaseView, UIView_DCHParallax_kParallaxBaseView, OBJC_ASSOCIATION_ASSIGN)
+DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxScrollView, UIView_DCHParallax_kParallaxScrollView, OBJC_ASSOCIATION_ASSIGN)
 
 - (void)resetFrameInFrame:(CGRect)frame forParallaxOrientation:(DCHParallax_Orientation)orientation andSize:(DCHParallax_Size)size {
     do {
@@ -98,6 +100,7 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
         if (!scrollView || !view) {
             break;
         }
+        
         if (![[self getParallaxView] isKindOfClass:[UIView class]]) {
             break;
         }
@@ -154,6 +157,7 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
         CGRect rectSelfInSuperview = [scrollView convertRect:self.frame toView:view];
         CGRect rectContainerInSelf = [self convertRect:parallaxContainerView.frame toView:self];
         CGRect rect = CGRectMake(rectContainerInSelf.origin.x + rectSelfInSuperview.origin.x, rectContainerInSelf.origin.y + rectSelfInSuperview.origin.y, CGRectGetWidth(rectContainerInSelf), CGRectGetHeight(rectContainerInSelf));
+        
         float distanceFromCenter = CGRectGetHeight(view.frame) / 2 - CGRectGetMinY(rect);
         float difference = CGRectGetHeight(parallaxView.frame) - CGRectGetHeight(parallaxContainerView.frame);
         float move = (distanceFromCenter / CGRectGetHeight(view.frame)) * difference;
@@ -163,4 +167,10 @@ DCH_DEFINE_ASSOCIATEDOBJECT_FOR_CLASS(ParallaxContainerView, UIView_DCHParallax_
     return result;
 }
 
+- (void)resetParallaxViews {
+    do {
+        [self setParallaxView:nil];
+        [self setParallaxContainerView:nil];
+    } while (NO);
+}
 @end

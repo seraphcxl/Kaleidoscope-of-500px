@@ -28,4 +28,6 @@ DCH_DEFINE_SINGLETON_FOR_HEADER(DCH500pxPhotoStore)
 - (NSURLSessionDataTask *)queryPhotoDetails:(DCHPhotoModel *)photoModel withCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
 - (NSURLSessionDataTask *)queryPopularCategoryPhotos:(PXPhotoModelCategory)category withCount:(NSUInteger)count andCompletionHandler:(DCH500pxPhotoStoreCompletionHandler)completionHandler startImmediately:(BOOL)startImmediately;
 
++ (NSString *)description4Feature:(PXAPIHelperPhotoFeature)feature;
+
 @end

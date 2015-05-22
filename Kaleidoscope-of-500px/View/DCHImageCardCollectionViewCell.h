@@ -17,14 +17,14 @@ extern const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight;
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIView *featureImageContainerView;
 @property (weak, nonatomic) IBOutlet DCHLinearGradientView *gradientView;
 @property (weak, nonatomic) IBOutlet UILabel *titlelabel;
+@property (nonatomic, strong, readonly) UIImageView *featureImageView;
 
 + (NSString *)cellIdentifier;
 
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel;
-- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize;
+- (void)refreshWithPhotoModel:(DCHPhotoModel *)photoModel imageSize:(CGSize)imageSize onScrollView:(UIScrollView *)scrollView scrollOnView:(UIView *)view;
 
 - (UIImage *)image;
 

@@ -8,6 +8,7 @@
 
 #import "DCHCategoryCollectionFooterView.h"
 #import "DCHCategoryModel.h"
+#import <Tourbillon/DCHTourbillon.h>
 
 @interface DCHCategoryCollectionFooterView ()
 
@@ -27,6 +28,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    self.backgroundColor = [UIColor blackColor];
 }
 
 - (void)refreshWithCategoryModel:(DCHCategoryModel *)categoryModel {

@@ -14,12 +14,18 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "DCHPhotoModel.h"
+#import "DCHShimmeringHUD.h"
+#import "DCHLinearGradientView.h"
+#import "UIImage+DCHColorArt.h"
 
 @interface DCHDetailViewController ()
 
 @property (nonatomic, assign) NSInteger photoIndex;
 @property (nonatomic, strong) DCHDetailViewModel *viewModel;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) DCHShimmeringHUD *shimmeringHUD;
+@property (nonatomic, strong) DCHLinearGradientView *gradientView;
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
 
@@ -28,6 +34,19 @@
 - (void)dealloc {
     do {
         self.viewModel = nil;
+        
+        [self.shimmeringHUD hardDismiss];
+        self.shimmeringHUD = nil;
+        
+        [self.imageView removeFromSuperview];
+        self.imageView = nil;
+        
+        [self.gradientView removeFromSuperview];
+        self.gradientView = nil;
+        
+        [self.backgroundView removeFromSuperview];
+        self.backgroundView = nil;
+        
     } while (NO);
 }
 
@@ -45,11 +64,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     do {
-        self.view.backgroundColor = [UIColor aquaColor];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [self.view addSubview:imageView];
-        self.imageView = imageView;
+        self.view.backgroundColor = [UIColor tungstenColor];
+        
+//        self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.backgroundView.backgroundColor = [UIColor clearColor];
+//        [self.view addSubview:self.backgroundView];
+        
+        self.imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [self.view addSubview:self.imageView];
+        
+        // Shimmering HUD
+        self.shimmeringHUD = [[DCHShimmeringHUD alloc] initWitText:nil font:nil color:[UIColor salmonColor] andBackgroundColor:[UIColor colorWithColor:[UIColor tungstenColor] andAlpha:0.8]];
+        
+//        self.gradientView = [[DCHLinearGradientView alloc] initWithFrame:CGRectZero];
+//        self.gradientView.orientation = DCHLinearGradientView_Orientation_Bottom2Top;
+//        self.gradientView.gradientSize = 1;
+//        [self.view addSubview:self.gradientView];
     } while (NO);
 }
 
@@ -58,11 +89,25 @@
     do {
         self.viewModel.eventResponder = self;
         [self.imageView sd_cancelCurrentImageLoad];
-        if (self.viewModel.model.fullsizedData) {
-            self.imageView.image = [UIImage imageWithData:self.viewModel.model.fullsizedData];
+        if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL]]) {
+            [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+                do {
+                    ;
+                } while (NO);
+            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                do {
+                    self.imageView.image = image;
+                } while (NO);
+            }];
+//            UIColor *clr = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
+//            self.gradientView.color = clr;
+//            self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+//            [self.gradientView setNeedsDisplay];
+//            [self.backgroundView setNeedsDisplay];
         } else {
             [self.viewModel loadPhotoDetails];
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            [self.shimmeringHUD showHUDTo:self.view andShimmeringImmediately:YES];
         }
     } while (NO);
 }
@@ -77,13 +122,22 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     do {
-        self.imageView.frame = self.view.bounds;
+        NSUInteger width = ([UIScreen mainScreen].bounds.size.width);
+        NSUInteger height = width * [self.viewModel.model.height longValue] / [self.viewModel.model.width longValue];
+        self.imageView.frame = CGRectMake(0.0f, 0.0f, width, height);
+        self.imageView.center = self.view.center;
+        
+//        self.gradientView.frame = self.imageView.frame;
+//        
+//        NSUInteger y = self.view.bounds.size.height - self.imageView.frame.size.height - self.imageView.frame.origin.y;
+//        NSUInteger h = self.view.bounds.size.height - y;
+//        self.backgroundView.frame = CGRectMake(0.0f, y, self.view.bounds.size.width, h);
     } while (NO);
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     do {
-        ;
+        [self.shimmeringHUD hardDismiss];
     } while (NO);
     [super viewWillDisappear:animated];
 }
@@ -125,26 +179,27 @@
                     @weakify(self);
                     [NSThread runInMain:^{
                         @strongify(self);
-                        if (self.viewModel.model.fullsizedData) {
-                            ;
-                        } else {
-                            if (self.viewModel.model.fullsizedURL) {
-                                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                                    do {
-                                        if (error) {
-                                            NSLog(@"sd_setImageWithURL err:%@", error);
-                                            break;
-                                        }
-                                        if (!image) {
-                                            break;
-                                        }
-                                        if ([self.viewModel.model.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
-                                            self.viewModel.model.fullsizedData = UIImageJPEGRepresentation(image, 0.6);
-                                        }
-                                    } while (NO);
-                                }];
-                            }
+                        [self.imageView sd_cancelCurrentImageLoad];
+                        self.imageView.image = nil;
+                        if (self.viewModel.model.fullsizedURL) {
+                            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                //                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                                [self.shimmeringHUD dismiss];
+                                do {
+                                    if (error) {
+                                        NSLog(@"sd_setImageWithURL err:%@", error);
+                                        break;
+                                    }
+                                    if (!image) {
+                                        break;
+                                    }
+                                    //                                        UIColor *clr = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
+                                    //                                        self.gradientView.color = clr;
+                                    //                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
+                                    //                                        [self.gradientView setNeedsDisplay];
+                                    //                                        [self.backgroundView setNeedsDisplay];
+                                } while (NO);
+                            }];
                         }
                     }];
                     result = YES;

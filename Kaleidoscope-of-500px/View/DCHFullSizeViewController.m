@@ -46,7 +46,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     do {
-        self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey: @(30)}];
+        self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey:@(20)}];
         self.pageViewController.dataSource = self;
         self.pageViewController.delegate = self;
         [self addChildViewController:self.pageViewController];
@@ -55,7 +55,7 @@
             ;
         }];
         
-        self.view.backgroundColor = [UIColor grapeColor];
+        self.view.backgroundColor = [UIColor salmonColor];
         self.title = self.viewModel.initialPhotoName;
         self.pageViewController.view.frame = self.view.bounds;
         [self.view addSubview:self.pageViewController.view];

@@ -11,7 +11,7 @@
 
 @interface DCHFullSizeViewModel ()
 
-@property (nonatomic, strong) NSArray *models;
+@property (nonatomic, copy) NSArray *models;
 @property (nonatomic, assign) NSInteger initialPhotoIndex;
 @property (nonatomic, copy) NSString *initialPhotoName;
 

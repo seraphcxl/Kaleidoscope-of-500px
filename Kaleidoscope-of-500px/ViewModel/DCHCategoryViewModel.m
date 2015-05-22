@@ -15,12 +15,14 @@
 #import "DCH500pxDispatcher.h"
 #import "DCHCategoryModel.h"
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
+//#import <CHTCollectionViewWaterfallLayout/CHTCollectionViewWaterfallLayout.h>
+#import "DCHPhotoModel.h"
 
 const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 
 @interface DCHCategoryViewModel ()
 
-@property (nonatomic, strong) NSDictionary *models;
+@property (nonatomic, copy) NSDictionary *models;
 @property (nonatomic, strong) NSMutableDictionary *loadingStatusDic;
 
 @end
@@ -103,4 +105,40 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
     } while (NO);
 }
 
+- (CGSize)calcCellSizeForCollectionLayout:(UICollectionViewLayout *)collectionViewLayout andIndexPath:(NSIndexPath *)indexPath {
+    CGSize result = CGSizeZero;
+    do {
+//        if (![collectionViewLayout isKindOfClass:[CHTCollectionViewWaterfallLayout class]]) {
+//            break;
+//        }
+//        DCHCategoryModel *model = [self.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+//        if (model) {
+//            DCHPhotoModel *photoModel = nil;
+//            DCHArraySafeRead(model.models, indexPath.item, photoModel);
+//            if (photoModel) {
+//                CHTCollectionViewWaterfallLayout *layout = (CHTCollectionViewWaterfallLayout *)collectionViewLayout;
+//                NSUInteger width = ([UIScreen mainScreen].bounds.size.width - layout.minimumInteritemSpacing * (DCHCategoryCollectionViewModel_kCountInLine - 1) - layout.sectionInset.left - layout.sectionInset.right) / DCHCategoryCollectionViewModel_kCountInLine;
+//                NSUInteger height = width * [photoModel.height longValue] / [photoModel.width longValue];
+//                photoModel.uiThumbnailDisplaySize = CGSizeMake(width, height);
+//                result = CGSizeMake(width, height);
+//            }
+//        }
+        
+        if (![collectionViewLayout isKindOfClass:[CSStickyHeaderFlowLayout class]]) {
+            break;
+        }
+        CSStickyHeaderFlowLayout *layout = (CSStickyHeaderFlowLayout *)collectionViewLayout;
+        DCHCategoryModel *model = [self.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
+        if (model) {
+            DCHPhotoModel *photoModel = nil;
+            DCHArraySafeRead(model.models, indexPath.item, photoModel);
+            if (photoModel) {
+                photoModel.uiCategoryThumbnailDisplaySize = layout.itemSize;
+                result = photoModel.uiCategoryThumbnailDisplaySize;
+            }
+        }
+        
+    } while (NO);
+    return result;
+}
 @end

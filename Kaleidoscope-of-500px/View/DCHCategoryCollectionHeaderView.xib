@@ -11,9 +11,19 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBf-fA-fmr">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="actionForClick:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="bnH-hS-faY"/>
+                    </connections>
+                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJL-1Q-nlp">
                     <rect key="frame" x="0.0" y="12" width="320" height="25"/>
-                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="jIx-Ad-blg"/>
                     </constraints>
@@ -24,11 +34,16 @@
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="qBf-fA-fmr" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="8Te-jd-VPT"/>
+                <constraint firstItem="qBf-fA-fmr" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="KZt-3s-oEp"/>
                 <constraint firstAttribute="centerY" secondItem="fJL-1Q-nlp" secondAttribute="centerY" id="M79-yD-yke"/>
+                <constraint firstAttribute="bottom" secondItem="qBf-fA-fmr" secondAttribute="bottom" id="bMp-PV-NMK"/>
                 <constraint firstAttribute="trailing" secondItem="fJL-1Q-nlp" secondAttribute="trailing" id="bdo-il-K4N"/>
+                <constraint firstAttribute="trailing" secondItem="qBf-fA-fmr" secondAttribute="trailing" id="t5t-NK-RNL"/>
                 <constraint firstItem="fJL-1Q-nlp" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="yda-mL-44s"/>
             </constraints>
             <connections>
+                <outlet property="actionButton" destination="qBf-fA-fmr" id="iX0-XF-99Q"/>
                 <outlet property="titleLabel" destination="fJL-1Q-nlp" id="t2G-0q-WBv"/>
             </connections>
         </collectionReusableView>

@@ -14,7 +14,7 @@ extern const NSUInteger DCHGalleryCollectionViewModel_kCountInLine;
 
 @interface DCHGalleryCollectionViewModel : DCHViewModel
 
-@property (nonatomic, strong, readonly) NSArray *models;
+@property (nonatomic, copy, readonly) NSArray *models;
 @property (nonatomic, assign, readonly) NSUInteger currentPage;
 
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature;
