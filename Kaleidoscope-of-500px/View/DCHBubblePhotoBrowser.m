@@ -178,7 +178,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 if (photoModel) {
                     @weakify(self);
                     self.loadingImage = YES;
-                    [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil options:(SDWebImageRetryFailed) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                         @strongify(self);
                         do {
                             self.loadingImage = NO;
