@@ -88,7 +88,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             [self.featureImageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             
             if (self.photoModel.fullsizedURL) {
-                [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] placeholderImage:nil options:(SDWebImageRetryFailed) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     do {
                         if (error) {
                             NSLog(@"sd_setImageWithURL err:%@", error);
