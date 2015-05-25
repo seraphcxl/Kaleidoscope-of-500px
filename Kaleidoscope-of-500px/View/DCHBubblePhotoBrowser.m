@@ -23,7 +23,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 @interface DCHBubblePhotoBrowser () <UICollectionViewDelegate, UICollectionViewDataSource, DCHBubbleImageViewTapDelegate, DCHBubbleImageViewSwipeDelegate>
 
 @property (nonatomic, strong) DCHBubblePhotoBrowserViewModel *viewModel;
-@property (nonatomic, assign) NSUInteger initialPhotoIndex;
+@property (nonatomic, assign) NSUInteger currentPhotoIndex;
 @property (nonatomic, copy) NSString *photoBrowserTitle;
 @property (nonatomic, strong) UILabel *loadingLabel;
 
@@ -49,14 +49,14 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     } while (NO);
 }
 
-- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel initialPhotoIndex:(NSUInteger)index andTitle:(NSString *)title {
+- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel currentPhotoIndex:(NSUInteger)index andTitle:(NSString *)title {
     if (!viewModel || DCH_IsEmpty(title)) {
         return nil;
     }
     self = [self init];
     if (self) {
         self.viewModel = viewModel;
-        self.initialPhotoIndex = index;
+        self.currentPhotoIndex = index;
         self.photoBrowserTitle = title;
     }
     return self;
@@ -90,7 +90,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
     self.shimmeringView.contentView = self.loadingLabel;
     
     DCHPhotoModel *photoModel = nil;
-    DCHArraySafeRead(self.viewModel.models, self.initialPhotoIndex, photoModel);
+    DCHArraySafeRead(self.viewModel.models, self.currentPhotoIndex, photoModel);
     self.bigImageView.clipsToBounds = YES;
     self.bigImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.bigImageView.tapDelegate = self;
@@ -108,14 +108,14 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
         self.thumbnailCollectionView.backgroundColor = [UIColor tungstenColor];
         self.bigImageView.backgroundColor = [UIColor tungstenColor];
         
-        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentPhotoIndex inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.initialPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+        [self.thumbnailCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentPhotoIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
     } while (NO);
 }
 
@@ -295,7 +295,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     do {
         [self.thumbnailCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        self.initialPhotoIndex = indexPath.item;
+        self.currentPhotoIndex = indexPath.item;
         DCHPhotoModel *photoModel = nil;
         DCHArraySafeRead(self.viewModel.models, indexPath.row, photoModel);
         [self loadingImage:photoModel];

@@ -12,7 +12,7 @@
 @interface DCHFullSizeViewModel ()
 
 @property (nonatomic, copy) NSArray *models;
-@property (nonatomic, assign) NSInteger initialPhotoIndex;
+@property (nonatomic, assign) NSInteger currentPhotoIndex;
 @property (nonatomic, copy) NSString *initialPhotoName;
 
 @end
@@ -26,7 +26,7 @@
     } while (NO);
 }
 
-- (instancetype)initWithPhotoArray:(NSArray *)photoArray initialPhotoIndex:(NSInteger)initialPhotoIndex {
+- (instancetype)initWithPhotoArray:(NSArray *)photoArray currentPhotoIndex:(NSInteger)currentPhotoIndex {
     if (!photoArray || photoArray.count == 0) {
         return nil;
     }
@@ -35,7 +35,7 @@
     if (!self) return nil;
     
     self.models = photoArray;
-    self.initialPhotoIndex = initialPhotoIndex;
+    self.currentPhotoIndex = currentPhotoIndex;
     
     return self;
 }
@@ -55,7 +55,7 @@
 }
 
 - (DCHPhotoModel *)initialPhotoModel {
-    return [self photoModelAtIndex:self.initialPhotoIndex];
+    return [self photoModelAtIndex:self.currentPhotoIndex];
 }
 
 @end

@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet DCHLinearGradientView *gradientView;
 @property (weak, nonatomic) IBOutlet FBShimmeringView *shimmeringView;
 
-- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel initialPhotoIndex:(NSUInteger)index andTitle:(NSString *)title;
+@property (nonatomic, assign, readonly) NSUInteger currentPhotoIndex;
+
+- (instancetype)initWithViewModel:(DCHBubblePhotoBrowserViewModel *)viewModel currentPhotoIndex:(NSUInteger)index andTitle:(NSString *)title;
 
 @end

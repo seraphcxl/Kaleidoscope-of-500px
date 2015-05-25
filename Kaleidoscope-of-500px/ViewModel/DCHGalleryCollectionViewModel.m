@@ -84,6 +84,7 @@ const NSUInteger DCHGalleryCollectionViewModel_kCountInLine = 1;
 - (DCHEventOperationTicket *)refreshGallery:(PXAPIHelperPhotoFeature)feature {
     DCHEventOperationTicket *result = nil;
     do {
+        NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
         self.currentPage = DCH500pxPhotoStore_FirstPageNum;
         DCH500pxEvent *queryFeaturedPhotosEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryFeaturedPhotos andPayload:@{DC500pxEventCode_QueryFeaturedPhotos_kFeature: @(feature), DC500pxEventCode_QueryFeaturedPhotos_kPage: @(self.currentPage)}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryFeaturedPhotosEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {

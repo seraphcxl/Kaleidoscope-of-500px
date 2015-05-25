@@ -51,7 +51,7 @@
         self.pageViewController.delegate = self;
         [self addChildViewController:self.pageViewController];
         
-        [self.pageViewController setViewControllers:@[[self photoViewControllerForIndex:self.viewModel.initialPhotoIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
+        [self.pageViewController setViewControllers:@[[self photoViewControllerForIndex:self.viewModel.currentPhotoIndex]] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished) {
             ;
         }];
         

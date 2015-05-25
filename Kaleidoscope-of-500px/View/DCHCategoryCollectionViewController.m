@@ -210,7 +210,7 @@
         }
         DCHCategoryModel *model = [self.viewModel.models objectForKey:[DCHCategoryModel categories][indexPath.section]];
         if (model) {
-//            DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:model.models initialPhotoIndex:indexPath.item];
+//            DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:model.models currentPhotoIndex:indexPath.item];
 //            DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
 //            [self.navigationController pushViewController:fullSizeVC animated:YES];
             NSMutableArray *photoURLAry = [NSMutableArray arrayWithCapacity:model.models.count];

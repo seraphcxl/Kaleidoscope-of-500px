@@ -32,6 +32,7 @@ const NSUInteger DCH500pxPhotoStore_QueryPhotoCategory_PhotoCount = 10;
 DCH_DEFINE_SINGLETON_FOR_CLASS(DCH500pxPhotoStore)
 
 - (BOOL)respondEvent:(id <DCHEvent>)event from:(id)source withCompletionHandler:(DCHEventResponderCompletionHandler)completionHandler {
+    NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
     BOOL result = NO;
     do {
         if (event == nil || ![event isKindOfClass:[DCH500pxEvent class]]) {

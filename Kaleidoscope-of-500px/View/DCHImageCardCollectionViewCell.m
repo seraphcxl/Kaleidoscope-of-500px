@@ -100,8 +100,11 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                         //                            self.gradientView.color = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
                         //                            [self.gradientView setNeedsDisplay];
                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
+                            if (!self.photoModel.backgroundImage) {
+                                self.photoModel.backgroundImage = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+                            }
                             [NSThread runInMain:^{
-                                self.backgroundImageView.image = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+                                self.backgroundImageView.image = self.photoModel.backgroundImage;
                             }];
                         }
                     } while (NO);

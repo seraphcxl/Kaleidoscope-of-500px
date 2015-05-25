@@ -232,6 +232,12 @@
 - (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
     id <UIViewControllerAnimatedTransitioning> result = nil;
     do {
+        if (dismissed && [dismissed isKindOfClass:[DCHBubblePhotoBrowser class]]) {
+            DCHBubblePhotoBrowser *bubblePhotoBrowser = (DCHBubblePhotoBrowser *)dismissed;
+            NSInteger currentPhotoIdx = bubblePhotoBrowser.currentPhotoIndex;
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:currentPhotoIdx inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        }
+        
         self.transition.transitionMode = DCHBubbleAnimatedTransitioning_Mode_Dismiss;
         self.transition.startingPoint = self.transitionStartPoint;
         self.transition.bubbleColor = [UIColor clearColor];
@@ -325,11 +331,11 @@
         if (collectionView != self.collectionView || !indexPath) {
             break;
         }
-//        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models initialPhotoIndex:indexPath.row];
+//        DCHFullSizeViewModel *fullSizeVM = [[DCHFullSizeViewModel alloc] initWithPhotoArray:self.viewModel.models currentPhotoIndex:indexPath.row];
 //        DCHFullSizeViewController *fullSizeVC = [[DCHFullSizeViewController alloc] initWithViewModel:fullSizeVM];
 //        [self.navigationController pushViewController:fullSizeVC animated:YES];
         DCHBubblePhotoBrowserViewModel *bubblePhotoBrowserViewModel = [[DCHBubblePhotoBrowserViewModel alloc] initWithPhotoArray:self.viewModel.models];
-        DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel initialPhotoIndex:indexPath.item andTitle:[DCH500pxPhotoStore description4Feature:self.feature]];
+        DCHBubblePhotoBrowser *bubblePhotoBrowser = [[DCHBubblePhotoBrowser alloc] initWithViewModel:bubblePhotoBrowserViewModel currentPhotoIndex:indexPath.item andTitle:[DCH500pxPhotoStore description4Feature:self.feature]];
         
         DCHImageCardCollectionViewCell *cell = (DCHImageCardCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
         CGRect rectCellInCollectionView = [collectionView convertRect:cell.frame toView:self.view];
