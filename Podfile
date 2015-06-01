@@ -20,6 +20,7 @@ pod 'CSStickyHeaderFlowLayout', '~> 0.2.5'
 pod 'IDMPhotoBrowser', '~> 1.6.2'
 pod 'Shimmer', '~> 1.0.2'
 pod 'REMenu', '~> 1.10'
+pod 'RRFPSBar', '~> 0.0.1'
 
 end
 

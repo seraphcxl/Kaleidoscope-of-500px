@@ -13,6 +13,11 @@
 #import "DCH500pxDispatcher.h"
 #import <500px-iOS-api/PXAPI.h>
 
+#ifndef __OPTIMIZE__
+#import "RRFPSBar.h"
+#endif
+
+
 @interface AppDelegate ()
 
 @end
@@ -22,6 +27,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+#ifndef __OPTIMIZE__
+    [RRFPSBar sharedInstance].showsAverage = YES;
+    [[RRFPSBar sharedInstance] setHidden:NO];
+#endif
     
     NSString *consumerKey = @"3NwAt95eJVCom1TUjKdnrn95RmKQ9mm21W3Ik95D";
     NSString *consumerSecret = @"tDAihldKr6XlFHKxcJ3s7XwRiCLYJxawQckh03NQ";
