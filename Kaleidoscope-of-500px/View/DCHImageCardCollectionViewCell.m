@@ -11,6 +11,7 @@
 #import "DCHPhotoModel.h"
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIImage+ImageEffects.h"
+#import "UIImage+DCHImageEffects.h"
 #import "UIView+DCHParallax.h"
 #import "DCHLinearGradientView.h"
 #import "UIImage+DCHColorArt.h"
@@ -101,11 +102,23 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                         //                            [self.gradientView setNeedsDisplay];
                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                             if (!self.photoModel.backgroundImage) {
-                                self.photoModel.backgroundImage = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+//                                self.photoModel.backgroundImage = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
+//                                self.photoModel.backgroundImage = [image dch_applyGaussianBlurWithRadius:30.0f];
+                                [image dch_asyncApplyGaussianBlurWithRadius:30.0f completed:^(UIImage *image, NSError *error) {
+                                    do {
+                                        if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
+                                            self.photoModel.backgroundImage = image;
+                                            [NSThread runInMain:^{
+                                                self.backgroundImageView.image = self.photoModel.backgroundImage;
+                                            }];
+                                        }
+                                    } while (NO);
+                                }];
+                            } else {
+                                [NSThread runInMain:^{
+                                    self.backgroundImageView.image = self.photoModel.backgroundImage;
+                                }];
                             }
-                            [NSThread runInMain:^{
-                                self.backgroundImageView.image = self.photoModel.backgroundImage;
-                            }];
                         }
                     } while (NO);
                 }];

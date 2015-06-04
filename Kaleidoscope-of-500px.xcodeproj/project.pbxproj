@@ -44,6 +44,7 @@
 		8DC1D1151ADCB29700EC71C1 /* DCHFullSizeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D1121ADCB29700EC71C1 /* DCHFullSizeViewModel.m */; };
 		8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */; };
 		8DC1D11E1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */; };
+		8DC2D64E1B202B8100EE7920 /* UIImage+DCHImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC2D64D1B202B8100EE7920 /* UIImage+DCHImageEffects.m */; };
 		8DCCCC5E1B09AE4D0042D22A /* UIImage+DCHColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */; };
 		8DD9B3631B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B3621B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.m */; };
 		8DD9B36F1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9B36E1B0C701C00AA5CB5 /* DCHBubblePhotoBrowserViewModel.m */; };
@@ -135,6 +136,8 @@
 		8DC1D11A1ADCB67D00EC71C1 /* DCHDisplayEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEvent.m; sourceTree = "<group>"; };
 		8DC1D11C1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHDisplayEventCreater.h; sourceTree = "<group>"; };
 		8DC1D11D1ADCB6DE00EC71C1 /* DCHDisplayEventCreater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCHDisplayEventCreater.m; sourceTree = "<group>"; };
+		8DC2D64C1B202B8100EE7920 /* UIImage+DCHImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHImageEffects.h"; sourceTree = "<group>"; };
+		8DC2D64D1B202B8100EE7920 /* UIImage+DCHImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHImageEffects.m"; sourceTree = "<group>"; };
 		8DCCCC5C1B09AE4D0042D22A /* UIImage+DCHColorArt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DCHColorArt.h"; sourceTree = "<group>"; };
 		8DCCCC5D1B09AE4D0042D22A /* UIImage+DCHColorArt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DCHColorArt.m"; sourceTree = "<group>"; };
 		8DD9B3611B0C66B100AA5CB5 /* DCHBubbleAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCHBubbleAnimatedTransitioning.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 		8DAC4C941AD4BCC700C1B80D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8DC2D64C1B202B8100EE7920 /* UIImage+DCHImageEffects.h */,
+				8DC2D64D1B202B8100EE7920 /* UIImage+DCHImageEffects.m */,
 				8D959FE31B043EF6001E4C46 /* UIImage+ImageEffects.h */,
 				8D959FE41B043EF6001E4C46 /* UIImage+ImageEffects.m */,
 				8D493A251AE279CC00FF4EB2 /* UIView+DCHParallax.h */,
@@ -656,6 +661,7 @@
 				8D959FED1B044F63001E4C46 /* DCHLinearGradientView.m in Sources */,
 				8D493A271AE279CC00FF4EB2 /* UIView+DCHParallax.m in Sources */,
 				8DC1D11B1ADCB67D00EC71C1 /* DCHDisplayEvent.m in Sources */,
+				8DC2D64E1B202B8100EE7920 /* UIImage+DCHImageEffects.m in Sources */,
 				8DAC4C9C1AD4C92300C1B80D /* DCHPhotoModel.m in Sources */,
 				8DAC4CD21AD5211400C1B80D /* DCHGalleryCollectionViewController.m in Sources */,
 				8DAC4CC61AD520BF00C1B80D /* DCHDetailViewController.m in Sources */,
