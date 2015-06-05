@@ -108,14 +108,14 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                                     do {
                                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                                             self.photoModel.backgroundImage = image;
-                                            [NSThread runInMain:^{
+                                            [NSThread dch_runInMain:^{
                                                 self.backgroundImageView.image = self.photoModel.backgroundImage;
                                             }];
                                         }
                                     } while (NO);
                                 }];
                             } else {
-                                [NSThread runInMain:^{
+                                [NSThread dch_runInMain:^{
                                     self.backgroundImageView.image = self.photoModel.backgroundImage;
                                 }];
                             }

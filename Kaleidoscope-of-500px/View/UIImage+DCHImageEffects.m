@@ -31,10 +31,10 @@
         if (!completedBlock) {
             break;
         }
-        [NSThread runInBackground:^{
+        [NSThread dch_runInBackground:^{
             do {
                 UIImage *blurImage = [self dch_applyGaussianBlurWithRadius:blurRadius];
-                [NSThread runInMain:^{
+                [NSThread dch_runInMain:^{
                     do {
                         if (completedBlock) {
                             completedBlock(blurImage, nil);

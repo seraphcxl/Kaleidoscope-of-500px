@@ -183,7 +183,7 @@
 #pragma mark - Private
 - (void)refreshGallery {
     do {
-        [NSThread runInMain:^{
+        [NSThread dch_runInMain:^{
 //            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             [self.shimmeringHUD showHUDTo:self.view andShimmeringImmediately:YES];
         }];
@@ -211,7 +211,7 @@
 
 - (void)setNaviTitle {
     @weakify(self)
-    [NSThread runInMain:^{
+    [NSThread dch_runInMain:^{
         @strongify(self)
         self.navigationItem.title = [NSString stringWithFormat:@"500px %@", [DCH500pxPhotoStore description4Feature:self.feature]];
     }];
@@ -259,7 +259,7 @@
                 case DCDisplayEventCode_RefreshFeaturedPhotos:
                 {
                     @weakify(self);
-                    [NSThread runInMain:^{
+                    [NSThread dch_runInMain:^{
                         @strongify(self);
                         NSUInteger page = 0;
                         NSDictionary *payloadDic = (NSDictionary *)[event payload];

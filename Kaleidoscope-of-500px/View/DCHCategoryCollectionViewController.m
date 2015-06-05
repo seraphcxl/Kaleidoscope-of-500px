@@ -294,7 +294,7 @@
                     PXPhotoModelCategory category = PXPhotoModelCategoryUncategorized;
                     NSDictionary *payloadDic = (NSDictionary *)[event payload];
                     category = [payloadDic[DCDisplayEventCode_RefreshPhotoCategory_kCategory] integerValue];
-                    [NSThread runInMain:^{
+                    [NSThread dch_runInMain:^{
                         @strongify(self);
                         DCHCategoryModel *model = [self.viewModel.models objectForKey:@(category)];
                         if (model) {
@@ -318,7 +318,7 @@
     do {
         [self.viewModel setNeedRefreshCategories];
         @weakify(self);
-        [NSThread runInMain:^{
+        [NSThread dch_runInMain:^{
             @strongify(self);
             [self.collectionView reloadData];
         }];

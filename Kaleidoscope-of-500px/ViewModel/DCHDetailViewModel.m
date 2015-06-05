@@ -18,6 +18,7 @@
 @interface DCHDetailViewModel ()
 
 @property (nonatomic, strong) DCHPhotoModel *model;
+@property (nonatomic, strong) DCHEventOperationTicket *loadPhotoDetailsTicket;
 
 @end
 
@@ -25,6 +26,9 @@
 
 - (void)dealloc {
     do {
+        self.loadPhotoDetailsTicket.canceled = YES;
+        self.loadPhotoDetailsTicket = nil;
+        
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] removeEventResponder:self];
         self.model = nil;
     } while (NO);
@@ -85,6 +89,10 @@
         if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.model.fullsizedURL]]) {
             ;
         } else {
+            if (self.loadPhotoDetailsTicket) {
+                self.loadPhotoDetailsTicket.canceled = YES;
+                self.loadPhotoDetailsTicket = nil;
+            }
             DCH500pxEvent *queryPhotoDetailsEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoDetails andPayload:@{DC500pxEventCode_QueryPhotoDetails_kPhotoModel: self.model}];
             result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoDetailsEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
                 do {
@@ -93,6 +101,7 @@
                     }
                 } while (NO);
             }];
+            self.loadPhotoDetailsTicket = result;
         }
     } while (NO);
     return result;

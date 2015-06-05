@@ -31,6 +31,13 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
 
 - (void)dealloc {
     do {
+        [[self.loadingStatusDic allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            do {
+                DCHEventOperationTicket *ticket = (DCHEventOperationTicket *)obj;
+                ticket.canceled = YES;
+            } while (NO);
+        }];
+        self.loadingStatusDic = nil;
         [[DCH500pxPhotoStore sharedDCH500pxPhotoStore] removeEventResponder:self];
         self.models = nil;
     } while (NO);
@@ -78,7 +85,6 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
         if ([self.loadingStatusDic objectForKey:@(category)]) {
             break;
         }
-        [self.loadingStatusDic setObject:@(1) forKey:@(category)];
         @weakify(self)
         DCH500pxEvent *queryPhotoCategoryEvent = [DCH500pxEventCreater create500pxEventByCode:DC500pxEventCode_QueryPhotoCategory andPayload:@{DC500pxEventCode_QueryPhotoCategory_kCategory: @(category)}];
         result = [[DCH500pxDispatcher sharedDCH500pxDispatcher] handleEvent:queryPhotoCategoryEvent inMainThread:NO withResponderCallback:^(id eventResponder, id <DCHEvent> outputEvent, NSError *error) {
@@ -90,6 +96,7 @@ const NSUInteger DCHCategoryCollectionViewModel_kCountInLine = 2;
             } while (NO);
             [self.loadingStatusDic removeObjectForKey:@(category)];
         }];
+        [self.loadingStatusDic setObject:result forKey:@(category)];
     } while (NO);
     return result;
 }

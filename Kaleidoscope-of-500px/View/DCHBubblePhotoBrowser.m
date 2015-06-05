@@ -182,7 +182,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                         @strongify(self);
                         do {
                             self.loadingImage = NO;
-                            [NSThread runInMain:^{
+                            [NSThread dch_runInMain:^{
                                 @strongify(self);
                                 
                                 self.shimmeringView.shimmering = NO;
@@ -336,7 +336,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
             break;
         }
         NSInteger numberOfItems = [self.thumbnailCollectionView numberOfItemsInSection:0];
-        NSIndexPath *selectedIndexPath = [selectedItems DCH_safe_objectAtIndex:0];
+        NSIndexPath *selectedIndexPath = [selectedItems dch_safe_objectAtIndex:0];
         NSIndexPath *newSelectedIndexPath = nil;
         switch (swipeGestureRecognizer.direction) {
             case UISwipeGestureRecognizerDirectionLeft:

@@ -177,7 +177,7 @@
                 case DCDisplayEventCode_RefreshPhotoDetails:
                 {
                     @weakify(self);
-                    [NSThread runInMain:^{
+                    [NSThread dch_runInMain:^{
                         @strongify(self);
                         [self.imageView sd_cancelCurrentImageLoad];
                         self.imageView.image = nil;

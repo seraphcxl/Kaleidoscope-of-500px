@@ -34,6 +34,13 @@
     return self;
 }
 
+- (void)setStartingPoint:(CGPoint)startingPoint {
+    _startingPoint = startingPoint;
+    if (self.bubbleView) {
+        self.bubbleView.center = _startingPoint;
+    }
+}
+
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
     return self.duration;
 }
