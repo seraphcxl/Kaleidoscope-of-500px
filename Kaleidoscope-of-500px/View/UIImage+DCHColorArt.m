@@ -105,8 +105,8 @@
                         do {
                             UIColor *otherClr = (UIColor *)obj;
                             if ([currentClr isEqualTo:otherClr bySingleVectorDiff:(2.0f / 255.0f) andTotleDiff:(4.0f / 255.0f)]) {
-                                NSNumber *num = [colorDic DCH_safe_objectForKey:otherClr];
-                                [colorDic DCH_safe_setObject:@([num unsignedIntegerValue] + [colorSet countForObject:currentClr]) forKey:otherClr];
+                                NSNumber *num = [colorDic dch_safe_objectForKey:otherClr];
+                                [colorDic dch_safe_setObject:@([num unsignedIntegerValue] + [colorSet countForObject:currentClr]) forKey:otherClr];
                                 needInsert = NO;
                                 *stop = YES;
                             }
@@ -114,7 +114,7 @@
                     }];
                 }
                 if (needInsert) {
-                    [colorDic DCH_safe_setObject:@([colorSet countForObject:currentClr]) forKey:currentClr];
+                    [colorDic dch_safe_setObject:@([colorSet countForObject:currentClr]) forKey:currentClr];
                 }
             } while (NO);
         }];

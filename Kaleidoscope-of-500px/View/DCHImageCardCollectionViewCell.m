@@ -15,6 +15,7 @@
 #import "UIView+DCHParallax.h"
 #import "DCHLinearGradientView.h"
 #import "UIImage+DCHColorArt.h"
+#import <libextobjc/EXTScope.h>
 
 const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
 
@@ -89,7 +90,9 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             [self.featureImageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             
             if (self.photoModel.fullsizedURL) {
+                @weakify(self);
                 [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] placeholderImage:nil options:(SDWebImageRetryFailed) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    @strongify(self);
                     do {
                         if (error) {
                             NSLog(@"sd_setImageWithURL err:%@", error);
@@ -104,11 +107,13 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                             if (!self.photoModel.backgroundImage) {
 //                                self.photoModel.backgroundImage = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
 //                                self.photoModel.backgroundImage = [image dch_applyGaussianBlurWithRadius:30.0f];
-                                [image dch_asyncApplyGaussianBlurWithRadius:30.0f completed:^(UIImage *image, NSError *error) {
+                                self.photoModel.backgroundImageOperationID = [image dch_asyncApplyGaussianBlurWithRadius:30.0f completed:^(NSString *identifer, UIImage *image, NSError *error) {
+                                    @strongify(self);
                                     do {
-                                        if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
+                                        if ([self.photoModel.backgroundImageOperationID isEqualToString:identifer]) {
                                             self.photoModel.backgroundImage = image;
                                             [NSThread dch_runInMain:^{
+                                                @strongify(self);
                                                 self.backgroundImageView.image = self.photoModel.backgroundImage;
                                             }];
                                         }
@@ -116,6 +121,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                                 }];
                             } else {
                                 [NSThread dch_runInMain:^{
+                                    @strongify(self);
                                     self.backgroundImageView.image = self.photoModel.backgroundImage;
                                 }];
                             }

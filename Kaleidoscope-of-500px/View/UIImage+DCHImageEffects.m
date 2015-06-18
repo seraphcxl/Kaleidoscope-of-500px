@@ -26,7 +26,8 @@
     return result;
 }
 
-- (void)dch_asyncApplyGaussianBlurWithRadius:(CGFloat)blurRadius completed:(DCHGaussianBlurCompletionBlock)completedBlock {
+- (NSString *)dch_asyncApplyGaussianBlurWithRadius:(CGFloat)blurRadius completed:(DCHGaussianBlurCompletionBlock)completedBlock {
+    NSString *result = [NSString dch_createUUID];
     do {
         if (!completedBlock) {
             break;
@@ -37,13 +38,14 @@
                 [NSThread dch_runInMain:^{
                     do {
                         if (completedBlock) {
-                            completedBlock(blurImage, nil);
+                            completedBlock(result, blurImage, nil);
                         }
                     } while (NO);
                 }];
             } while (NO);
         }];
     } while (NO);
+    return result;
 }
 
 @end

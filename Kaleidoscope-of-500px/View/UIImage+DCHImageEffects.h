@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^DCHGaussianBlurCompletionBlock)(UIImage *image, NSError *error);
+typedef void(^DCHGaussianBlurCompletionBlock)(NSString *identifer, UIImage *image, NSError *error);
 
 @interface UIImage (DCHImageEffects)
 
 - (UIImage *)dch_applyGaussianBlurWithRadius:(CGFloat)blurRadius;
-- (void)dch_asyncApplyGaussianBlurWithRadius:(CGFloat)blurRadius completed:(DCHGaussianBlurCompletionBlock)completedBlock;
+- (NSString *)dch_asyncApplyGaussianBlurWithRadius:(CGFloat)blurRadius completed:(DCHGaussianBlurCompletionBlock)completedBlock;
 
 @end

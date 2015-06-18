@@ -42,6 +42,8 @@
 @property (nonatomic, assign) CGSize uiFullSizeDisplaySize;
 @property (nonatomic, strong) UIColor *bottomEdgeColor;
 @property (nonatomic, strong) UIImage *backgroundImage;
+@property (nonatomic, strong) NSString *backgroundImageOperationID;
+
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)configureWithDictionary:(NSDictionary *)dictionary;
