@@ -7,11 +7,10 @@
 //
 
 #import "DCHImageCardCollectionViewCell.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <DCHImageTurbo/DCHImageTurbo.h>
 #import "DCHPhotoModel.h"
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIImage+ImageEffects.h"
-#import "UIImage+DCHImageEffects.h"
 #import "UIView+DCHParallax.h"
 #import "DCHLinearGradientView.h"
 #import "UIImage+DCHColorArt.h"
@@ -63,7 +62,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         }
         
         if (self.featureImageView) {
-            [self.featureImageView sd_cancelCurrentImageLoad];
+            [self.featureImageView dch_cancelCurrentImageLoad];
             self.featureImageView.image = nil;
         }
         self.backgroundImageView.image = nil;
@@ -91,7 +90,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             
             if (self.photoModel.fullsizedURL) {
                 @weakify(self);
-                [self.featureImageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] placeholderImage:nil options:(SDWebImageRetryFailed) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [self.featureImageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] size:imageSize completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                     @strongify(self);
                     do {
                         if (error) {
@@ -101,24 +100,13 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                         if (!image) {
                             break;
                         }
-                        //                            self.gradientView.color = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
-                        //                            [self.gradientView setNeedsDisplay];
+                        
+                        self.featureImageView.image = image;
+                        
                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                             if (!self.photoModel.backgroundImage) {
-//                                self.photoModel.backgroundImage = [image applyBlurWithRadius:30.0f tintColor:[UIColor colorWithWhite:0.5f alpha:0.3f] saturationDeltaFactor:1.8f maskImage:nil];
-//                                self.photoModel.backgroundImage = [image dch_applyGaussianBlurWithRadius:30.0f];
-                                self.photoModel.backgroundImageOperationID = [image dch_asyncApplyGaussianBlurWithRadius:30.0f completed:^(NSString *identifer, UIImage *image, NSError *error) {
-                                    @strongify(self);
-                                    do {
-                                        if ([self.photoModel.backgroundImageOperationID isEqualToString:identifer]) {
-                                            self.photoModel.backgroundImage = image;
-                                            [NSThread dch_runInMain:^{
-                                                @strongify(self);
-                                                self.backgroundImageView.image = self.photoModel.backgroundImage;
-                                            }];
-                                        }
-                                    } while (NO);
-                                }];
+                                self.photoModel.backgroundImage = [UIImage applyGaussianBlur:image withRadius:30.0f];
+                                self.backgroundImageView.image = self.photoModel.backgroundImage;
                             } else {
                                 [NSThread dch_runInMain:^{
                                     @strongify(self);

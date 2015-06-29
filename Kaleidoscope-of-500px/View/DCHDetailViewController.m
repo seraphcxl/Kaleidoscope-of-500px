@@ -12,7 +12,7 @@
 #import "DCHDisplayEvent.h"
 #import <libextobjc/EXTScope.h>
 #import <MBProgressHUD/MBProgressHUD.h>
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <DCHImageTurbo/DCHImageTurbo.h>
 #import "DCHPhotoModel.h"
 #import "DCHShimmeringHUD.h"
 #import "DCHLinearGradientView.h"
@@ -88,7 +88,7 @@
     [super viewWillAppear:animated];
     do {
         self.viewModel.eventResponder = self;
-        [self.imageView sd_cancelCurrentImageLoad];
+        [self.imageView dch_cancelCurrentImageLoad];
         if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL]]) {
             [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                 do {
@@ -179,25 +179,19 @@
                     @weakify(self);
                     [NSThread dch_runInMain:^{
                         @strongify(self);
-                        [self.imageView sd_cancelCurrentImageLoad];
+                        [self.imageView dch_cancelCurrentImageLoad];
                         self.imageView.image = nil;
                         if (self.viewModel.model.fullsizedURL) {
-                            [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                //                                    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                            [self.imageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] size:self.imageView.frame.size completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                                 [self.shimmeringHUD dismiss];
                                 do {
                                     if (error) {
-                                        NSLog(@"sd_setImageWithURL err:%@", error);
+                                        NSLog(@"dch_setHighlightedImageWithURL err:%@", error);
                                         break;
                                     }
                                     if (!image) {
                                         break;
                                     }
-                                    //                                        UIColor *clr = [image findEdgeColorWithType:DCHColorArt_EdgeType_Bottom andCountOfLine:2];
-                                    //                                        self.gradientView.color = clr;
-                                    //                                        self.backgroundView.backgroundColor = [UIColor colorWithColor:clr andAlpha:1.0f];
-                                    //                                        [self.gradientView setNeedsDisplay];
-                                    //                                        [self.backgroundView setNeedsDisplay];
                                 } while (NO);
                             }];
                         }

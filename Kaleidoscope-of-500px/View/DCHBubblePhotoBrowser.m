@@ -14,7 +14,7 @@
 #import "DCHBubblePhotoBrowserViewModel.h"
 #import "DCHImageCollectionViewCell.h"
 #import "DCHPhotoModel.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <DCHImageTurbo/DCHImageTurbo.h>
 #import "UIImage+DCHColorArt.h"
 #import "DCHBubbleImageView.h"
 
@@ -154,7 +154,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
             break;
         }
         
-        [self.bigImageView sd_cancelCurrentImageLoad];
+        [self.bigImageView dch_cancelCurrentImageLoad];
         self.loadingLabel.text = photoModel.photoName;
         
         if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:photoModel.fullsizedURL]]) {
@@ -178,7 +178,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 if (photoModel) {
                     @weakify(self);
                     self.loadingImage = YES;
-                    [self.bigImageView sd_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil options:(SDWebImageRetryFailed) completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    [self.bigImageView dch_setHighlightedImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] size:photoModel.uiBubbleThumbnailDisplaySize completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                         @strongify(self);
                         do {
                             self.loadingImage = NO;

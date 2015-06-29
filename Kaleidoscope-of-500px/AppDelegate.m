@@ -17,7 +17,6 @@
 #import "RRFPSBar.h"
 #endif
 
-
 @interface AppDelegate ()
 
 @end

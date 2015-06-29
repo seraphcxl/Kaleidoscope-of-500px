@@ -7,7 +7,7 @@
 //
 
 #import "DCHImageCollectionViewCell.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <DCHImageTurbo/DCHImageTurbo.h>
 #import "DCHPhotoModel.h"
 #import <Tourbillon/DCHTourbillon.h>
 #import "UIView+DCHParallax.h"
@@ -50,16 +50,16 @@
         
         self.photoModel = photoModel;
         
-        [self.imageView sd_cancelCurrentImageLoad];
+        [self.imageView dch_cancelCurrentImageLoad];
         self.imageView.image = nil;
         if (photoModel) {
             CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, imageSize.width, imageSize.height);
             [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailURL) {
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                [self.imageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] size:uiDisplayBounds.size completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                     do {
                         if (error) {
-                            NSLog(@"sd_setImageWithURL err:%@", error);
+                            NSLog(@"dch_setHighlightedImageWithURL err:%@", error);
                             break;
                         }
                         if (!image) {
