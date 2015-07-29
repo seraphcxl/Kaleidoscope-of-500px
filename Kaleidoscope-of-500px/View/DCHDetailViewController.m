@@ -88,7 +88,7 @@
     [super viewWillAppear:animated];
     do {
         self.viewModel.eventResponder = self;
-        [self.imageView dch_cancelCurrentImageLoad];
+        [self.imageView dch_cancelCurrentWebImageLoadOperation];
         if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL]]) {
             [[SDWebImageManager sharedManager] downloadImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
                 do {
@@ -179,10 +179,10 @@
                     @weakify(self);
                     [NSThread dch_runInMain:^{
                         @strongify(self);
-                        [self.imageView dch_cancelCurrentImageLoad];
+                        [self.imageView dch_cancelCurrentWebImageLoadOperation];
                         self.imageView.image = nil;
                         if (self.viewModel.model.fullsizedURL) {
-                            [self.imageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] size:self.imageView.frame.size completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
+                            [self.imageView dch_setImageWithURL:[NSURL URLWithString:self.viewModel.model.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                                 [self.shimmeringHUD dismiss];
                                 do {
                                     if (error) {

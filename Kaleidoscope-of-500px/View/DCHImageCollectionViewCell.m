@@ -50,16 +50,16 @@
         
         self.photoModel = photoModel;
         
-        [self.imageView dch_cancelCurrentImageLoad];
+        [self.imageView dch_cancelCurrentWebImageLoadOperation];
         self.imageView.image = nil;
         if (photoModel) {
             CGRect uiDisplayBounds = CGRectMake(0.0f, 0.0f, imageSize.width, imageSize.height);
             [self.imageView resetFrameInFrame:uiDisplayBounds forParallaxOrientation:DCHParallax_Orientation_Vertial andSize:DCHParallax_Size_Middle];
             if (self.photoModel.thumbnailURL) {
-                [self.imageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] size:uiDisplayBounds.size completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
+                [self.imageView dch_setImageWithURL:[NSURL URLWithString:self.photoModel.thumbnailURL] placeholderImage:nil resize:uiDisplayBounds.size scale:[self.imageView dch_screenScale] completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                     do {
                         if (error) {
-                            NSLog(@"dch_setHighlightedImageWithURL err:%@", error);
+                            NSLog(@"dch_setImageWithURL err:%@", error);
                             break;
                         }
                         if (!image) {

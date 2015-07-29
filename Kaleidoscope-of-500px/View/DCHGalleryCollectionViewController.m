@@ -155,9 +155,9 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     do {
-//        if (self.viewModel.models.count == 0) {
-//            [self refreshGallery];
-//        }
+        if (self.viewModel.models.count == 0) {
+            [self refreshGallery];
+        }
     } while (NO);
 }
 

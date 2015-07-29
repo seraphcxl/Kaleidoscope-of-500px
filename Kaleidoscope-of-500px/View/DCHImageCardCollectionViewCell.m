@@ -62,7 +62,7 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
         }
         
         if (self.featureImageView) {
-            [self.featureImageView dch_cancelCurrentImageLoad];
+            [self.featureImageView dch_cancelCurrentWebImageLoadOperation];
             self.featureImageView.image = nil;
         }
         self.backgroundImageView.image = nil;
@@ -90,11 +90,11 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
             
             if (self.photoModel.fullsizedURL) {
                 @weakify(self);
-                [self.featureImageView dch_setHighlightedImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] size:imageSize completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
+                [self.featureImageView dch_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] placeholderImage:nil resize:imageSize scale:[self.featureImageView dch_screenScale] completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                     @strongify(self);
                     do {
                         if (error) {
-                            NSLog(@"sd_setImageWithURL err:%@", error);
+                            NSLog(@"dch_setImageWithURL err:%@", error);
                             break;
                         }
                         if (!image) {
@@ -105,8 +105,19 @@ const CGFloat DCHImageCardCollectionViewCell_DescLabelHeight = 100.0f;
                         
                         if ([self.photoModel.fullsizedURL isEqualToString:[imageURL absoluteString]]) {
                             if (!self.photoModel.backgroundImage) {
-                                self.photoModel.backgroundImage = [UIImage applyGaussianBlur:image withRadius:30.0f];
-                                self.backgroundImageView.image = self.photoModel.backgroundImage;
+                                [self.backgroundImageView dch_setImageWithURL:[NSURL URLWithString:self.photoModel.fullsizedURL] placeholderImage:nil applyBlurWithRadius:16 tintColor:[UIColor colorWithWhite:0 alpha:0.2] saturationDeltaFactor:1 maskImage:nil completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
+                                    if (!DCH_IsEmpty(image)) {
+                                        self.photoModel.backgroundImage = image;
+                                    }
+                                }];
+//                                [NSThread dch_runInBackground:^{
+//                                    @strongify(self);
+//                                    self.photoModel.backgroundImage = [UIImage dch_applyGaussianBlur:image withRadius:30.0f];
+//                                    [NSThread dch_runInMain:^{
+//                                        @strongify(self);
+//                                        self.backgroundImageView.image = self.photoModel.backgroundImage;
+//                                    }];
+//                                }];
                             } else {
                                 [NSThread dch_runInMain:^{
                                     @strongify(self);

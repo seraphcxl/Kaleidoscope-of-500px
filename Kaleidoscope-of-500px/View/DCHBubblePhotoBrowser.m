@@ -154,7 +154,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
             break;
         }
         
-        [self.bigImageView dch_cancelCurrentImageLoad];
+        [self.bigImageView dch_cancelCurrentWebImageLoadOperation];
         self.loadingLabel.text = photoModel.photoName;
         
         if ([[SDWebImageManager sharedManager] cachedImageExistsForURL:[NSURL URLWithString:photoModel.fullsizedURL]]) {
@@ -178,7 +178,7 @@ const NSUInteger kDCHBubblePhotoBrowser_ThumbnailSize = 96;
                 if (photoModel) {
                     @weakify(self);
                     self.loadingImage = YES;
-                    [self.bigImageView dch_setHighlightedImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] size:photoModel.uiBubbleThumbnailDisplaySize completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
+                    [self.bigImageView dch_setImageWithURL:[NSURL URLWithString:photoModel.fullsizedURL] placeholderImage:nil completed:^(UIImage *image, NSError *error, NSString *imagePath, NSURL *imageURL, SDImageCacheType cacheType) {
                         @strongify(self);
                         do {
                             self.loadingImage = NO;
